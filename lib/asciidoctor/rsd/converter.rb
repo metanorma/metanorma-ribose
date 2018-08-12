@@ -14,6 +14,11 @@ module Asciidoctor
 
       register_for "rsd"
 
+      def initialize(backend, opts)
+        super
+        @libdir = File.dirname(__FILE__)
+      end
+
       def metadata_author(node, xml)
         xml.contributor do |c|
           c.role **{ type: "author" }
@@ -96,7 +101,8 @@ module Asciidoctor
 
       def doctype(node)
         d = node.attr("doctype")
-        unless %w{policy-and-procedures best-practices supporting-document report legal directives proposal standard}.include? d
+        unless %w{policy-and-procedures best-practices supporting-document
+          report legal directives proposal standard}.include? d
           warn "#{d} is not a legal document type: reverting to 'standard'"
           d = "standard"
         end
@@ -158,13 +164,17 @@ module Asciidoctor
 
       def html_converter(node)
         IsoDoc::Rsd::HtmlConvert.new(
-          script: node.attr("script"),
-          bodyfont: node.attr("body-font"),
-          headerfont: node.attr("header-font"),
-          monospacefont: node.attr("monospace-font"),
-          titlefont: node.attr("title-font"),
-          i18nyaml: node.attr("i18nyaml"),
-          scope: node.attr("scope"),
+            script: node.attr("script"),
+            bodyfont: node.attr("body-font"),
+            headerfont: node.attr("header-font"),
+            monospacefont: node.attr("monospace-font"),
+            titlefont: node.attr("title-font"),
+            i18nyaml: node.attr("i18nyaml"),
+            scope: node.attr("scope"),
+            htmlstylesheet: node.attr("htmlstylesheet"),
+            htmlcoverpage: node.attr("htmlcoverpage"),
+            htmlintropage: node.attr("intropage"),
+            scripts: node.attr("scripts"),
         )
       end
 
@@ -177,6 +187,11 @@ module Asciidoctor
           titlefont: node.attr("title-font"),
           i18nyaml: node.attr("i18nyaml"),
           scope: node.attr("scope"),
+          wordstylesheet: node.attr("wordstylesheet"),
+          standardstylesheet: node.attr("standardstylesheet"),
+          header: node.attr("header"),
+          wordcoverpage: node.attr("wordcoverpage"),
+          wordintropage: node.attr("wordintropage"),
         )
       end
 

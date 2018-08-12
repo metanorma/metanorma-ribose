@@ -9,26 +9,34 @@ module IsoDoc
     #
     class HtmlConvert < IsoDoc::HtmlConvert
       def initialize(options)
-        super
         @libdir = File.dirname(__FILE__)
-        @htmlstylesheet = generate_css(html_doc_path("htmlstyle.scss"), true, default_fonts(options))
-        @htmlcoverpage = html_doc_path("html_rsd_titlepage.html")
-        @htmlintropage = html_doc_path("html_rsd_intro.html")
-        @scripts = html_doc_path("scripts.html")
+        super
         system "cp #{html_doc_path('logo.svg')} logo.svg"
         @files_to_delete << "logo.svg"
       end
 
       def default_fonts(options)
-        b = options[:bodyfont] ||
-          (options[:script] == "Hans" ? '"SimSun",serif' :
-           '"Overpass",sans-serif')
-        h = options[:headerfont] ||
-          (options[:script] == "Hans" ? '"SimHei",sans-serif' :
-           '"Overpass",sans-serif')
-        m = options[:monospacefont] || '"Space Mono",monospace'
-        "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
+        {
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
+          monospacefont: '"Space Mono",monospace'
+        }
       end
+
+      def default_file_locations
+        {
+          htmlstylesheet: html_doc_path("htmlstyle.scss"),
+          htmlcoverpage: html_doc_path("html_rsd_titlepage.html"),
+          htmlintropage: html_doc_path("html_rsd_intro.html"),
+          scripts: html_doc_path("scripts.html"),
+          wordstylesheet: html_doc_path("wordstyle.scss"),
+          standardstylesheet: html_doc_path("rsd.scss"),
+          header: html_doc_path("header.html"),
+          wordcoverpage: html_doc_path("word_rsd_titlepage.html"),
+          wordintropage: html_doc_path("word_rsd_intro.html"),
+        }
+      end
+
 
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
