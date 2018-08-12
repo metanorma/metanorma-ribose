@@ -6,16 +6,13 @@ module IsoDoc
     # A {Converter} implementation that generates PDF HTML output, and a
     # document schema encapsulation of the document for validation
     class PdfConvert < IsoDoc::PdfConvert
-      def rsd_html_path(file)
-        File.join(File.dirname(__FILE__), File.join("html", file))
-      end
-
       def initialize(options)
         super
-        @htmlstylesheet = generate_css(rsd_html_path("htmlstyle.scss"), true, default_fonts(options))
-        @htmlcoverpage = rsd_html_path("html_rsd_titlepage.html")
-        @htmlintropage = rsd_html_path("html_rsd_intro.html")
-        @scripts = rsd_html_path("scripts.html")
+        @libdir = File.dirname(__FILE__)
+        @htmlstylesheet = generate_css(html_doc_path("htmlstyle.scss"), true, default_fonts(options))
+        @htmlcoverpage = html_doc_path("html_rsd_titlepage.html")
+        @htmlintropage = html_doc_path("html_rsd_intro.html")
+        @scripts = html_doc_path("scripts.html")
         system "cp #{html_doc_path('logo.svg')} logo.svg"
         @files_to_delete << "logo.svg"
       end
