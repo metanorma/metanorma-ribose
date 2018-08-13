@@ -1,5 +1,6 @@
 require "isodoc"
 require_relative "metadata"
+require "fileutils"
 
 module IsoDoc
   module Rsd
@@ -11,7 +12,8 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        system "cp #{html_doc_path('logo.svg')} logo.svg"
+        #system "cp #{html_doc_path('logo.svg')} logo.svg"
+        FileUtils.cp html_doc_path('logo.svg'), "logo.svg"
         @files_to_delete << "logo.svg"
       end
 
@@ -23,20 +25,14 @@ module IsoDoc
         }
       end
 
-      def default_file_locations
+      def default_file_locations(_options)
         {
           htmlstylesheet: html_doc_path("htmlstyle.scss"),
           htmlcoverpage: html_doc_path("html_rsd_titlepage.html"),
           htmlintropage: html_doc_path("html_rsd_intro.html"),
           scripts: html_doc_path("scripts.html"),
-          wordstylesheet: html_doc_path("wordstyle.scss"),
-          standardstylesheet: html_doc_path("rsd.scss"),
-          header: html_doc_path("header.html"),
-          wordcoverpage: html_doc_path("word_rsd_titlepage.html"),
-          wordintropage: html_doc_path("word_rsd_intro.html"),
         }
       end
-
 
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
