@@ -5,7 +5,7 @@ end
 
 require "bundler/setup"
 require "asciidoctor"
-require "asciidoctor-rsd"
+require "metanorma-rsd"
 require "asciidoctor/rsd"
 require "isodoc/rsd/html_convert"
 require "isodoc/rsd/word_convert"
