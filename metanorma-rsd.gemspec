@@ -3,21 +3,22 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "asciidoctor/rsd/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "asciidoctor-rsd"
+  spec.name          = "metanorma-rsd"
   spec.version       = Asciidoctor::Rsd::VERSION
   spec.authors       = ["Ribose Inc."]
   spec.email         = ["open.source@ribose.com"]
 
-  spec.summary       = "asciidoctor-rsd lets you write RSD in AsciiDoc."
+  spec.summary       = "metanorma-rsd lets you write RSD in AsciiDoc."
   spec.description   = <<~DESCRIPTION
-    asciidoctor-rsd lets you write RSD in AsciiDoc syntax.
+    metanorma-rsd lets you write RSD in AsciiDoc syntax.
 
     This gem is in active development.
+
+    Formerly known as asciidoctor-rsd.
   DESCRIPTION
 
-  spec.homepage      = "https://github.com/riboseinc/asciidoctor-rsd"
+  spec.homepage      = "https://github.com/riboseinc/metanorma-rsd"
   spec.license       = "BSD-2-Clause"
-  spec.post_install_message = "The asciidoctor-rsd gem has been deprecated and has been replaced by metanorma-rsd"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -29,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "asciidoctor", "~> 1.5.7"
   spec.add_dependency "htmlentities", "~> 4.3.4"
   spec.add_dependency "nokogiri"
-  spec.add_dependency "asciidoctor-iso", "~> 0.10.1"
+  spec.add_dependency "metanorma-standoc", "~> 1.0.0"
   spec.add_dependency "isodoc", "~> 0.8.8"
 
   spec.add_development_dependency "bundler", "~> 1.15"
