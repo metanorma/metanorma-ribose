@@ -19,7 +19,7 @@ module Metanorma
       end
 
       def version
-        "Asciidoctor::Rsd #{Asciidoctor::Rsd::VERSION}"
+        "Metanorma::Rsd #{Metanorma::Rsd::VERSION}"
       end
 
       def input_to_isodoc(file)
