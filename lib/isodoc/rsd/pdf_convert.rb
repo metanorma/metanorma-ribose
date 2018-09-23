@@ -10,7 +10,6 @@ module IsoDoc
       def initialize(options)
         @libdir = File.dirname(__FILE__)
         super
-        #system "cp #{html_doc_path('logo.svg')} logo.svg"
         FileUtils.cp html_doc_path('logo.svg'), "logo.svg"
         @files_to_delete << "logo.svg"
       end
