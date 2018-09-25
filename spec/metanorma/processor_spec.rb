@@ -1,5 +1,6 @@
 require "spec_helper"
 require "metanorma"
+require "fileutils"
 
 RSpec.describe Metanorma::Rsd::Processor do
 
@@ -39,7 +40,7 @@ RSpec.describe Metanorma::Rsd::Processor do
   end
 
   it "generates HTML from IsoDoc XML" do
-    system "rm -f test.xml"
+    FileUtils.rm_f "test.xml"
     input = <<~"INPUT"
     <rsd-standard xmlns="http://riboseinc.com/isoxml">
       <sections>
