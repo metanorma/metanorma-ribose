@@ -70,6 +70,7 @@ scripts such as this one. You need only run the following in a Terminal console:
 ----
 $ bash <(curl -s https://raw.githubusercontent.com/riboseinc/metanorma-macos-setup/master/metanorma-setup)
 $ gem install metanorma-rsd
+$ gem install metanorma-cli
 ----
 
 
@@ -77,16 +78,11 @@ $ gem install metanorma-rsd
 
 === Document model
 
-The Ribose Standard Document model is an instance of the
+The Ribose Standard Document model used in this gem is an instance of the
 https://github.com/riboseinc/isodoc-models[StandardDocument model].
 
-The RSD format ("RSD XML") intends to introduce rigor into the RSD
+The Metanorma XML format intends to introduce rigor into the RSD
 standards authoring process, and is prescribed in a separate document.
-
-RSD XML is still under development, but it already contains all the markup
-needed to render a RSD document into HTML.
-
-WARNING: The current RNG model of RSD XML is out of sync with the UML.
 
 === Asciidoctor
 
@@ -99,19 +95,17 @@ DocBook document authoring tool). Asciidoctor has built-in capability to output
 Text, DocBook and HTML; so it can be used to preview the file as it is being
 authored.
 
-Note that in order to generate HTML preview output close to what is intended
-in the RSD standard, the Asciidoc
-document includes a fair amount of formatting instructions (e.g. disabling
-section numbering where appropriate, the titling of Appendixes as Annexes), as
-well as RSD boilerplate text, and predefined section headers (sections are
-recognised by fixed titles such as `Normative References`). Authoring RSD
-standards in this fashion assumes that users will be populating an Asciidoc
-template, and not removing needed formatting instructions.
+Generating documents via a document model substantially automated formatting
+associated with the document, including automating numbering of headings, figures,
+tables etc, and automatically generating references and citations.
 
 == Document Attributes
 
+=== Common attributes
+
 The gem relies on Asciidoctor document attributes to provide necessary
-metadata about the document. These include:
+metadata about the document. The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
+gem documents the Asciidoctor document attributes common to all metanorma gems. These include:
 
 `:edition:`:: The document edition
 
@@ -148,12 +142,18 @@ or `provisional`.
 
 `:language:` :: The language of the document (only `en` for now)  (mandatory)
 
-`:security:` :: Security level classification, e.g., "confidential", "client confidential"
-
 The attribute `:draft:`, if present, includes review notes in the XML output;
 these are otherwise suppressed.
 
-== AsciiRSD features not also present in AsciiISO
+=== Attributes specific to RSD:
+
+`:security:` :: Security level classification, e.g., "confidential", "client confidential"
+
+== Asciidoctor features specific to CSAND
+
+The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
+gem documents the customisations of Asciidoctor markup common to all metanorma gems.
+The following markup is specific to this gem:
 
 * `+[keyword]#...#+`: encodes keywords, such as "MUST", "MUST NOT". (Encoded as
 `<span class="keyword">...</span>`.
