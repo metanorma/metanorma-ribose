@@ -60,7 +60,7 @@ BLANK_HDR = <<~"HDR"
        <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
        <bibdata type="standard">
 
-
+        <title language="en" format="text/plain">Document title</title>
          <contributor>
            <role type="author"/>
            <organization>
