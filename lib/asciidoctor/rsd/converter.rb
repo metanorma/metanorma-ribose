@@ -117,13 +117,6 @@ module Asciidoctor
         d
       end
 
-      def pdf_convert(filename)
-        url = "#{Dir.pwd}/#{filename}.html"
-        pdfjs = File.join(File.dirname(__FILE__), 'pdf.js')
-        system "export NODE_PATH=$(npm root --quiet -g);
-                node #{pdfjs} file://#{url} #{filename}.pdf"
-      end
-
       def document(node)
         init(node)
         ret1 = makexml(node)
@@ -133,8 +126,8 @@ module Asciidoctor
             gsub(%r{^.*/}, "")
           File.open(filename, "w") { |f| f.write(ret) }
           html_converter(node).convert filename unless node.attr("nodoc")
+          pdf_converter(node).convert filename unless node.attr("nodoc")
           word_converter(node).convert filename unless node.attr("nodoc")
-          pdf_convert(filename.sub(/\.xml$/, "")) unless node.attr("nodoc")
         end
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
@@ -163,6 +156,10 @@ module Asciidoctor
 
       def html_converter(node)
         IsoDoc::Rsd::HtmlConvert.new(html_extract_attributes(node))
+      end
+
+      def pdf_converter(node)
+        IsoDoc::Rsd::PdfConvert.new(html_extract_attributes(node))
       end
 
       def word_converter(node)
