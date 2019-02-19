@@ -149,7 +149,7 @@ these are otherwise suppressed.
 
 `:security:` :: Security level classification, e.g., "confidential", "client confidential"
 
-== Asciidoctor features specific to CSAND
+== Asciidoctor features specific to RSD
 
 The https://github.com/riboseinc/metanorma-standoc[metanorma-standoc]
 gem documents the customisations of Asciidoctor markup common to all metanorma gems.
