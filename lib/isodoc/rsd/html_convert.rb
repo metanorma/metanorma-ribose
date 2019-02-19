@@ -15,8 +15,8 @@ module IsoDoc
       end
 
       def convert1(docxml, filename, dir)
-        FileUtils.cp html_doc_path('logo.svg'), "logo.svg"
-        @files_to_delete << "logo.svg"
+        FileUtils.cp html_doc_path('logo.svg'), File.join(@localdir, "logo.svg")
+        @files_to_delete << File.join(@localdir, "logo.svg")
         super
       end
 
