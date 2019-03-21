@@ -102,7 +102,7 @@ module Asciidoctor
         result << "</rsd-standard>"
         result = textcleanup(result)
         ret1 = cleanup(Nokogiri::XML(result))
-        validate(ret1)
+        validate(ret1) unless @novalid
         ret1.root.add_namespace(nil, RSD_NAMESPACE)
         ret1
       end
