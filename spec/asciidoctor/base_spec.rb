@@ -120,11 +120,14 @@ RSpec.describe Asciidoctor::Rsd do
       </organization>
     </owner>
   </copyright>
+  <ext>
+  <doctype>standard</doctype>
   <editorialgroup>
     <committee type="A">TC</committee>
     <committee type="A1">TC1</committee>
   </editorialgroup>
   <security>Client Confidential</security>
+  </ext>
 </bibdata>
 <sections/>
 </rsd-standard>
@@ -186,9 +189,9 @@ RSpec.describe Asciidoctor::Rsd do
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
+  <ext>
+  <doctype>standard</doctype>
+  </ext>
 </bibdata>
 <sections/>
 </rsd-standard>
@@ -248,9 +251,9 @@ RSpec.describe Asciidoctor::Rsd do
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
+  <ext>
+  <doctype>standard</doctype>
+  </ext>
 </bibdata>
 <sections/>
 </rsd-standard>
@@ -311,9 +314,9 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
+  <ext>
+  <doctype>standard</doctype>
+  </ext>
 </bibdata>
 <sections/>
 </rsd-standard>
