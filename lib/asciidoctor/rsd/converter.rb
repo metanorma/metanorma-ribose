@@ -4,6 +4,7 @@ require "asciidoctor/standoc/converter"
 require "isodoc/rsd/html_convert"
 require "isodoc/rsd/word_convert"
 require "fileutils"
+require_relative "validate"
 
 module Asciidoctor
   module Rsd
