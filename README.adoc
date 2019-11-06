@@ -1,11 +1,11 @@
 = AsciiRSD: Asciidoctor processor for Ribose Standard Documents (RSD)
 
 image:https://img.shields.io/gem/v/metanorma-rsd.svg["Gem Version", link="https://rubygems.org/gems/metanorma-rsd"]
-image:https://img.shields.io/travis/metanorma/metanorma-rsd/master.svg["Build Status", link="https://travis-ci.org/metanorma/metanorma-rsd"]
-image:https://ci.appveyor.com/api/projects/status/wyay9a5q5eaj147d?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/metanorma-rsd"]
+image:https://travis-ci.com/metanorma/metanorma-rsd.svg["Build Status", link="https://travis-ci.com/metanorma/metanorma-rsd"]
+image:https://ci.appveyor.com/api/projects/status/col74y763yt5xaka?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/metanorma/metanorma-rsd"]
 image:https://codeclimate.com/github/metanorma/metanorma-rsd/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-rsd"]
-
-WARNING: This gem is still under development.
+image:https://img.shields.io/github/issues-pr-raw/metanorma/metanorma-rsd.svg["Pull Requests", link="https://github.com/metanorma/metanorma-rsd/pulls"]
+image:https://img.shields.io/github/commits-since/metanorma/metanorma-rsd/latest.svg["Commits since latest",link="https://github.com/metanorma/metanorma-rsd/releases"]
 
 == Functionality
 
