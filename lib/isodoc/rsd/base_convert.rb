@@ -4,11 +4,11 @@ require "fileutils"
 module IsoDoc
   module Rsd
   	module BaseConvert
-      def convert1(docxml, filename, dir)
-        FileUtils.cp html_doc_path('logo.svg'), File.join(@localdir, "logo.svg")
-        @files_to_delete << File.join(@localdir, "logo.svg")
-        super
-      end
+      #def convert1(docxml, filename, dir)
+        #FileUtils.cp html_doc_path('logo.svg'), File.join(@localdir, "logo.svg")
+        #@files_to_delete << File.join(@localdir, "logo.svg")
+        #super
+      #end
 
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
