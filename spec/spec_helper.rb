@@ -64,6 +64,30 @@ VALIDATING_BLANK_HDR = <<~"HDR"
 
 HDR
 
+BOILERPLATE =
+  HTMLEntities.new.decode(
+  File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "rsd", "boilerplate.xml"), encoding: "utf-8").
+  gsub(/\{\{ docyear \}\}/, Date.today.year.to_s).
+  gsub(/<p>/, '<p id="_">').
+  gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "").
+  gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, ""))
+
+LICENSE_BOILERPLATE = <<~END
+<license-statement>
+             <clause>
+               <title>Warning for Drafts</title>
+               <p id='_'>
+                 This document is not a Ribose Standard. It is distributed for review
+                 and comment, and is subject to change without notice and may not be
+                 referred to as a Standard. Recipients of this draft are invited to
+                 submit, with their comments, notification of any relevant patent
+                 rights of which they are aware and to provide supporting
+                 documentation.
+               </p>
+             </clause>
+           </license-statement>
+END
+
 BLANK_HDR = <<~"HDR"
        <?xml version="1.0" encoding="UTF-8"?>
        <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
@@ -99,6 +123,7 @@ BLANK_HDR = <<~"HDR"
          <doctype>standard</doctype>
          </ext>
        </bibdata>
+       #{BOILERPLATE}
 HDR
 
 HTML_HDR = <<~"HDR"
@@ -113,4 +138,5 @@ HTML_HDR = <<~"HDR"
            <br/>
            <div class="main-section">
 HDR
+
 

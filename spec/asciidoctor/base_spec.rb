@@ -27,7 +27,7 @@ RSpec.describe Asciidoctor::Rsd do
 </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :rsd, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -45,7 +45,7 @@ RSpec.describe Asciidoctor::Rsd do
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(xmlpp(Asciidoctor.convert(input, backend: :rsd, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -89,11 +89,6 @@ RSpec.describe Asciidoctor::Rsd do
   <title language="en" format="text/plain">Main Title</title>
 <docidentifier type="rsd">1000(wd):2001</docidentifier>
 <docnumber>1000</docnumber>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
   <contributor>
     <role type="author"/>
     <organization>
@@ -106,6 +101,11 @@ RSpec.describe Asciidoctor::Rsd do
       <name>Ribose</name>
     </organization>
   </contributor>
+  <edition>2</edition>
+<version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
   <language>en</language>
   <script>Latn</script>
   <status>
@@ -129,15 +129,16 @@ RSpec.describe Asciidoctor::Rsd do
   <security>Client Confidential</security>
   </ext>
 </bibdata>
+        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement").sub(/Ribose Group Inc\. #{Time.new.year}/, "Ribose Group Inc. 2001")}
 <sections/>
 </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(Asciidoctor.convert(input, backend: :rsd, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
   end
 
     it "processes committee-draft" do
-    expect(xmlpp(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       = Document title
       Author
       :docfile: test.adoc
@@ -158,11 +159,6 @@ RSpec.describe Asciidoctor::Rsd do
   <title language="en" format="text/plain">Main Title</title>
   <docidentifier type="rsd">1000(cd)</docidentifier>
   <docnumber>1000</docnumber>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
   <contributor>
     <role type="author"/>
     <organization>
@@ -175,6 +171,11 @@ RSpec.describe Asciidoctor::Rsd do
       <name>Ribose</name>
     </organization>
   </contributor>
+  <edition>2</edition>
+<version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
   <language>en</language>
   <script>Latn</script>
   <status>
@@ -193,13 +194,14 @@ RSpec.describe Asciidoctor::Rsd do
   <doctype>standard</doctype>
   </ext>
 </bibdata>
+        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
 <sections/>
 </rsd-standard>
         OUTPUT
     end
 
             it "processes draft-standard" do
-    expect(xmlpp(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       = Document title
       Author
       :docfile: test.adoc
@@ -255,13 +257,14 @@ RSpec.describe Asciidoctor::Rsd do
   <doctype>standard</doctype>
   </ext>
 </bibdata>
+        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
 <sections/>
 </rsd-standard>
 OUTPUT
         end
 
     it "ignores unrecognised status" do
-        expect(xmlpp(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true))).to be_equivalent_to <<~'OUTPUT'
+        expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true)))).to be_equivalent_to <<~"OUTPUT"
       = Document title
       Author
       :docfile: test.adoc
@@ -278,46 +281,49 @@ OUTPUT
       :language: en
       :title: Main Title
     INPUT
-    <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
-<bibdata type="standard">
-  <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="rsd">1000:2001</docidentifier>
-  <docnumber>1000</docnumber>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>Ribose</name>
-    </organization>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>Ribose</name>
-    </organization>
-  </contributor>
-  <language>en</language>
-  <script>Latn</script>
-  <status>
-    <stage>standard</stage>
-    <iteration>3</iteration>
-  </status>
-  <copyright>
-    <from>2001</from>
-    <owner>
-      <organization>
-        <name>Ribose</name>
-      </organization>
-    </owner>
-  </copyright>
-  <ext>
-  <doctype>standard</doctype>
-  </ext>
-</bibdata>
+       <rsd-standard xmlns='https://open.ribose.com/standards/rsd'>
+         <bibdata type='standard'>
+           <title language='en' format='text/plain'>Main Title</title>
+           <docidentifier type='rsd'>1000:2001</docidentifier>
+           <docnumber>1000</docnumber>
+           <contributor>
+             <role type='author'/>
+             <organization>
+               <name>Ribose</name>
+             </organization>
+           </contributor>
+           <contributor>
+             <role type='publisher'/>
+             <organization>
+               <name>Ribose</name>
+             </organization>
+           </contributor>
+           <edition>2</edition>
+           <version>
+             <revision-date>2000-01-01</revision-date>
+             <draft>3.4</draft>
+           </version>
+           <language>en</language>
+           <script>Latn</script>
+           <status>
+             <stage>standard</stage>
+             <iteration>3</iteration>
+           </status>
+           <copyright>
+             <from>2001</from>
+             <owner>
+               <organization>
+                 <name>Ribose</name>
+               </organization>
+             </owner>
+           </copyright>
+           <ext>
+             <doctype>standard</doctype>
+           </ext>
+         </bibdata>
+
+
+        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement").sub(/Ribose Group Inc\. #{Time.new.year}/, "Ribose Group Inc. 2001")}
 <sections/>
 </rsd-standard>
     OUTPUT
