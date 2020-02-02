@@ -30,6 +30,7 @@ module Metanorma
         self.htmlintropage ||= File.join(isodoc_html_folder,
                                         'html_rsd_intro.html')
         self.scripts ||= File.join(isodoc_html_folder, 'scripts.html')
+        self.scripts_pdf ||= File.join(isodoc_html_folder, 'scripts.pdf.html')
         self.logo_path ||= File.join(isodoc_html_folder, 'logo.svg')
         self.xml_root_tag ||= 'rsd-standard'
         rng_folder ||= File.join(File.expand_path('asciidoctor', __dir__), 'rsd')

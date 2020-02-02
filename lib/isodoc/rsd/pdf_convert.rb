@@ -8,7 +8,7 @@ module IsoDoc
     # document schema encapsulation of the document for validation
     class PdfConvert < IsoDoc::Acme::PdfConvert
       def configuration
-        Metanorma::Vsd.configuration
+        Metanorma::Rsd.configuration
       end
 
       def metadata_init(lang, script, labels)
