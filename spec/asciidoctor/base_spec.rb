@@ -264,23 +264,25 @@ OUTPUT
         end
 
     it "ignores unrecognised status" do
-        expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true)))).to be_equivalent_to <<~"OUTPUT"
-      = Document title
-      Author
-      :docfile: test.adoc
-      :nodoc:
-      :novalid:
-      :docnumber: 1000
-      :doctype: standard
-      :edition: 2
-      :revdate: 2000-01-01
-      :draft: 3.4
-      :copyright-year: 2001
-      :status: standard
-      :iteration: 3
-      :language: en
-      :title: Main Title
-    INPUT
+      input = <<~"INPUT"
+        = Document title
+        Author
+        :docfile: test.adoc
+        :nodoc:
+        :novalid:
+        :docnumber: 1000
+        :doctype: standard
+        :edition: 2
+        :revdate: 2000-01-01
+        :draft: 3.4
+        :copyright-year: 2001
+        :status: standard
+        :iteration: 3
+        :language: en
+        :title: Main Title
+      INPUT
+
+      output = <<~"OUTPUT"
        <rsd-standard xmlns='https://open.ribose.com/standards/rsd'>
          <bibdata type='standard'>
            <title language='en' format='text/plain'>Main Title</title>
@@ -324,10 +326,12 @@ OUTPUT
 
 
         #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement").sub(/Ribose Group Inc\. #{Time.new.year}/, "Ribose Group Inc. 2001")}
-<sections/>
-</rsd-standard>
-    OUTPUT
-  end
+        <sections/>
+        </rsd-standard>
+      OUTPUT
+
+      expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to(be_equivalent_to(output))
+    end
 
   it "strips inline header" do
     input = <<~"INPUT"
@@ -435,7 +439,7 @@ OUTPUT
        ‘single quote’
        super<sup>script</sup>
        sub<sub>script</sub>
-       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>90</mn></msub></math></stem> 
+       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>a</mi><mn>90</mn></msub></math></stem>
        <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub> <mrow> <mrow> <mi mathvariant="bold-italic">F</mi> </mrow> </mrow> <mrow> <mrow> <mi mathvariant="bold-italic">Α</mi> </mrow> </mrow> </msub> </math></stem>
        <keyword>keyword</keyword>
        <strike>strike</strike>
