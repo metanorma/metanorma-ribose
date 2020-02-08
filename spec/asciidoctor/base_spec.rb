@@ -87,7 +87,7 @@ RSpec.describe Asciidoctor::Rsd do
 <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-<docidentifier type="rsd">1000(wd):2001</docidentifier>
+<docidentifier>Ribose 1000</docidentifier>
 <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -157,7 +157,7 @@ RSpec.describe Asciidoctor::Rsd do
         <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="rsd">1000(cd)</docidentifier>
+  <docidentifier>Ribose 1000</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -220,7 +220,7 @@ RSpec.describe Asciidoctor::Rsd do
         <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="rsd">1000(d)</docidentifier>
+  <docidentifier>Ribose 1000</docidentifier>
   <docnumber>1000</docnumber>
   <edition>2</edition>
 <version>
@@ -286,7 +286,7 @@ OUTPUT
        <rsd-standard xmlns='https://open.ribose.com/standards/rsd'>
          <bibdata type='standard'>
            <title language='en' format='text/plain'>Main Title</title>
-           <docidentifier type='rsd'>1000:2001</docidentifier>
+           <docidentifier>Ribose 1000</docidentifier>
            <docnumber>1000</docnumber>
            <contributor>
              <role type='author'/>
