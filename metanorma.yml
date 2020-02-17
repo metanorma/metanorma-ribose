@@ -1,6 +1,6 @@
 organization_name_short: Ribose
 organization_name_long: Ribose
-document_namespace: https://www.metanorma.com/ns/rsd
+document_namespace: https://www.metanorma.org/ns/rsd
 xml_root_tag: 'rsd-standard'
 logo_path: lib/isodoc/rsd/html/logo.svg
 validate_rng_file: lib/asciidoctor/rsd/rsd.rng

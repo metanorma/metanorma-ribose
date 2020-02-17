@@ -84,7 +84,7 @@ RSpec.describe Asciidoctor::Rsd do
 
     output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
-<rsd-standard xmlns="https://www.metanorma.com/ns/rsd">
+<rsd-standard xmlns="https://www.metanorma.org/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
 <docidentifier>1000(wd)</docidentifier>
@@ -154,7 +154,7 @@ RSpec.describe Asciidoctor::Rsd do
       :language: en
       :title: Main Title
     INPUT
-        <rsd-standard xmlns="https://www.metanorma.com/ns/rsd">
+        <rsd-standard xmlns="https://www.metanorma.org/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
   <docidentifier>1000(cd)</docidentifier>
@@ -217,7 +217,7 @@ RSpec.describe Asciidoctor::Rsd do
       :language: en
       :title: Main Title
     INPUT
-        <rsd-standard xmlns="https://www.metanorma.com/ns/rsd">
+        <rsd-standard xmlns="https://www.metanorma.org/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
   <docidentifier>1000(d)</docidentifier>
@@ -283,7 +283,7 @@ OUTPUT
       INPUT
 
       output = <<~"OUTPUT"
-       <rsd-standard xmlns='https://www.metanorma.com/ns/rsd'>
+       <rsd-standard xmlns='https://www.metanorma.org/ns/rsd'>
          <bibdata type='standard'>
            <title language='en' format='text/plain'>Main Title</title>
            <docidentifier>1000</docidentifier>
