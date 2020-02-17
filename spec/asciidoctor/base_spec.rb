@@ -84,10 +84,10 @@ RSpec.describe Asciidoctor::Rsd do
 
     output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
-<rsd-standard xmlns="https://open.ribose.com/standards/rsd">
+<rsd-standard xmlns="https://www.metanorma.com/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-<docidentifier>Ribose 1000</docidentifier>
+<docidentifier>1000(wd)</docidentifier>
 <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -154,10 +154,10 @@ RSpec.describe Asciidoctor::Rsd do
       :language: en
       :title: Main Title
     INPUT
-        <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
+        <rsd-standard xmlns="https://www.metanorma.com/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier>Ribose 1000</docidentifier>
+  <docidentifier>1000(cd)</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -217,16 +217,11 @@ RSpec.describe Asciidoctor::Rsd do
       :language: en
       :title: Main Title
     INPUT
-        <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
+        <rsd-standard xmlns="https://www.metanorma.com/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier>Ribose 1000</docidentifier>
+  <docidentifier>1000(d)</docidentifier>
   <docnumber>1000</docnumber>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
   <contributor>
     <role type="author"/>
     <organization>
@@ -239,6 +234,11 @@ RSpec.describe Asciidoctor::Rsd do
       <name>Ribose</name>
     </organization>
   </contributor>
+  <edition>2</edition>
+<version>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
   <language>en</language>
   <script>Latn</script>
   <status>
@@ -283,10 +283,10 @@ OUTPUT
       INPUT
 
       output = <<~"OUTPUT"
-       <rsd-standard xmlns='https://open.ribose.com/standards/rsd'>
+       <rsd-standard xmlns='https://www.metanorma.com/ns/rsd'>
          <bibdata type='standard'>
            <title language='en' format='text/plain'>Main Title</title>
-           <docidentifier>Ribose 1000</docidentifier>
+           <docidentifier>1000</docidentifier>
            <docnumber>1000</docnumber>
            <contributor>
              <role type='author'/>

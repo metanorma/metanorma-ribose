@@ -9,6 +9,16 @@ module Asciidoctor
     class Converter < Asciidoctor::Acme::Converter
       register_for "rsd"
 
+      def metadata_security(node, xml)
+        security = node.attr("security") || return
+        xml.security security
+      end
+
+      def metadata_ext(node, xml)
+        super
+        metadata_security(node, xml)
+      end
+
       def configuration
         Metanorma::Rsd.configuration
       end
