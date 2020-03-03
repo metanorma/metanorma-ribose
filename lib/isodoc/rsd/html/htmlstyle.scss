@@ -334,12 +334,12 @@ p.NormRef {
 */
 
 .figure,
-.Sourcecode,
+pre,
 .pseudocode {
   @include pseudocodeBlock(#f7f7f7);
 }
 
-.Sourcecode {
+pre {
   @include monospaceBlockStyle()
 }
 
@@ -388,7 +388,7 @@ p.NormRef {
     margin-top: 0;
   }
 
-  .Sourcecode,
+  pre,
   .pseudocode {
     background: none;
   }
@@ -673,7 +673,7 @@ To top button
 
   .note,
   .figure,
-  .Sourcecode,
+  pre,
   .pseudocode,
   table {
     page-break-inside: avoid;
