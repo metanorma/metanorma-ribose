@@ -126,6 +126,8 @@ RSpec.describe IsoDoc::Rsd do
          <title>Foreword</title>
          <p id="A">This is a preamble</p>
        </foreword>
+        <executivesummary id="A1" obligation="informative"><title>Executive Summary</title>
+        </executivesummary>
         <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
          <title>Introduction Subsection</title>
        </clause>
@@ -188,6 +190,10 @@ RSpec.describe IsoDoc::Rsd do
                <h1 class="ForewordTitle">Foreword</h1>
                <p id="A">This is a preamble</p>
              </div>
+             <br/>
+<div class='Section3' id='A1'>
+  <h1 class='IntroTitle'>Executive Summary</h1>
+</div>
              <br/>
              <div class="Section3" id="B">
                <h1 class="IntroTitle">Introduction</h1>
