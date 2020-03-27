@@ -1,8 +1,9 @@
 = AsciiRSD: Asciidoctor processor for Ribose Standard Documents (RSD)
 
 image:https://img.shields.io/gem/v/metanorma-rsd.svg["Gem Version", link="https://rubygems.org/gems/metanorma-rsd"]
-image:https://travis-ci.com/metanorma/metanorma-rsd.svg["Build Status", link="https://travis-ci.com/metanorma/metanorma-rsd"]
-image:https://ci.appveyor.com/api/projects/status/col74y763yt5xaka?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/metanorma/metanorma-rsd"]
+image:https://github.com/metanorma/metanorma-rsd/workflows/macos/badge.svg["Build Status (macOS)", link="https://github.com/metanorma/metanorma-rsd/actions?workflow=macos"]
+image:https://github.com/metanorma/metanorma-rsd/workflows/ubuntu/badge.svg["Build Status (ubuntu)", link="https://github.com/metanorma/metanorma-rsd/actions?workflow=ubuntu"]
+image:https://github.com/metanorma/metanorma-rsd/workflows/windows/badge.svg["Build Status (Windows)", link="https://github.com/metanorma/metanorma-rsd/actions?workflow=windows"]
 image:https://codeclimate.com/github/metanorma/metanorma-rsd/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-rsd"]
 image:https://img.shields.io/github/issues-pr-raw/metanorma/metanorma-rsd.svg["Pull Requests", link="https://github.com/metanorma/metanorma-rsd/pulls"]
 image:https://img.shields.io/github/commits-since/metanorma/metanorma-rsd/latest.svg["Commits since latest",link="https://github.com/metanorma/metanorma-rsd/releases"]
@@ -87,8 +88,7 @@ this general model can be found on its page. Details of the RSD modifications
 to this general model can be found on the https://github.com/metanorma/metanorma-model-rsd[RSD model]
 repository.
 
+////
 == Examples
+////
 
-* link:spec/examples/rfc6350.adoc[] is an AsciiRSD version of https://tools.ietf.org/html/rfc6350[RFC 6350].
-* link:spec/examples/rfc6350.html[] is an HTML file generated from the AsciiRSD.
-* link:spec/examples/rfc6350.doc[] is a Word document generated from the AsciiRSD.
