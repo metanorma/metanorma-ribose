@@ -1,12 +1,12 @@
 require "asciidoctor/standoc/converter"
-require 'asciidoctor/acme/converter'
+require 'asciidoctor/generic/converter'
 
 module Asciidoctor
   module Rsd
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
     #
-    class Converter < Asciidoctor::Acme::Converter
+    class Converter < Asciidoctor::Generic::Converter
       register_for "rsd"
 
       def metadata_security(node, xml)
