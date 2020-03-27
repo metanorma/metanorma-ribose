@@ -1,12 +1,12 @@
 require "isodoc"
-require "isodoc/acme/pdf_convert"
+require "isodoc/generic/pdf_convert"
 require "isodoc/rsd/metadata"
 
 module IsoDoc
   module Rsd
     # A {Converter} implementation that generates PDF HTML output, and a
     # document schema encapsulation of the document for validation
-    class PdfConvert < IsoDoc::Acme::PdfConvert
+    class PdfConvert < IsoDoc::Generic::PdfConvert
       def configuration
         Metanorma::Rsd.configuration
       end

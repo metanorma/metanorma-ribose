@@ -1,11 +1,11 @@
 require "metanorma"
-require "metanorma-acme"
+require "metanorma-generic"
 require "metanorma/rsd/processor"
 
 module Metanorma
   module Rsd
 
-    class Configuration < Metanorma::Acme::Configuration
+    class Configuration < Metanorma::Generic::Configuration
       def initialize(*args)
         super
       end

@@ -1,12 +1,12 @@
 require "isodoc"
-require "isodoc/acme/word_convert"
+require "isodoc/generic/word_convert"
 require "isodoc/rsd/metadata"
 
 module IsoDoc
   module Rsd
     # A {Converter} implementation that generates Word output, and a document
     # schema encapsulation of the document for validation
-    class WordConvert < IsoDoc::Acme::WordConvert
+    class WordConvert < IsoDoc::Generic::WordConvert
       def configuration
         Metanorma::Rsd.configuration
       end
