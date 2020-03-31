@@ -29,6 +29,20 @@ module IsoDoc
           d.xpath(ns("//preface/abstract | //foreword | //introduction | "\
                      "//preface/clause | //acknowledgements | //executivesummary")))
       end
+
+      def clausedelim
+        ""
+      end
+
+      def section_names1(clause, num, level)
+        @anchors[clause["id"]] =
+          { label: num, level: level, xref: num }
+        # subclauses are not prefixed with "Clause"
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).
+          each_with_index do |c, i|
+          section_names1(c, "#{num}.#{i + 1}", level + 1)
+        end
+      end
     end
   end
 end
