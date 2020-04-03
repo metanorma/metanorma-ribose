@@ -1,38 +1,31 @@
 require "isodoc"
-require "isodoc/acme/word_convert"
+require "isodoc/generic/word_convert"
 require "isodoc/rsd/metadata"
 
 module IsoDoc
   module Rsd
     # A {Converter} implementation that generates Word output, and a document
     # schema encapsulation of the document for validation
-    class WordConvert < IsoDoc::Acme::WordConvert
+    class WordConvert < IsoDoc::Generic::WordConvert
       def configuration
         Metanorma::Rsd.configuration
       end
 
-      def metadata_init(lang, script, labels)
-        @meta = Metadata.new(lang, script, labels)
-      end
-
-      def info(isoxml, out)
-        @meta.security isoxml, out
-        @meta.recipient isoxml, out
-        super
-      end
-
-            def annex_name(annex, name, div)
-        div.h1 **{ class: "Annex" } do |t|
-          t << "#{anchor(annex['id'], :label)}<br/><br/>"
-          name&.children&.each { |c2| parse(c2, t) }
+      def make_body2(body, docxml)
+        body.div **{ class: "WordSection2" } do |div2|
+          boilerplate docxml, div2
+          abstract docxml, div2
+          foreword docxml, div2
+          executivesummary docxml, div2
+          introduction docxml, div2
+          preface docxml, div2
+          acknowledgements docxml, div2
+          div2.p { |p| p << "&nbsp;" } # placeholder
         end
+        section_break(body)
       end
 
-            def annex_name_lbl(clause, num)
-      obl = l10n("(#{@inform_annex_lbl})")
-      obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
-      l10n("#{@annex_lbl} #{num}<br/>#{obl}")
-    end
+      include BaseConvert
     end
   end
 end

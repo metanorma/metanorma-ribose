@@ -1,12 +1,12 @@
 require "asciidoctor/standoc/converter"
-require 'asciidoctor/acme/converter'
+require 'asciidoctor/generic/converter'
 
 module Asciidoctor
   module Rsd
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
     #
-    class Converter < Asciidoctor::Acme::Converter
+    class Converter < Asciidoctor::Generic::Converter
       register_for "rsd"
 
       def metadata_recipient(node, xml)
@@ -23,6 +23,45 @@ module Asciidoctor
         super
         metadata_security(node, xml)
         metadata_recipient(node, xml)
+      end
+
+      def sectiontype(node, level = true)
+        ret = node&.attr("heading")&.downcase ||
+          node.title.gsub(/<[^>]+>/, "").downcase
+        ret1 = sectiontype_streamline(ret)
+        return ret1 if "symbols and abbreviated terms" == ret1
+        return ret1 if "executive summary" == ret1
+        return nil unless !level || node.level == 1
+        return nil if @seen_headers.include? ret
+        @seen_headers << ret
+        ret1
+      end
+
+      def make_preface(x, s)
+        if x.at("//foreword | //introduction | //acknowledgements | "\
+            "//clause[@preface] | //executivesummary")
+          preface = s.add_previous_sibling("<preface/>").first
+          f = x.at("//foreword") and preface.add_child f.remove
+          f = x.at("//executivesummary") and preface.add_child f.remove
+          f = x.at("//introduction") and preface.add_child f.remove
+          move_clauses_into_preface(x, preface)
+          f = x.at("//acknowledgements") and preface.add_child f.remove
+        end
+        make_abstract(x, s)
+      end
+
+      def clause_parse(attrs, xml, node)
+        sectiontype(node) == "executive summary" and
+          return executivesummary_parse(attrs, xml, node)
+        super
+      end
+
+      def executivesummary_parse(attrs, xml, node)
+        xml.executivesummary **attr_code(attrs) do |xml_section|
+          xml_section.title { |t| t << node.title || "Executive Summary" }
+          content = node.content
+          xml_section << content
+        end
       end
 
       def configuration

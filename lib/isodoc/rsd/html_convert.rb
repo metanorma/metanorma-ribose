@@ -1,5 +1,5 @@
 require "isodoc"
-require "isodoc/acme/html_convert"
+require "isodoc/generic/html_convert"
 require "isodoc/rsd/metadata"
 
 module IsoDoc
@@ -7,33 +7,27 @@ module IsoDoc
     # A {Converter} implementation that generates HTML output, and a document
     # schema encapsulation of the document for validation
     #
-    class HtmlConvert < IsoDoc::Acme::HtmlConvert
+    class HtmlConvert < IsoDoc::Generic::HtmlConvert
       def configuration
         Metanorma::Rsd.configuration
       end
 
-      def metadata_init(lang, script, labels)
-        @meta = Metadata.new(lang, script, labels)
+      def make_body3(body, docxml)
+      body.div **{ class: "main-section" } do |div3|
+        boilerplate docxml, div3
+        abstract docxml, div3
+        foreword docxml, div3
+        executivesummary docxml, div3
+        introduction docxml, div3
+        preface docxml, div3
+        acknowledgements docxml, div3
+        middle docxml, div3
+        footnotes div3
+        comments div3
       end
-
-      def info(isoxml, out)
-        @meta.security isoxml, out
-        @meta.recipient isoxml, out
-        super
-      end
-
-      def annex_name(annex, name, div)
-        div.h1 **{ class: "Annex" } do |t|
-          t << "#{anchor(annex['id'], :label)}<br/><br/>"
-          name&.children&.each { |c2| parse(c2, t) }
-        end
-      end
-
-      def annex_name_lbl(clause, num)
-      obl = l10n("(#{@inform_annex_lbl})")
-      obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
-      l10n("#{@annex_lbl} #{num}<br/>#{obl}")
     end
+
+      include BaseConvert
     end
   end
 end

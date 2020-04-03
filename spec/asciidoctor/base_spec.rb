@@ -444,5 +444,56 @@ OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
   end
 
+    it "processes executive summaries" do
+      input = <<~"INPUT"
+      #{ASCIIDOC_BLANK_HDR}
+
+      Foreword
+
+      [abstract]
+      == Abstract
+      Abstract
+
+      == Introduction
+      Introduction
+
+      == Executive Summary
+      Executive Summary
+
+      [.preface]
+      == Prefatory
+      Prefatory
+    INPUT
+
+    output = xmlpp(<<~"OUTPUT")
+    #{BLANK_HDR.sub(/<status>/, "<abstract> <p>Abstract</p> </abstract> <status>")}
+       <preface>
+  <abstract id='_'>
+    <p id='_'>Abstract</p>
+  </abstract>
+  <foreword id='_' obligation='informative'>
+    <title>Foreword</title>
+    <p id='_'>Foreword</p>
+  </foreword>
+  <executivesummary id='_'>
+    <title>Executive Summary</title>
+    <p id='_'>Executive Summary</p>
+  </executivesummary>
+  <introduction id='_' obligation='informative'>
+    <title>Introduction</title>
+    <p id='_'>Introduction</p>
+  </introduction>
+  <clause id='_' obligation='informative'>
+    <title>Prefatory</title>
+    <p id='_'>Prefatory</p>
+  </clause>
+</preface>
+<sections> </sections>
+</rsd-standard>
+    OUTPUT
+
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
+
+    end
 
 end
