@@ -2,7 +2,7 @@ organization_name_short: Ribose
 organization_name_long: Ribose
 document_namespace: https://www.metanorma.org/ns/rsd
 xml_root_tag: 'rsd-standard'
-logo_path: lib/isodoc/rsd/html/logo.svg
+logo_path: lib/isodoc/rsd/html/logo.png
 validate_rng_file: lib/asciidoctor/rsd/rsd.rng
 htmlcoverpage: lib/isodoc/rsd/html/html_rsd_titlepage.html
 htmlintropage: lib/isodoc/rsd/html/html_rsd_intro.html
@@ -14,6 +14,9 @@ header: lib/isodoc/rsd/html/header.html
 wordcoverpage: lib/isodoc/rsd/html/word_rsd_titlepage.html
 wordintropage: lib/isodoc/rsd/html/word_rsd_intro.html
 wordstylesheet: lib/isodoc/rsd/html/wordstyle.scss
+word_bodyfont: '"Source Sans Pro",sans-serif'
+word_headerfont: '"Source Sans Pro",sans-serif'
+word_monospacefont: '"Courier New",monospace'
 docid_template: "{{ docnumeric }}{% if stageabbr %}({{ stageabbr }}){%endif%}"
 published_stages:
   - published

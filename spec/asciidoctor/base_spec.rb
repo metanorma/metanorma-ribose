@@ -6,16 +6,6 @@ RSpec.describe Asciidoctor::Rsd do
     expect(Metanorma::Rsd::VERSION).not_to be nil
   end
 
-  #it "generates output for the Rice document" do
-  #  FileUtils.rm_f %w(spec/examples/rfc6350.doc spec/examples/rfc6350.html spec/examples/rfc6350.pdf)
-  #  FileUtils.cd "spec/examples"
-  #  Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"rsd"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-rsd"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
-  #  FileUtils.cd "../.."
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.doc"))).to be true
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.html"))).to be true
-  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.pdf"))).to be true
-  #end
-
   it "processes a blank document" do
     input = <<~"INPUT"
     #{ASCIIDOC_BLANK_HDR}
@@ -80,6 +70,8 @@ RSpec.describe Asciidoctor::Rsd do
       :language: en
       :title: Main Title
       :security: Client Confidential
+      :recipient: tbd@example.com
+      
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -127,6 +119,7 @@ RSpec.describe Asciidoctor::Rsd do
     <committee type="A1">TC1</committee>
   </editorialgroup>
   <security>Client Confidential</security>
+  <recipient>tbd@example.com</recipient>
   </ext>
 </bibdata>
         #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement").sub(/Ribose Group Inc\. #{Time.new.year}/, "Ribose Group Inc. 2001")}

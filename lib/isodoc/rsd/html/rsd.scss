@@ -42,7 +42,7 @@ p.Biblio, li.Biblio, div.Biblio, p.NormRef, li.NormRef, div.NormRef
     tab-stops: 33.15pt;
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
-	font-size:10.5pt;
+	font-size:12.0pt;
 	font-weight:normal;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
@@ -135,10 +135,9 @@ p.Note, div.Note, li.Note, p.TableFootnote, div.TableFootnote, li.TableFootnote
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
-	font-size:10.0pt;
+	font-size:11.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$bodyfont;
-    font-size:10.0pt;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
 	mso-ansi-language:EN-GB;}
@@ -161,14 +160,14 @@ p.ANNEX, li.ANNEX, div.ANNEX
 	mso-outline-level:1;
 	mso-list:l0 level1 lfo12;
 	tab-stops:20.15pt;
-	font-size:14.0pt;
+	font-size:12.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$headerfont;
+        color:#0E1A85;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
 	mso-fareast-language:JA;
-	font-weight:bold;
 	mso-bidi-font-weight:normal;}
 p.BiblioTitle, li.BiblioTitle, div.BiblioTitle
 	{mso-style-name:"Biblio Title";
@@ -183,13 +182,13 @@ p.BiblioTitle, li.BiblioTitle, div.BiblioTitle
 	mso-pagination:widow-orphan;
 	mso-outline-level:1;
 	tab-stops:20.15pt;
-	font-size:14.0pt;
+	font-size:12.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$headerfont;
+        color:#0E1A85;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
-	font-weight:bold;
 	mso-bidi-font-weight:normal;}
 p.Definition, li.Definition, div.Definition
 	{mso-style-name:Definition;
@@ -203,7 +202,7 @@ p.Definition, li.Definition, div.Definition
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
-	font-size:11.0pt;
+	font-size:12.0pt;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -224,13 +223,13 @@ p.ForewordTitle, li.ForewordTitle, div.ForewordTitle
 	mso-outline-level:1;
 	mso-hyphenate:none;
 	tab-stops:20.15pt;
-	font-size:14.0pt;
+	font-size:12.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$headerfont;
+        color:#0E1A85;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
-	font-weight:bold;
 	mso-bidi-font-weight:normal;}
 p.IntroTitle, li.IntroTitle, div.IntroTitle
 	{mso-style-name:"Intro Title";
@@ -248,13 +247,13 @@ p.IntroTitle, li.IntroTitle, div.IntroTitle
 	mso-outline-level:1;
 	mso-hyphenate:none;
 	tab-stops:20.15pt;
-	font-size:14.0pt;
+	font-size:12.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$headerfont;
+        color:#0E1A85;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
-	font-weight:bold;
         page-break-before:always;
 	mso-bidi-font-weight:normal;}
 p.TitlePageSubhead, li.TitlePageSubhead, div.TitlePageSubhead {
@@ -271,13 +270,13 @@ p.TitlePageSubhead, li.TitlePageSubhead, div.TitlePageSubhead {
         page-break-after:avoid;
         mso-hyphenate:none;
         tab-stops:20.15pt;
-        font-size:14.0pt;
+        font-size:12.0pt;
         mso-bidi-font-size:11.0pt;
         font-family:$headerfont;
+        color:#0E1A85;
         mso-fareast-font-family:$headerfont;
         mso-bidi-font-family:$headerfont;
         mso-ansi-language:EN-GB;
-        font-weight:bold;
         mso-bidi-font-weight:normal;
 }
 p.Terms, li.Terms, div.Terms
@@ -292,12 +291,11 @@ p.Terms, li.Terms, div.Terms
         page-break-after:avoid;
         mso-hyphenate:none;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:12.0pt;
         font-family:$headerfont;
         mso-fareast-font-family:$headerfont;
         mso-bidi-font-family:$headerfont;
         mso-ansi-language:EN-GB;
-        font-weight:bold;
         mso-bidi-font-weight:normal;}
 p.AltTerms, li.AltTerms, div.AltTerms
         {mso-style-name:"AltTerm\(s\)";
@@ -311,7 +309,7 @@ p.AltTerms, li.AltTerms, div.AltTerms
         page-break-after:avoid;
         mso-hyphenate:none;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:12.0pt;
         font-family:$bodyfont;
         mso-fareast-font-family:$bodyfont;
         mso-bidi-font-family:$bodyfont;
@@ -329,7 +327,7 @@ p.DeprecatedTerms, li.DeprecatedTerms, div.DeprecatedTerms
         page-break-after:avoid;
         mso-hyphenate:none;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:12.0pt;
         font-family:$bodyfont;
         mso-fareast-font-family:$bodyfont;
         mso-bidi-font-family:$bodyfont;
@@ -346,7 +344,7 @@ p.TermNum, li.TermNum, div.TermNum
         mso-pagination:widow-orphan;
         page-break-after:avoid;
         tab-stops:20.15pt;
-        font-size:11.0pt;
+        font-size:12.0pt;
         font-family:$headerfont;
         mso-fareast-font-family:$headerfont;
         mso-bidi-font-family:$headerfont;
@@ -369,13 +367,13 @@ p.zzContents, li.zzContents, div.zzContents
 	page-break-after:avoid;
 	mso-hyphenate:none;
 	tab-stops:20.15pt;
-	font-size:14.0pt;
+	font-size:12.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$headerfont;
+        color:#0E1A85;
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
-	font-weight:bold;
 	mso-bidi-font-weight:normal;}
 p.zzCopyright, li.zzCopyright
 	{mso-style-name:zzCopyright;
@@ -392,7 +390,7 @@ p.zzCopyright, li.zzCopyright
 	tab-stops:20.15pt 25.7pt 481.15pt;
 	padding:0cm;
 	mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt;
-	font-size:10.5pt;
+	font-size:12.0pt;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -416,7 +414,7 @@ p.zzCopyright_address
     text-autospace:none;
 	padding-left:20pt;
 	mso-padding-alt-left:20pt;
-    font-size:10.0pt;
+    font-size:12.0pt;
 	text-align:left;
     mso-bidi-font-size:11.0pt;}
 p.zzSTDTitle, li.zzSTDTitle, div.zzSTDTitle
@@ -439,7 +437,6 @@ p.zzSTDTitle, li.zzSTDTitle, div.zzSTDTitle
 	mso-fareast-font-family:$headerfont;
 	mso-bidi-font-family:$headerfont;
 	mso-ansi-language:EN-GB;
-	font-weight:bold;
 	mso-bidi-font-weight:normal;}
 p.zzSTDTitle1, li.zzSTDTitle1, div.zzSTDTitle1
 	{mso-style-name:zzSTDTitle;
@@ -473,7 +470,7 @@ p.Quote, li.Quote, div.Quote
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
-	font-size:10.5pt;
+	font-size:12.0pt;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -488,7 +485,7 @@ p.QuoteAttribution
         line-height:12.0pt;
         mso-pagination:widow-orphan;
         tab-stops:20.15pt;
-        font-size:10.5pt;
+        font-size:12.0pt;
         font-family:$bodyfont;
         mso-fareast-font-family:$bodyfont;
         mso-bidi-font-family:$bodyfont;
@@ -531,7 +528,7 @@ p.Code, li.Code, div.Code
 	line-height:10.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:20.15pt;
-	font-size:9.0pt;
+	font-size:10.0pt;
 	mso-bidi-font-size:11.0pt;
 	font-family:$monospacefont;
 	mso-fareast-font-family:Calibri;
@@ -548,7 +545,7 @@ p.Formula, li.Formula, div.Formula
 	line-height:12.0pt;
 	mso-pagination:widow-orphan;
 	tab-stops:right 487.45pt;
-	font-size:10.5pt;
+	font-size:12.0pt;
 	font-family:$bodyfont;
 	mso-fareast-font-family:$bodyfont;
 	mso-bidi-font-family:$bodyfont;
@@ -558,9 +555,9 @@ p.Formula, li.Formula, div.Formula
 }
 @page WordSection1
 	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:50pt;
-	mso-footer-margin:50pt;
+	margin:85.65pt 53.85pt 57.4pt 53.85pt;
+	mso-header-margin:35.45pt;
+	mso-footer-margin:61.0pt;
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh1;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h1;
 	mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef1;
@@ -569,9 +566,9 @@ div.WordSection1
 	{page:WordSection1;}
 @page WordSection2
 	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:50pt;
-	mso-footer-margin:50pt;
+	margin:79.8pt 53.85pt 1.0cm 53.85pt;
+	mso-header-margin:35.45pt;
+	mso-footer-margin:49.3pt;
 	mso-page-numbers:roman-lower;
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
@@ -580,9 +577,9 @@ div.WordSection1
 	mso-paper-source:0;}
 @page WordSection2L
         {size:841.9pt 595.3pt;
-        margin:39.7pt 53.85pt 1.0cm 53.85pt;
-        mso-header-margin:50pt;
-        mso-footer-margin:50pt;
+	margin:79.8pt 53.85pt 1.0cm 53.85pt;
+	mso-header-margin:35.45pt;
+	mso-footer-margin:49.3pt;
         mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2l;
         mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2l;
         mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef2l;
@@ -590,9 +587,9 @@ div.WordSection1
         mso-paper-source:0;}
 @page WordSection2P
         {size:595.3pt 841.9pt;
-        margin:39.7pt 53.85pt 1.0cm 53.85pt;
-        mso-header-margin:50pt;
-        mso-footer-margin:50pt;
+	margin:79.8pt 53.85pt 1.0cm 53.85pt;
+	mso-header-margin:35.45pt;
+	mso-footer-margin:49.3pt;
         mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
         mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
         mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef2;
@@ -602,9 +599,9 @@ div.WordSection2
 	{page:WordSection2;}
 @page WordSection3
 	{size:595.3pt 841.9pt;
-	margin:39.7pt 53.85pt 1.0cm 53.85pt;
-	mso-header-margin:50pt;
-	mso-footer-margin:50pt;
+        margin:59.2pt 53.85pt 70.8pt 53.85pt;
+	mso-header-margin:35.45pt;
+	mso-footer-margin:54.7pt;
 	mso-page-numbers:1;
 	mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
 	mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
@@ -613,9 +610,9 @@ div.WordSection2
 	mso-paper-source:0;}
 @page WordSection3L
         {size:841.9pt 595.3pt;
-        margin:39.7pt 53.85pt 1.0cm 53.85pt;
-        mso-header-margin:50pt;
-        mso-footer-margin:50pt;
+        margin:59.2pt 53.85pt 70.8pt 53.85pt;
+	mso-header-margin:35.45pt;
+	mso-footer-margin:54.7pt;
         mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2l;
         mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2l;
         mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef3l;
@@ -623,9 +620,9 @@ div.WordSection2
         mso-paper-source:0;}
 @page WordSection3P
         {size:595.3pt 841.9pt;
-        margin:39.7pt 53.85pt 1.0cm 53.85pt;
-        mso-header-margin:50pt;
-        mso-footer-margin:50pt;
+        margin:59.2pt 53.85pt 70.8pt 53.85pt;
+	mso-header-margin:35.45pt;
+	mso-footer-margin:54.7pt;
         mso-even-header:url("file:///C:/Doc/FILENAME_files/header.html") eh2;
         mso-header:url("file:///C:/Doc/FILENAME_files/header.html") h2;
         mso-even-footer:url("file:///C:/Doc/FILENAME_files/header.html") ef3;
@@ -651,7 +648,7 @@ table.MsoISOTable
 	mso-yfti-tbllook:480;
 	mso-border-insideh:.75pt solid windowtext;
 	mso-border-insidev:.75pt solid windowtext;
-	font-size:10.0pt;
+	font-size:12.0pt;
 	font-family:$bodyfont;}
 table.MsoISOTable th
     {border:solid windowtext 1pt;
@@ -662,7 +659,7 @@ table.MsoISOTable td
     mso-border-alt:solid windowtext 1pt;
     padding:0cm 2.85pt 0cm 2.85pt;}
 table.MsoISOTable p
-{font-size:10.0pt; }
+{font-size:12.0pt; }
 table.MsoTableGrid
 	{mso-style-name:"Table Grid";
 	mso-tstyle-rowband-size:0;
@@ -677,7 +674,7 @@ table.MsoTableGrid
 	mso-para-margin:0cm;
 	mso-para-margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
-	font-size:10.0pt;
+	font-size:12.0pt;
 	font-family:$bodyfont;}
 div.formula
     {tab-stops:right 487.45pt;}
@@ -699,12 +696,12 @@ div.coverpage_warning
     border:solid windowtext 1.0pt #485094;
     mso-border-alt:solid windowtext .5pt;
     padding:1.0pt 4.0pt 1.0pt 4.0pt #485094;
-    font-size:10.0pt;
+    font-size:12.0pt;
     margin-left:4.25pt;
     margin-right:4.25pt}
 .coverpage_warning
     {color:#485094;
-    font-size:10.0pt;}
+    font-size:12.0pt;}
 
     a.TableFootnoteRef, span.TableFootnoteRef
         {mso-style-priority:99;
@@ -712,7 +709,7 @@ div.coverpage_warning
         vertical-align:super;}
 
         aside {
-          font-size:10.0pt;
+          font-size:12.0pt;
 }
 
 .example-title {
@@ -734,24 +731,24 @@ div.example {
 
 p.example, li.example, div.example, td.example {
         mso-pagination:none;
-        font-size:10.0pt;
+        font-size:11.0pt;
         font-family:$bodyfont;}
 
 td.example p.MsoListParagraph {
-  font-size: 10.0pt;
+  font-size: 11.0pt;
 }
 
 div.example p.MsoListParagraph {
-  font-size: 10.0pt;
+  font-size: 11.0pt;
 }
 
 div.Note p.MsoListParagraph {
-  font-size: 10.0pt;
+  font-size: 11.0pt;
 }
 
 span.note_label, span.example_label, td.example_label, td.note_label
 {
-font-size: 10.0pt;
+font-size: 11.0pt;
 font-family:$bodyfont;
 }
 
