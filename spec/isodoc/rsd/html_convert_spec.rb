@@ -53,7 +53,7 @@ RSpec.describe IsoDoc::Rsd do
     INPUT
 
     output = <<~"OUTPUT"
-   {:accesseddate=>"XXX", :agency=>"Ribose", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumeric=>"1000", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :implementeddate=>"XXX", :issueddate=>"XXX", :logo=>"#{File.join(logoloc, "logo.svg")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :security=>"Client Confidential", :stage=>"Working Draft", :stageabbr=>"wd", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
+   {:accesseddate=>"XXX", :agency=>"Ribose", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumeric=>"1000", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :implementeddate=>"XXX", :issueddate=>"XXX", :logo=>"#{File.join(logoloc, "logo.png")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :publisher=>"Ribose", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :security=>"Client Confidential", :stage=>"Working Draft", :stageabbr=>"wd", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
@@ -238,7 +238,7 @@ RSpec.describe IsoDoc::Rsd do
              </div>
              <br/>
              <div id="P" class="Section3">
-               <h1 class="Annex"><b>Annex A</b><br/>(normative) <br/><b>Annex</b></h1>
+               <h1 class="Annex">Annex A<br/>(normative) <br/><br/>Annex</h1>
                <div id="Q">
           <h2>A.1&#160; Annex A.1</h2>
           <div id="Q1">
@@ -448,11 +448,12 @@ RSpec.describe IsoDoc::Rsd do
       <br/>
       <div id='P' class='Section3'>
         <h1 class='Annex'>
-          <b>Annex A</b>
+          Annex A
           <br/>
           (normative)
           <br/>
-          <b>Annex</b>
+          <br/>
+          Annex
         </h1>
         <div id='Q'>
           <h2>A.1&#160; Annex A.1</h2>
