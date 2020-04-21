@@ -1,32 +1,24 @@
 require "isodoc"
-require "isodoc/generic/pdf_convert"
 require "isodoc/rsd/metadata"
 
 module IsoDoc
   module Rsd
     # A {Converter} implementation that generates PDF HTML output, and a
     # document schema encapsulation of the document for validation
-    class PdfConvert < IsoDoc::Generic::PdfConvert
-      def configuration
-        Metanorma::Rsd.configuration
+    class PdfConvert <  IsoDoc::XslfoPdfConvert
+      def initialize(options)
+        @libdir = File.dirname(__FILE__)
+        super
       end
 
-       def make_body3(body, docxml)
-      body.div **{ class: "main-section" } do |div3|
-        boilerplate docxml, div3
-        abstract docxml, div3
-        foreword docxml, div3
-        executivesummary docxml, div3
-        introduction docxml, div3
-        preface docxml, div3
-        acknowledgements docxml, div3
-        middle docxml, div3
-        footnotes div3
-        comments div3
+      def convert(filename, file = nil, debug = false)
+        file = File.read(filename, encoding: "utf-8") if file.nil?
+        docxml, outname_html, dir = convert_init(file, filename, debug)
+        FileUtils.rm_rf dir
+        ::Metanorma::Output::XslfoPdf.new.convert(
+          filename, outname_html + ".pdf",
+          File.join(@libdir, "rsd.standard.xsl"))
       end
-    end
-
-      include BaseConvert
     end
   end
 end
