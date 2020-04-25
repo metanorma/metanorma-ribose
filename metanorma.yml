@@ -24,3 +24,6 @@ stage_abbreviations:
   working-draft: wd
   committee-draft: cd
   draft-standard: d
+metadata_extensions:
+ - security
+ - recipient

@@ -9,22 +9,6 @@ module Asciidoctor
     class Converter < Asciidoctor::Generic::Converter
       register_for "rsd"
 
-      def metadata_recipient(node, xml)
-        recipient = node.attr("recipient") || return
-        xml.recipient recipient
-      end
-
-      def metadata_security(node, xml)
-        security = node.attr("security") || return
-        xml.security security
-      end
-
-      def metadata_ext(node, xml)
-        super
-        metadata_security(node, xml)
-        metadata_recipient(node, xml)
-      end
-
       def sectiontype(node, level = true)
         ret = node&.attr("heading")&.downcase ||
           node.title.gsub(/<[^>]+>/, "").downcase

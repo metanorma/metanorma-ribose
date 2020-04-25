@@ -8,16 +8,6 @@ module IsoDoc
         Metanorma::Rsd.configuration
       end
 
-      def security(isoxml, _out)
-        security = isoxml.at(ns("//bibdata/ext/security")) || return
-        set(:security, security.text)
-      end
-
-      def recipient(isoxml, _out)
-        recipient = isoxml.at(ns("//bibdata/ext/recipient")) || return
-        set(:recipient, recipient.text)
-      end
-
       def version(isoxml, _out)
         super
         revdate = get[:revdate]
