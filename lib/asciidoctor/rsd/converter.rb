@@ -7,6 +7,9 @@ module Asciidoctor
     # schema encapsulation of the document for validation
     #
     class Converter < Asciidoctor::Generic::Converter
+      XML_ROOT_TAG = 'rsd-standard'.freeze
+      XML_NAMESPACE = 'https://www.metanorma.org/ns/rsd'.freeze
+
       register_for "rsd"
 
       def metadata_recipient(node, xml)
