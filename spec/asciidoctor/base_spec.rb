@@ -26,6 +26,7 @@ RSpec.describe Asciidoctor::Rsd do
       Author
       :docfile: test.adoc
       :novalid:
+      :no-pdf:
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
@@ -355,6 +356,7 @@ OUTPUT
       Author
       :docfile: test.adoc
       :novalid:
+      :no-pdf:
     INPUT
 
     FileUtils.rm_f "test.html"
@@ -373,6 +375,7 @@ OUTPUT
       :docfile: test.adoc
       :novalid:
       :script: Hans
+      :no-pdf:
     INPUT
 
     FileUtils.rm_f "test.html"
@@ -394,6 +397,7 @@ OUTPUT
       :body-font: Zapf Chancery
       :header-font: Comic Sans
       :monospace-font: Andale Mono
+      :no-pdf:
     INPUT
 
     FileUtils.rm_f "test.html"
