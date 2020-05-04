@@ -2,7 +2,7 @@ require "metanorma/processor"
 
 module Metanorma
   module Rsd
-    def self.pdf_fonts
+    def self.fonts_used
       ["SourceSansPro-Light", "SourceSerifPro", "SourceCodePro-Light", "HanSans"]
     end
 

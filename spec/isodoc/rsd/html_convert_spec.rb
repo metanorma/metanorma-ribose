@@ -283,7 +283,7 @@ RSpec.describe IsoDoc::Rsd do
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
-    expect(html).to match(%r{Overpass})
+    expect(html).to match(%r{Source Sans Pro})
   end
 
     it "cross-references sections" do

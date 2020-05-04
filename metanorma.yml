@@ -7,6 +7,9 @@ validate_rng_file: lib/asciidoctor/rsd/rsd.rng
 htmlcoverpage: lib/isodoc/rsd/html/html_rsd_titlepage.html
 htmlintropage: lib/isodoc/rsd/html/html_rsd_intro.html
 htmlstylesheet: lib/isodoc/rsd/html/htmlstyle.scss
+html_bodyfont: '"Source Sans Pro",sans-serif'
+html_headerfont: '"Source Sans Pro",sans-serif'
+html_monospacefont: '"Source Code Pro",monospace'
 scripts: lib/isodoc/rsd/html/scripts.html
 scripts_pdf: lib/isodoc/rsd/html/scripts.pdf.html
 standardstylesheet: lib/isodoc/rsd/html/rsd.scss
@@ -14,9 +17,9 @@ header: lib/isodoc/rsd/html/header.html
 wordcoverpage: lib/isodoc/rsd/html/word_rsd_titlepage.html
 wordintropage: lib/isodoc/rsd/html/word_rsd_intro.html
 wordstylesheet: lib/isodoc/rsd/html/wordstyle.scss
-word_bodyfont: '"Source Sans Pro",sans-serif'
-word_headerfont: '"Source Sans Pro",sans-serif'
-word_monospacefont: '"Courier New",monospace'
+word_bodyfont: '"Source Sans Pro","Arial",sans-serif'
+word_headerfont: '"Source Sans Pro","Arial",sans-serif'
+word_monospacefont: '"Source Code Pro",monospace'
 docid_template: "{{ docnumeric }}{% if stageabbr %}({{ stageabbr }}){%endif%}"
 published_stages:
   - published
