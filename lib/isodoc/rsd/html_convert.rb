@@ -27,13 +27,6 @@ module IsoDoc
       end
     end
 
-       def googlefonts
-        <<~HEAD.freeze
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600,600i&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
-        HEAD
-      end
-
       include BaseConvert
     end
   end
