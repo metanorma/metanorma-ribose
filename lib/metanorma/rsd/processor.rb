@@ -6,12 +6,9 @@ module Metanorma
       ["SourceSansPro-Light", "SourceSerifPro", "SourceCodePro-Light", "HanSans"]
     end
 
-    class Processor < Metanorma::Processor
-
-      def initialize
-        @short = :rsd
-        @input_format = :asciidoc
-        @asciidoctor_backend = :rsd
+    class Processor < Metanorma::Generic::Processor
+      def configuration
+        Metanorma::Rsd.configuration
       end
 
       def output_formats

@@ -80,7 +80,7 @@ RSpec.describe Asciidoctor::Rsd do
 <rsd-standard xmlns="https://www.metanorma.org/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-<docidentifier>1000(wd)</docidentifier>
+<docidentifier type="Ribose">1000(wd)</docidentifier>
 <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -151,7 +151,7 @@ RSpec.describe Asciidoctor::Rsd do
         <rsd-standard xmlns="https://www.metanorma.org/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier>1000(cd)</docidentifier>
+  <docidentifier type="Ribose">1000(cd)</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -214,7 +214,7 @@ RSpec.describe Asciidoctor::Rsd do
         <rsd-standard xmlns="https://www.metanorma.org/ns/rsd">
 <bibdata type="standard">
   <title language="en" format="text/plain">Main Title</title>
-  <docidentifier>1000(d)</docidentifier>
+  <docidentifier type="Ribose">1000(d)</docidentifier>
   <docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
@@ -280,7 +280,7 @@ OUTPUT
        <rsd-standard xmlns='https://www.metanorma.org/ns/rsd'>
          <bibdata type='standard'>
            <title language='en' format='text/plain'>Main Title</title>
-           <docidentifier>1000</docidentifier>
+           <docidentifier type="Ribose">1000</docidentifier>
            <docnumber>1000</docnumber>
            <contributor>
              <role type='author'/>
