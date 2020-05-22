@@ -3,7 +3,11 @@ require "metanorma/processor"
 module Metanorma
   module Rsd
     def self.fonts_used
-      ["SourceSansPro-Light", "SourceSerifPro", "SourceCodePro-Light", "HanSans"]
+      {
+        html: ["SourceSansPro-Light", "SourceSerifPro", "SourceCodePro-Light", "HanSans"],
+        doc: ["SourceSansPro-Light", "SourceSerifPro", "SourceCodePro-Light", "HanSans"],
+        pdf: ["SourceSansPro-Light", "SourceSerifPro", "SourceCodePro-Light", "HanSans"],
+      }
     end
 
     class Processor < Metanorma::Generic::Processor
