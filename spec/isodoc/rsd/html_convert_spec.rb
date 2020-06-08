@@ -53,11 +53,47 @@ RSpec.describe IsoDoc::Rsd do
     INPUT
 
     output = <<~"OUTPUT"
-   {:accesseddate=>"XXX", :agency=>"Ribose", :authors=>[], :authors_affiliations=>{}, :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :docnumeric=>"1000", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :implementeddate=>"XXX", :issueddate=>"XXX", :logo=>"#{File.join(logoloc, "logo.png")}", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :publisher=>"Ribose", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_MMMddyyyy=>"January 01, 2000", :revdate_monthyear=>"January 2000", :security=>"Client Confidential", :stage=>"Working Draft", :stageabbr=>"wd", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX", :vote_endeddate=>"XXX", :vote_starteddate=>"XXX"}
+{:accesseddate=>"XXX",
+:agency=>"Ribose",
+:authors=>[],
+:authors_affiliations=>{},
+:circulateddate=>"XXX",
+:confirmeddate=>"XXX",
+:copieddate=>"XXX",
+:createddate=>"XXX",
+:docnumber=>"1000(wd)",
+:docnumeric=>"1000",
+:doctitle=>"Main Title",
+:doctype=>"Standard",
+:docyear=>"2001",
+:draft=>"3.4",
+:draftinfo=>" (draft 3.4, 2000-01-01)",
+:edition=>"2",
+:implementeddate=>"XXX",
+:issueddate=>"XXX",
+:keywords=>[],
+:logo=>"#{File.join(logoloc, "logo.png")}",
+:obsoleteddate=>"XXX",
+:publisheddate=>"XXX",
+:publisher=>"Ribose",
+:receiveddate=>"XXX",
+:revdate=>"2000-01-01",
+:revdate_MMMddyyyy=>"January 01, 2000",
+:revdate_monthyear=>"January 2000",
+:security=>"Client Confidential",
+:stage=>"Working Draft",
+:stageabbr=>"wd",
+:tc=>"TC",
+:transmitteddate=>"XXX",
+:unchangeddate=>"XXX",
+:unpublished=>true,
+:updateddate=>"XXX",
+:vote_endeddate=>"XXX",
+:vote_starteddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
   it "processes pre" do
