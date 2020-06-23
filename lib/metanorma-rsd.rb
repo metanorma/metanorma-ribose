@@ -5,6 +5,7 @@ require_relative "isodoc/rsd/html_convert"
 require_relative "isodoc/rsd/word_convert"
 require_relative "isodoc/rsd/pdf_convert"
 require_relative "isodoc/rsd/presentation_xml_convert"
+require_relative "isodoc/rsd/xref"
 require_relative "metanorma/rsd/version"
 
 if defined? Metanorma

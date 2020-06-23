@@ -5,17 +5,15 @@ module IsoDoc
         @meta = Metadata.new(lang, script, labels)
       end
 
-      def annex_name(annex, name, div)
-        div.h1 **{ class: "Annex" } do |t|
-          t << "#{anchor(annex['id'], :label)}<br/><br/>"
-          name&.children&.each { |c2| parse(c2, t) }
-        end
+      def xref_init(lang, script, klass, labels, options)
+        @xrefs = Xref.new(lang, script, klass, labels, options)
       end
 
-      def annex_name_lbl(clause, num)
-        obl = l10n("(#{@inform_annex_lbl})")
-        obl = l10n("(#{@norm_annex_lbl})") if clause["obligation"] == "normative"
-        l10n("#{@annex_lbl} #{num}<br/>#{obl}")
+      def annex_name(annex, name, div)
+        div.h1 **{ class: "Annex" } do |t|
+          t << "#{@xrefs.anchor(annex['id'], :label)}<br/><br/>"
+          name&.children&.each { |c2| parse(c2, t) }
+        end
       end
 
       def executivesummary docxml, out
@@ -30,26 +28,8 @@ module IsoDoc
         end
       end
 
-      def initial_anchor_names(d)
-        preface_names(d.at(ns("//executivesummary")))
-        super
-        sequential_asset_names(
-          d.xpath(ns("//preface/abstract | //foreword | //introduction | "\
-                     "//preface/clause | //acknowledgements | //executivesummary")))
-      end
-
       def clausedelim
         ""
-      end
-
-      def section_names1(clause, num, level)
-        @anchors[clause["id"]] =
-          { label: num, level: level, xref: num }
-        # subclauses are not prefixed with "Clause"
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).
-          each_with_index do |c, i|
-          section_names1(c, "#{num}.#{i + 1}", level + 1)
-        end
       end
     end
   end
