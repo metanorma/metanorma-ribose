@@ -55,6 +55,10 @@ module Asciidoctor
         Metanorma::Rsd.configuration
       end
 
+      def presentation_xml_converter(node)
+        IsoDoc::Rsd::PresentationXMLConvert.new(html_extract_attributes(node))
+      end
+
       def html_converter(node)
         IsoDoc::Rsd::HtmlConvert.new(html_extract_attributes(node))
       end
@@ -64,7 +68,7 @@ module Asciidoctor
         IsoDoc::Rsd::PdfConvert.new(html_extract_attributes(node))
       end
 
-      def word_converter(node)
+      def doc_converter(node)
         IsoDoc::Rsd::WordConvert.new(doc_extract_attributes(node))
       end
     end
