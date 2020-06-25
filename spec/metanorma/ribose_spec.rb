@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-RSpec.describe Metanorma::Rsd do
+RSpec.describe Metanorma::Ribose do
   it "has a version number" do
-    expect(Metanorma::Rsd::VERSION).not_to be nil
+    expect(Metanorma::Ribose::VERSION).not_to be nil
   end
   describe '#configuration' do
     it 'has `configuration` attribute accessable' do
-      expect(Metanorma::Rsd.configuration)
-        .to(be_instance_of(Metanorma::Rsd::Configuration))
+      expect(Metanorma::Ribose.configuration)
+        .to(be_instance_of(Metanorma::Ribose::Configuration))
     end
 
     context 'default attributes' do
-      subject(:config) { Metanorma::Rsd.configuration }
+      subject(:config) { Metanorma::Ribose.configuration }
       let(:default_organization_name_short) { 'Ribose' }
       let(:default_organization_name_long) { 'Ribose' }
       let(:default_document_namespace) do
@@ -29,13 +29,13 @@ RSpec.describe Metanorma::Rsd do
     end
 
     context 'attribute setters' do
-      subject(:config) { Metanorma::Rsd.configuration }
+      subject(:config) { Metanorma::Ribose.configuration }
       let(:organization_name_short) { 'Test' }
       let(:organization_name_long) { 'Test Corp.' }
       let(:document_namespace) { 'https://example.com/' }
 
       it 'sets atrributes' do
-        Metanorma::Rsd.configure do |config|
+        Metanorma::Ribose.configure do |config|
           config.organization_name_short = organization_name_short
           config.organization_name_long = organization_name_long
           config.document_namespace = document_namespace

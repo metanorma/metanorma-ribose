@@ -1,4 +1,4 @@
-= AsciiRSD: Asciidoctor processor for Ribose Standard Documents (RSD)
+= metanorma-ribose: Asciidoctor processor for Ribose Standard Documents 
 
 image:https://img.shields.io/gem/v/metanorma-rsd.svg["Gem Version", link="https://rubygems.org/gems/metanorma-rsd"]
 image:https://github.com/metanorma/metanorma-rsd/workflows/macos/badge.svg["Build Status (macOS)", link="https://github.com/metanorma/metanorma-rsd/actions?workflow=macos"]
@@ -8,32 +8,15 @@ image:https://codeclimate.com/github/metanorma/metanorma-rsd/badges/gpa.svg["Cod
 image:https://img.shields.io/github/issues-pr-raw/metanorma/metanorma-rsd.svg["Pull Requests", link="https://github.com/metanorma/metanorma-rsd/pulls"]
 image:https://img.shields.io/github/commits-since/metanorma/metanorma-rsd/latest.svg["Commits since latest",link="https://github.com/metanorma/metanorma-rsd/releases"]
 
+_Formerly known as_ `asciidoctor-rsd`, `metanorma-rsd`.
+
 == Functionality
 
 This gem processes http://asciidoctor.org/[Asciidoctor] documents following
-a template for generating RSD documents.
+the Metanorma model for generating Ribose standards.
 
 The gem currently inherits from the https://github.com/metanorma/metanorma-standoc
-gem, and aligns closely to it. Refer to the ISO gem documentation
-for guidance, including https://github.com/metanorma/metanorma-iso/wiki/Guidance-for-authoring
-
-The following outputs are generated.
-
-* (Optional) An HTML preview generated directly from the Asciidoctor document,
-using native Asciidoctor formatting.
-** http://asciimath.org[AsciiMathML] is to be used for mathematical formatting.
-The gem uses the https://github.com/asciidoctor/asciimath[Ruby AsciiMath parser],
-which is syntactically stricter than the common MathJax processor;
-if you do not get expected results, try bracketing terms your in AsciiMathML
-expressions.
-* an XML representation of the document, intended as a document model for RSD
-International Standards.
-* The XML representation is processed in turn to generate the following outputs
-as end deliverable RSD standard drafts.
-** DOC
-** HTML
-
-This AsciiDoc syntax for writing RSD standards is hereby named "AsciiRSD".
+gem, and aligns closely to it. Refer to https://metanorma.com[] for guidance.
 
 == Usage
 
@@ -41,26 +24,19 @@ The preferred way to invoke this gem is via the `metanorma` script:
 
 [source,console]
 ----
-$ metanorma --type rsd a.adoc                   # output HTML and DOC
-$ metanorma --type rsd --extensions html a.adoc # output just HTML
-$ metanorma --type rsd --extensions doc a.adoc  # output just DOC
-$ metanorma --type rsd --extensions xml a.adoc  # output RSD XML
+$ metanorma --type ribose a.adoc                   # output HTML and DOC
+$ metanorma --type ribose --extensions html a.adoc # output just HTML
+$ metanorma --type ribose --extensions doc a.adoc  # output just DOC
+$ metanorma --type ribose --extensions xml a.adoc  # output Metanorma XML
 ----
 
-The gem translates the document into RSD XML format, and then
-validates its output against the RSD XML document model; errors are
+The gem translates the document into Metanorma XML format, and then
+validates its output against the Ribopse Metanorma XML document model; errors are
 reported to console against the XML, and are intended for users to
 check that they have provided all necessary components of the
 document.
 
-The gem then converts the XML into HTML and PDF.
-
-The gem can also be invoked directly within asciidoctor, though this is deprecated:
-
-[source,console]
-----
-$ asciidoctor -b rsd -r 'metanorma-rsd' a.adoc  
-----
+The gem then converts the XML into output formats such as HTML and PDF.
 
 === Installation
 
@@ -77,14 +53,14 @@ $ gem install metanorma-cli
 
 == Documentation
 
-See https://www.metanorma.com/author/rsd/[The RSD flavor of Metanorma]
+See https://www.metanorma.com/author/ribose/[The Ribose flavor of Metanorma]
 
 
 == Data Models
 
-The RSD Standard Document format is an instance of the
+The Ribose Standard Document format is an instance of the
 https://github.com/metanorma/metanorma-model-standoc[StandardDocument model]. Details of
-this general model can be found on its page. Details of the RSD modifications
+this general model can be found on its page. Details of the Ribose modifications
 to this general model can be found on the https://github.com/metanorma/metanorma-model-rsd[RSD model]
 repository.
 

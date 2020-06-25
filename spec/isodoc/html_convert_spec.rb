@@ -1,11 +1,11 @@
 require "spec_helper"
 
-logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "..", "lib", "isodoc", "rsd", "html"))
+logoloc = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", "isodoc", "ribose", "html"))
 
-RSpec.describe IsoDoc::Rsd do
+RSpec.describe IsoDoc::Ribose do
 
   it "processes default metadata" do
-    csdc = IsoDoc::Rsd::HtmlConvert.new({})
+    csdc = IsoDoc::Ribose::HtmlConvert.new({})
     input = <<~"INPUT"
 <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
 <bibdata type="standard">
@@ -118,7 +118,7 @@ RSpec.describe IsoDoc::Rsd do
     OUTPUT
 
     expect(xmlpp(
-      IsoDoc::Rsd::HtmlConvert.new({}).
+      IsoDoc::Ribose::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
@@ -147,7 +147,7 @@ RSpec.describe IsoDoc::Rsd do
     OUTPUT
 
     expect(xmlpp(
-      IsoDoc::Rsd::HtmlConvert.new({}).
+      IsoDoc::Ribose::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
@@ -294,7 +294,7 @@ RSpec.describe IsoDoc::Rsd do
     OUTPUT
 
     expect(xmlpp(
-      IsoDoc::Rsd::HtmlConvert.new({}).convert("test", input, true).
+      IsoDoc::Ribose::HtmlConvert.new({}).convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
     )).to be_equivalent_to output
@@ -316,14 +316,14 @@ RSpec.describe IsoDoc::Rsd do
 </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Source Sans Pro})
   end
 
     it "cross-references sections" do
-      expect(xmlpp(IsoDoc::Rsd::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      expect(xmlpp(IsoDoc::Ribose::HtmlConvert.new({}).convert("test", <<~"INPUT", true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       <rsd-standard xmlns="http://riboseinc.com/isoxml">
       <preface>
       <foreword obligation="informative">

@@ -1,7 +1,7 @@
 require "metanorma-generic"
 
 module IsoDoc
-  module Rsd
+  module Ribose
     class Xref < IsoDoc::Generic::Xref
       def annex_name_lbl(clause, num)
         obl = l10n("(#{@labels['inform_annex']})")

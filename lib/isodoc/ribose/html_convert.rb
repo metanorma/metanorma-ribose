@@ -1,15 +1,15 @@
 require "isodoc"
 require "isodoc/generic/html_convert"
-require "isodoc/rsd/metadata"
+require "isodoc/ribose/metadata"
 
 module IsoDoc
-  module Rsd
+  module Ribose
     # A {Converter} implementation that generates HTML output, and a document
     # schema encapsulation of the document for validation
     #
     class HtmlConvert < IsoDoc::Generic::HtmlConvert
       def configuration
-        Metanorma::Rsd.configuration
+        Metanorma::Ribose.configuration
       end
 
       def make_body3(body, docxml)

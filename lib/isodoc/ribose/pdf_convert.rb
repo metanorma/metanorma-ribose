@@ -1,8 +1,8 @@
 require "isodoc"
-require "isodoc/rsd/metadata"
+require "isodoc/ribose/metadata"
 
 module IsoDoc
-  module Rsd
+  module Ribose
     # A {Converter} implementation that generates PDF HTML output, and a
     # document schema encapsulation of the document for validation
     class PdfConvert <  IsoDoc::XslfoPdfConvert

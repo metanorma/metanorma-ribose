@@ -3,7 +3,7 @@ require "isodoc"
 require "metanorma-generic"
 
 module IsoDoc
-  module Rsd
+  module Ribose
     class PresentationXMLConvert < IsoDoc::Generic::PresentationXMLConvert
     end
   end

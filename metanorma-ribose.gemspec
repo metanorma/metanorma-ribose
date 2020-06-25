@@ -1,23 +1,23 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "metanorma/rsd/version"
+require "metanorma/ribose/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "metanorma-rsd"
-  spec.version       = Metanorma::Rsd::VERSION
+  spec.name          = "metanorma-ribose"
+  spec.version       = Metanorma::Ribose::VERSION
   spec.authors       = ["Ribose Inc."]
   spec.email         = ["open.source@ribose.com"]
 
-  spec.summary       = "metanorma-rsd lets you write RSD in AsciiDoc."
+  spec.summary       = "metanorma-ribose lets you write Ribose standards in AsciiDoc."
   spec.description   = <<~DESCRIPTION
-    metanorma-rsd lets you write RSD in AsciiDoc syntax.
+    metanorma-ribose lets you write Ribose standards in AsciiDoc syntax.
 
     This gem is in active development.
 
-    Formerly known as asciidoctor-rsd.
+    Formerly known as asciidoctor-rsd, metanorma-rsd.
   DESCRIPTION
 
-  spec.homepage      = "https://github.com/metanorma/metanorma-rsd"
+  spec.homepage      = "https://github.com/metanorma/metanorma-ribose"
   spec.license       = "BSD-2-Clause"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
