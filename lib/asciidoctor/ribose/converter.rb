@@ -2,7 +2,7 @@ require "asciidoctor/standoc/converter"
 require 'asciidoctor/generic/converter'
 
 module Asciidoctor
-  module Rsd
+  module Ribose
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
     #
@@ -10,7 +10,7 @@ module Asciidoctor
       XML_ROOT_TAG = 'rsd-standard'.freeze
       XML_NAMESPACE = 'https://www.metanorma.org/ns/rsd'.freeze
 
-      register_for "rsd"
+      register_for "ribose"
 
       def sectiontype(node, level = true)
         ret = node&.attr("heading")&.downcase ||
@@ -52,20 +52,24 @@ module Asciidoctor
       end
 
       def configuration
-        Metanorma::Rsd.configuration
+        Metanorma::Ribose.configuration
+      end
+
+      def presentation_xml_converter(node)
+        IsoDoc::Ribose::PresentationXMLConvert.new(html_extract_attributes(node))
       end
 
       def html_converter(node)
-        IsoDoc::Rsd::HtmlConvert.new(html_extract_attributes(node))
+        IsoDoc::Ribose::HtmlConvert.new(html_extract_attributes(node))
       end
 
       def pdf_converter(node)
         return nil if node.attr("no-pdf")
-        IsoDoc::Rsd::PdfConvert.new(html_extract_attributes(node))
+        IsoDoc::Ribose::PdfConvert.new(html_extract_attributes(node))
       end
 
-      def word_converter(node)
-        IsoDoc::Rsd::WordConvert.new(doc_extract_attributes(node))
+      def doc_converter(node)
+        IsoDoc::Ribose::WordConvert.new(doc_extract_attributes(node))
       end
     end
   end

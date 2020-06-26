@@ -1,9 +1,9 @@
 require "metanorma"
 require "metanorma-generic"
-require "metanorma/rsd/processor"
+require "metanorma/ribose/processor"
 
 module Metanorma
-  module Rsd
+  module Ribose
 
     class Configuration < Metanorma::Generic::Configuration
       def initialize(*args)
@@ -29,4 +29,4 @@ module Metanorma
     configure {}
   end
 end
-Metanorma::Registry.instance.register(Metanorma::Rsd::Processor)
+Metanorma::Registry.instance.register(Metanorma::Ribose::Processor)

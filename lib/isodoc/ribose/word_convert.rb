@@ -1,14 +1,14 @@
 require "isodoc"
 require "isodoc/generic/word_convert"
-require "isodoc/rsd/metadata"
+require "isodoc/ribose/metadata"
 
 module IsoDoc
-  module Rsd
+  module Ribose
     # A {Converter} implementation that generates Word output, and a document
     # schema encapsulation of the document for validation
     class WordConvert < IsoDoc::Generic::WordConvert
       def configuration
-        Metanorma::Rsd.configuration
+        Metanorma::Ribose.configuration
       end
 
       def make_body2(body, docxml)

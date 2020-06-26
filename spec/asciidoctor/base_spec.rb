@@ -1,9 +1,9 @@
 require "spec_helper"
 require "fileutils"
 
-RSpec.describe Asciidoctor::Rsd do
+RSpec.describe Asciidoctor::Ribose do
   it "has a version number" do
-    expect(Metanorma::Rsd::VERSION).not_to be nil
+    expect(Metanorma::Ribose::VERSION).not_to be nil
   end
 
   it "processes a blank document" do
@@ -17,7 +17,7 @@ RSpec.describe Asciidoctor::Rsd do
 </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -36,7 +36,7 @@ RSpec.describe Asciidoctor::Rsd do
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -128,11 +128,11 @@ RSpec.describe Asciidoctor::Rsd do
 </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
   end
 
     it "processes committee-draft" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ribose, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       = Document title
       Author
       :docfile: test.adoc
@@ -195,7 +195,7 @@ RSpec.describe Asciidoctor::Rsd do
     end
 
             it "processes draft-standard" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :rsd, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ribose, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       = Document title
       Author
       :docfile: test.adoc
@@ -324,7 +324,7 @@ OUTPUT
         </rsd-standard>
       OUTPUT
 
-      expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to(be_equivalent_to(output))
+      expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to(be_equivalent_to(output))
     end
 
   it "strips inline header" do
@@ -347,7 +347,7 @@ OUTPUT
        </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -360,7 +360,7 @@ OUTPUT
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :rsd, header_footer: true)
+    Asciidoctor.convert(input, backend: :ribose, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Source Code Pro", monospace;]m)
@@ -379,7 +379,7 @@ OUTPUT
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :rsd, header_footer: true)
+    Asciidoctor.convert(input, backend: :ribose, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\bpre[^{]+\{[^}]+font-family: "Source Code Pro", monospace;]m)
@@ -401,7 +401,7 @@ OUTPUT
     INPUT
 
     FileUtils.rm_f "test.html"
-    Asciidoctor.convert(input, backend: :rsd, header_footer: true)
+    Asciidoctor.convert(input, backend: :ribose, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r[\bpre[^{]+\{[^{]+font-family: Andale Mono;]m)
@@ -445,7 +445,7 @@ OUTPUT
        </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
   end
 
     it "processes executive summaries" do
@@ -496,7 +496,7 @@ OUTPUT
 </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :rsd, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
 
     end
 

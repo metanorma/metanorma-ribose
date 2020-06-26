@@ -1,4 +1,4 @@
 module Asciidoctor
-  module Rsd
+  module Ribose
   end
 end

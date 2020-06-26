@@ -2,13 +2,13 @@ require "spec_helper"
 require "metanorma"
 require "fileutils"
 
-RSpec.describe Metanorma::Rsd::Processor do
+RSpec.describe Metanorma::Ribose::Processor do
 
   registry = Metanorma::Registry.instance
-  registry.register(Metanorma::Rsd::Processor)
+  registry.register(Metanorma::Ribose::Processor)
 
   let(:processor) {
-    registry.find_processor(:rsd)
+    registry.find_processor(:ribose)
   }
 
   it "registers against metanorma" do
@@ -17,12 +17,12 @@ RSpec.describe Metanorma::Rsd::Processor do
 
   it "registers output formats against metanorma" do
     expect(processor.output_formats.sort.to_s).to be_equivalent_to <<~"OUTPUT"
-    [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:rxl, "rxl"], [:xml, "xml"]]
+    [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:presentation, "presentation.xml"], [:rxl, "rxl"], [:xml, "xml"]]
     OUTPUT
   end
 
   it "registers version against metanorma" do
-    expect(processor.version.to_s).to match(%r{^Metanorma::Rsd })
+    expect(processor.version.to_s).to match(%r{^Metanorma::Ribose })
   end
 
   it "generates IsoDoc XML from a blank document" do
@@ -64,7 +64,7 @@ RSpec.describe Metanorma::Rsd::Processor do
     </main>
     OUTPUT
 
-    processor.output(input, "test.html", :html)
+    processor.output(input, "test.xml", "test.html", :html)
 
     expect(
       xmlpp(File.read("test.html", encoding: "utf-8").

@@ -1,23 +1,23 @@
-metanorma_name: rsd
+metanorma_name: ribose
 organization_name_short: Ribose
 organization_name_long: Ribose
 document_namespace: https://www.metanorma.org/ns/rsd
 xml_root_tag: 'rsd-standard'
-logo_path: lib/isodoc/rsd/html/logo.png
-validate_rng_file: lib/asciidoctor/rsd/rsd.rng
-htmlcoverpage: lib/isodoc/rsd/html/html_rsd_titlepage.html
-htmlintropage: lib/isodoc/rsd/html/html_rsd_intro.html
-htmlstylesheet: lib/isodoc/rsd/html/htmlstyle.scss
+logo_path: lib/isodoc/ribose/html/logo.png
+validate_rng_file: lib/asciidoctor/ribose/rsd.rng
+htmlcoverpage: lib/isodoc/ribose/html/html_rsd_titlepage.html
+htmlintropage: lib/isodoc/ribose/html/html_rsd_intro.html
+htmlstylesheet: lib/isodoc/ribose/html/htmlstyle.scss
 html_bodyfont: '"Source Sans Pro",sans-serif'
 html_headerfont: '"Source Sans Pro",sans-serif'
 html_monospacefont: '"Source Code Pro",monospace'
-scripts: lib/isodoc/rsd/html/scripts.html
-scripts_pdf: lib/isodoc/rsd/html/scripts.pdf.html
-standardstylesheet: lib/isodoc/rsd/html/rsd.scss
-header: lib/isodoc/rsd/html/header.html
-wordcoverpage: lib/isodoc/rsd/html/word_rsd_titlepage.html
-wordintropage: lib/isodoc/rsd/html/word_rsd_intro.html
-wordstylesheet: lib/isodoc/rsd/html/wordstyle.scss
+scripts: lib/isodoc/ribose/html/scripts.html
+scripts_pdf: lib/isodoc/ribose/html/scripts.pdf.html
+standardstylesheet: lib/isodoc/ribose/html/rsd.scss
+header: lib/isodoc/ribose/html/header.html
+wordcoverpage: lib/isodoc/ribose/html/word_rsd_titlepage.html
+wordintropage: lib/isodoc/ribose/html/word_rsd_intro.html
+wordstylesheet: lib/isodoc/ribose/html/wordstyle.scss
 word_bodyfont: '"Source Sans Pro","Arial",sans-serif'
 word_headerfont: '"Source Sans Pro","Arial",sans-serif'
 word_monospacefont: '"Source Code Pro",monospace'

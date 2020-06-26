@@ -1,11 +1,11 @@
 require "isodoc"
 
 module IsoDoc
-  module Rsd
+  module Ribose
 
     class Metadata < IsoDoc::Generic::Metadata
       def configuration
-        Metanorma::Rsd.configuration
+        Metanorma::Ribose.configuration
       end
 
       def version(isoxml, _out)

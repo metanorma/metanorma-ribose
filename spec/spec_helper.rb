@@ -5,16 +5,16 @@ end
 
 require "bundler/setup"
 require "asciidoctor"
-require "metanorma-rsd"
-require "asciidoctor/rsd"
-require "isodoc/rsd/html_convert"
-require "isodoc/rsd/word_convert"
+require "metanorma-ribose"
+require "asciidoctor/ribose"
+require "isodoc/ribose/html_convert"
+require "isodoc/ribose/word_convert"
 require "asciidoctor/standoc/converter"
 require "rspec/matchers"
 require "equivalent-xml"
 require "htmlentities"
 require "metanorma"
-require "metanorma/rsd"
+require "metanorma/ribose"
 require "rexml/document"
 
 RSpec.configure do |config|
@@ -66,7 +66,7 @@ HDR
 
 BOILERPLATE =
   HTMLEntities.new.decode(
-  File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "rsd", "boilerplate.xml"), encoding: "utf-8").
+  File.read(File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "ribose", "boilerplate.xml"), encoding: "utf-8").
   gsub(/\{\{ docyear \}\}/, Date.today.year.to_s).
   gsub(/<p>/, '<p id="_">').
   gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "").
