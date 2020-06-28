@@ -1,6 +1,7 @@
 require "isodoc"
 require "isodoc/generic/html_convert"
 require "isodoc/ribose/metadata"
+require_relative "init"
 
 module IsoDoc
   module Ribose
@@ -28,6 +29,7 @@ module IsoDoc
     end
 
       include BaseConvert
+      include Init
     end
   end
 end

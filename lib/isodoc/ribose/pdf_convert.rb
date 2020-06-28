@@ -1,5 +1,4 @@
 require "isodoc"
-require "isodoc/ribose/metadata"
 
 module IsoDoc
   module Ribose
