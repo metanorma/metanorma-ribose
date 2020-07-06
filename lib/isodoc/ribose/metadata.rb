@@ -2,7 +2,6 @@ require "isodoc"
 
 module IsoDoc
   module Ribose
-
     class Metadata < IsoDoc::Generic::Metadata
       def configuration
         Metanorma::Ribose.configuration

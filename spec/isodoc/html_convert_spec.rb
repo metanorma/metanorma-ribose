@@ -168,7 +168,7 @@ RSpec.describe IsoDoc::Ribose do
          <title>Introduction Subsection</title>
        </clause>
        </introduction></preface><sections>
-       <clause id="D" obligation="normative">
+       <clause id="D" obligation="normative" type="scope">
          <title>Scope</title>
          <p id="E">Text</p>
        </clause>
@@ -219,43 +219,105 @@ RSpec.describe IsoDoc::Ribose do
        </rsd-standard>
     INPUT
 
+    presxml = <<~OUTPUT
+    <rsd-standard xmlns="http://riboseinc.com/isoxml">
+         <preface>
+         <foreword obligation="informative">
+            <title>Foreword</title>
+            <p id="A">This is a preamble</p>
+          </foreword>
+           <executivesummary id="A1" obligation="informative"><title>Executive Summary</title>
+           </executivesummary>
+           <introduction id="B" obligation="informative"><title>Introduction</title><clause id="C" inline-header="false" obligation="informative">
+            <title depth="2">Introduction Subsection</title>
+          </clause>
+          </introduction></preface><sections>
+          <clause id="D" obligation="normative" type="scope">
+            <title depth="1">1.<tab/>Scope</title>
+            <p id="E">Text</p>
+          </clause>
+
+          <clause id="H" obligation="normative"><title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title><terms id="I" obligation="normative">
+            <title depth="2">3.1.<tab/>Normal Terms</title>
+            <term id="J"><name>3.1.1.</name>
+            <preferred>Term2</preferred>
+          </term>
+          </terms>
+          <definitions id="K"><title>3.2.</title>
+            <dl>
+            <dt>Symbol</dt>
+            <dd>Definition</dd>
+            </dl>
+          </definitions>
+          </clause>
+          <definitions id="L"><title>4.</title>
+            <dl>
+            <dt>Symbol</dt>
+            <dd>Definition</dd>
+            </dl>
+          </definitions>
+          <clause id="M" inline-header="false" obligation="normative"><title depth="1">5.<tab/>Clause 4</title><clause id="N" inline-header="false" obligation="normative">
+            <title depth="2">5.1.<tab/>Introduction</title>
+          </clause>
+          <clause id="O" inline-header="false" obligation="normative">
+            <title depth="2">5.2.<tab/>Clause 4.2</title>
+          </clause></clause>
+
+          </sections><annex id="P" inline-header="false" obligation="normative">
+            <title>Annex A<br/>(normative)<br/><br/>Annex</title>
+            <clause id="Q" inline-header="false" obligation="normative">
+            <title depth="2">A.1.<tab/>Annex A.1</title>
+            <clause id="Q1" inline-header="false" obligation="normative">
+            <title depth="3">A.1.1.<tab/>Annex A.1a</title>
+            </clause>
+          </clause>
+          </annex><bibliography><references id="R" obligation="informative" normative="true">
+            <title depth="1">2.<tab/>Normative References</title>
+          </references><clause id="S" obligation="informative">
+            <title depth="1">Bibliography</title>
+            <references id="T" obligation="informative" normative="false">
+            <title depth="2">Bibliography Subsection</title>
+          </references>
+          </clause>
+          </bibliography>
+          </rsd-standard>
+          OUTPUT
+
     output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
-             <br/>
-             <div>
-               <h1 class="ForewordTitle">Foreword</h1>
-               <p id="A">This is a preamble</p>
+        <br/>
+           <div>
+             <h1 class='ForewordTitle'>Foreword</h1>
+             <p id='A'>This is a preamble</p>
+           </div>
+           <br/>
+           <div class='Section3' id='A1'>
+             <h1 class='IntroTitle'>Executive Summary</h1>
+           </div>
+           <br/>
+           <div class='Section3' id='B'>
+             <h1 class='IntroTitle'>Introduction</h1>
+             <div id='C'>
+               <h2>Introduction Subsection</h2>
              </div>
-             <br/>
-<div class='Section3' id='A1'>
-  <h1 class='IntroTitle'>Executive Summary</h1>
-</div>
-             <br/>
-             <div class="Section3" id="B">
-               <h1 class="IntroTitle">Introduction</h1>
-               <div id="C">
-          <h2>Introduction Subsection</h2>
-        </div>
+           </div>
+           <p class='zzSTDTitle1'/>
+           <div id='D'>
+             <h1>1.&#160; Scope</h1>
+             <p id='E'>Text</p>
+           </div>
+           <div>
+             <h1>2.&#160; Normative References</h1>
+           </div>
+           <div id='H'>
+             <h1>3.&#160; Terms, definitions, symbols and abbreviated terms</h1>
+             <div id='I'>
+               <h2>3.1.&#160; Normal Terms</h2>
+               <p class='TermNum' id='J'>3.1.1.</p>
+               <p class='Terms' style='text-align:left;'>Term2</p>
              </div>
-             <p class="zzSTDTitle1"/>
-             <div id="D">
-               <h1>1&#160; Scope</h1>
-               <p id="E">Text</p>
-             </div>
-             <div>
-               <h1>2&#160; Normative references</h1>
-             </div>
-             <div id="H"><h1>3&#160; Terms, definitions, symbols and abbreviated terms</h1>
-       <div id="I">
-          <h2>3.1&#160; Normal Terms</h2>
-          <p class="TermNum" id="J">3.1.1</p>
-          <p class="Terms" style="text-align:left;">Term2</p>
-
-        </div><div id="K"><h2>3.2&#160; Symbols and abbreviated terms</h2>
-          <dl><dt><p>Symbol</p></dt><dd>Definition</dd></dl>
-        </div></div>
-             <div id="L" class="Symbols">
-               <h1>4&#160; Symbols and abbreviated terms</h1>
+             <div id='K'>
+               <h2>3.2.</h2>
                <dl>
                  <dt>
                    <p>Symbol</p>
@@ -263,38 +325,56 @@ RSpec.describe IsoDoc::Ribose do
                  <dd>Definition</dd>
                </dl>
              </div>
-             <div id="M">
-               <h1>5&#160; Clause 4</h1>
-               <div id="N">
-          <h2>5.1&#160; Introduction</h2>
-        </div>
-               <div id="O">
-          <h2>5.2&#160; Clause 4.2</h2>
-        </div>
+           </div>
+           <div id='L' class='Symbols'>
+             <h1>4.</h1>
+             <dl>
+               <dt>
+                 <p>Symbol</p>
+               </dt>
+               <dd>Definition</dd>
+             </dl>
+           </div>
+           <div id='M'>
+             <h1>5.&#160; Clause 4</h1>
+             <div id='N'>
+               <h2>5.1.&#160; Introduction</h2>
              </div>
-             <br/>
-             <div id="P" class="Section3">
-               <h1 class="Annex">Annex A<br/>(normative) <br/><br/>Annex</h1>
-               <div id="Q">
-          <h2>A.1&#160; Annex A.1</h2>
-          <div id="Q1">
-          <h3>A.1.1&#160; Annex A.1a</h3>
-          </div>
-        </div>
+             <div id='O'>
+               <h2>5.2.&#160; Clause 4.2</h2>
              </div>
-             <br/>
-             <div>
-               <h1 class="Section3">Bibliography</h1>
-               <div>
-                 <h2 class="Section3">Bibliography Subsection</h2>
+           </div>
+           <br/>
+           <div id='P' class='Section3'>
+             <h1 class='Annex'>
+               Annex A
+               <br/>
+               (normative)
+               <br/>
+               <br/>
+               Annex
+             </h1>
+             <div id='Q'>
+               <h2>A.1.&#160; Annex A.1</h2>
+               <div id='Q1'>
+                 <h3>A.1.1.&#160; Annex A.1a</h3>
                </div>
              </div>
            </div>
-         </body>
+           <br/>
+           <div>
+             <h1 class='Section3'>Bibliography</h1>
+             <div>
+               <h2 class='Section3'>Bibliography Subsection</h2>
+             </div>
+           </div>
+         </div>
+       </body>
     OUTPUT
 
+      expect((IsoDoc::Ribose::PresentationXMLConvert.new({}).convert("test", input, true).gsub(%r{^.*<body}m, "<body").gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(presxml)
     expect(xmlpp(
-      IsoDoc::Ribose::HtmlConvert.new({}).convert("test", input, true).
+      IsoDoc::Ribose::HtmlConvert.new({}).convert("test", presxml, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
     )).to be_equivalent_to output
@@ -352,7 +432,7 @@ RSpec.describe IsoDoc::Ribose do
        </clause>
        <clause id="C1" inline-header="false" obligation="informative">Text</clause>
        </introduction></preface><sections>
-       <clause id="D" obligation="normative">
+       <clause id="D" obligation="normative" type="scope">
          <title>Scope</title>
          <p id="E">Text</p>
        </clause>
@@ -404,8 +484,7 @@ RSpec.describe IsoDoc::Ribose do
        </bibliography>
        </rsd-standard>
     INPUT
-    <?xml version='1.0'?>
-       <rsd-standard xmlns='http://riboseinc.com/isoxml'>
+    <rsd-standard xmlns='http://riboseinc.com/isoxml'>
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
@@ -432,25 +511,39 @@ RSpec.describe IsoDoc::Ribose do
            <introduction id='B' obligation='informative'>
              <title>Introduction</title>
              <clause id='C' inline-header='false' obligation='informative'>
-               <title>Introduction Subsection</title>
+               <title depth='2'>Introduction Subsection</title>
              </clause>
              <clause id='C1' inline-header='false' obligation='informative'>Text</clause>
            </introduction>
          </preface>
          <sections>
-           <clause id='D' obligation='normative'>
-             <title>Scope</title>
+           <clause id='D' obligation='normative' type='scope'>
+             <title depth='1'>
+               1.
+               <tab/>
+               Scope
+             </title>
              <p id='E'>Text</p>
            </clause>
            <terms id='H' obligation='normative'>
-             <title>Terms, definitions, symbols and abbreviated terms</title>
+             <title depth='1'>
+               3.
+               <tab/>
+               Terms, definitions, symbols and abbreviated terms
+             </title>
              <terms id='I' obligation='normative'>
-               <title>Normal Terms</title>
+               <title depth='2'>
+                 3.1.
+                 <tab/>
+                 Normal Terms
+               </title>
                <term id='J'>
+                 <name>3.1.1.</name>
                  <preferred>Term2</preferred>
                </term>
              </terms>
              <definitions id='K'>
+               <title>3.2.</title>
                <dl>
                  <dt>Symbol</dt>
                  <dd>Definition</dd>
@@ -458,27 +551,55 @@ RSpec.describe IsoDoc::Ribose do
              </definitions>
            </terms>
            <definitions id='L'>
+             <title>4.</title>
              <dl>
                <dt>Symbol</dt>
                <dd>Definition</dd>
              </dl>
            </definitions>
            <clause id='M' inline-header='false' obligation='normative'>
-             <title>Clause 4</title>
+             <title depth='1'>
+               5.
+               <tab/>
+               Clause 4
+             </title>
              <clause id='N' inline-header='false' obligation='normative'>
-               <title>Introduction</title>
+               <title depth='2'>
+                 5.1.
+                 <tab/>
+                 Introduction
+               </title>
              </clause>
              <clause id='O' inline-header='false' obligation='normative'>
-               <title>Clause 4.2</title>
+               <title depth='2'>
+                 5.2.
+                 <tab/>
+                 Clause 4.2
+               </title>
              </clause>
            </clause>
          </sections>
          <annex id='P' inline-header='false' obligation='normative'>
-           <title>Annex</title>
+           <title>
+             Annex A
+             <br/>
+             (normative)
+             <br/>
+             <br/>
+             Annex
+           </title>
            <clause id='Q' inline-header='false' obligation='normative'>
-             <title>Annex A.1</title>
+             <title depth='2'>
+               A.1.
+               <tab/>
+               Annex A.1
+             </title>
              <clause id='Q1' inline-header='false' obligation='normative'>
-               <title>Annex A.1a</title>
+               <title depth='3'>
+                 A.1.1.
+                 <tab/>
+                 Annex A.1a
+               </title>
              </clause>
            </clause>
            <appendix id='Q2' inline-header='false' obligation='normative'>
@@ -487,12 +608,16 @@ RSpec.describe IsoDoc::Ribose do
          </annex>
          <bibliography>
            <references id='R' obligation='informative' normative='true'>
-             <title>Normative References</title>
+             <title depth='1'>
+               2.
+               <tab/>
+               Normative References
+             </title>
            </references>
            <clause id='S' obligation='informative'>
-             <title>Bibliography</title>
+             <title depth='1'>Bibliography</title>
              <references id='T' obligation='informative' normative='false'>
-               <title>Bibliography Subsection</title>
+               <title depth='2'>Bibliography Subsection</title>
              </references>
            </clause>
          </bibliography>

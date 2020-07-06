@@ -1,13 +1,6 @@
 module IsoDoc
   module Ribose
     module BaseConvert
-      def annex_name(annex, name, div)
-        div.h1 **{ class: "Annex" } do |t|
-          t << "#{@xrefs.anchor(annex['id'], :label)}<br/><br/>"
-          name&.children&.each { |c2| parse(c2, t) }
-        end
-      end
-
       def executivesummary docxml, out
         f = docxml.at(ns("//executivesummary")) || return
         title_attr = { class: "IntroTitle" }
