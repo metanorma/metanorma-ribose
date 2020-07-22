@@ -473,6 +473,7 @@ OUTPUT
     #{BLANK_HDR.sub(/<status>/, "<abstract> <p>Abstract</p> </abstract> <status>")}
        <preface>
   <abstract id='_'>
+  <title>Abstract</title>
     <p id='_'>Abstract</p>
   </abstract>
   <foreword id='_' obligation='informative'>

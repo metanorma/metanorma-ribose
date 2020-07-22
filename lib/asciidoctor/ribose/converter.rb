@@ -13,8 +13,7 @@ module Asciidoctor
       register_for "ribose"
 
       def sectiontype(node, level = true)
-        ret = node&.attr("heading")&.downcase ||
-          node.title.gsub(/<[^>]+>/, "").downcase
+        ret = sectiontype1(node)
         ret1 = sectiontype_streamline(ret)
         return ret1 if "symbols and abbreviated terms" == ret1
         return ret1 if "executive summary" == ret1
@@ -38,7 +37,7 @@ module Asciidoctor
       end
 
       def clause_parse(attrs, xml, node)
-        sectiontype(node) == "executive summary" and
+        sectiontype1(node) == "executive summary" and
           return executivesummary_parse(attrs, xml, node)
         super
       end
