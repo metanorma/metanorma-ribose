@@ -13,6 +13,11 @@ module IsoDoc
         end
       end
 
+      def is_clause?(name)
+        return true if name == "executivesummary"
+        super
+      end
+
       def clausedelim
         ""
       end
