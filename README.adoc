@@ -64,7 +64,8 @@ this general model can be found on its page. Details of the Ribose modifications
 to this general model can be found on the https://github.com/metanorma/metanorma-model-rsd[RSD model]
 repository.
 
-////
 == Examples
-////
+
+Example documents may be found in the https://github.com/metanorma/mn-samples-ribose[mn-samples-ribose]
+repository.
 
