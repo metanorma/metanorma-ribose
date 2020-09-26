@@ -220,7 +220,7 @@ RSpec.describe IsoDoc::Ribose do
     INPUT
 
     presxml = <<~OUTPUT
-    <rsd-standard xmlns="http://riboseinc.com/isoxml">
+    <rsd-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
          <preface>
          <foreword obligation="informative">
             <title>Foreword</title>
@@ -484,7 +484,7 @@ RSpec.describe IsoDoc::Ribose do
        </bibliography>
        </rsd-standard>
     INPUT
-    <rsd-standard xmlns='http://riboseinc.com/isoxml'>
+    <rsd-standard xmlns='http://riboseinc.com/isoxml' type="presentation">
          <preface>
            <foreword obligation='informative'>
              <title>Foreword</title>
