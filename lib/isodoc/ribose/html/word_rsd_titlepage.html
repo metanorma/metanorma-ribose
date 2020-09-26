@@ -54,16 +54,16 @@ mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0
 {{ revdate_MMMddyyyy || circulateddate }}</p>
 {% endif %}
 
-{% if security %}
+{% if metadata_extensions["security"] %}
 <p class="MsoNormal">&#xA0;</p>
 
-<p class="MsoNormal"><i> {{ security }}</i></p>
+<p class="MsoNormal"><i> {{ metadata_extensions["security"]   }}</i></p>
 {% endif %}
 
-{% if recipient %}
+{% if metadata_extensions["recipient"]   %}
 <p class="MsoNormal">&#xA0;</p>
 
-<p class="MsoNormal">Recipient: {{ recipient  }}</p>
+<p class="MsoNormal">Recipient: {{ metadata_extensions["recipient"]  }}</p>
 {% endif %}
 
 <div style='mso-element:para-border-div;border:solid windowtext 1.0pt;

@@ -52,8 +52,11 @@
           Published {{ publisheddate -}}
           {%- endif -%}
           {%- endif -%}</span></p>
-        {% if security %}
-        <p><span class="coverpage-maturity">Classification: {{ security }}</span></p>
+        {% if metadata_extensions["security"] %}
+        <p><span class="coverpage-maturity">Classification: {{  metadata_extensions["security"] }}</span></p>
+        {% endif %}
+        {% if metadata_extensions["recipient"] %}
+        <p><span class="coverpage-maturity">Recipient: {{  metadata_extensions["recipient"] }}</span></p>
         {% endif %}
       </div>
 
