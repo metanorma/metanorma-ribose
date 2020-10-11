@@ -56,8 +56,6 @@ RSpec.describe IsoDoc::Ribose do
     output = <<~"OUTPUT"
 {:accesseddate=>"XXX",
 :agency=>"Ribose",
-:authors=>[],
-:authors_affiliations=>{},
 :circulateddate=>"XXX",
 :confirmeddate=>"XXX",
 :copieddate=>"XXX",
@@ -72,7 +70,6 @@ RSpec.describe IsoDoc::Ribose do
 :edition=>"2",
 :implementeddate=>"XXX",
 :issueddate=>"XXX",
-:keywords=>[],
 :logo=>"#{File.join(logoloc, "logo.png")}",
 :metadata_extensions=>{"doctype"=>"standard", "editorialgroup"=>{"committee_type"=>"A", "committee"=>"TC"}, "security"=>"Client Confidential", "recipient"=>"Fred"},
 :obsoleteddate=>"XXX",
@@ -94,7 +91,7 @@ RSpec.describe IsoDoc::Ribose do
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
   it "processes pre" do
