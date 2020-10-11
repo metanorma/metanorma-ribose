@@ -46,6 +46,7 @@ RSpec.describe IsoDoc::Ribose do
     <committee type="A">TC</committee>
   </editorialgroup>
   <security>Client Confidential</security>
+  <recipient>Fred</recipient>
   </ext>
 </bibdata>
 <sections/>
@@ -73,6 +74,7 @@ RSpec.describe IsoDoc::Ribose do
 :issueddate=>"XXX",
 :keywords=>[],
 :logo=>"#{File.join(logoloc, "logo.png")}",
+:metadata_extensions=>{"doctype"=>"standard", "editorialgroup"=>{"committee_type"=>"A", "committee"=>"TC"}, "security"=>"Client Confidential", "recipient"=>"Fred"},
 :obsoleteddate=>"XXX",
 :publisheddate=>"XXX",
 :publisher=>"Ribose",
@@ -80,7 +82,6 @@ RSpec.describe IsoDoc::Ribose do
 :revdate=>"2000-01-01",
 :revdate_MMMddyyyy=>"January 01, 2000",
 :revdate_monthyear=>"January 2000",
-:security=>"Client Confidential",
 :stage=>"Working Draft",
 :stageabbr=>"wd",
 :tc=>"TC",
