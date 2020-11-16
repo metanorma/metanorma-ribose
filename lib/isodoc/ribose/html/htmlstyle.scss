@@ -10,7 +10,7 @@
 @import 'base_style/all';
 
 body {
-  @include bodyStyle1(15px, 1.4em, #1d1d1d, #ffffff, 300);
+  @include bodyStyle1($normalfontsize, 1.4em, #1d1d1d, #ffffff, 300);
   // @include sidebarNavContainer(323px);
 }
 
@@ -417,7 +417,7 @@ a.footnote-number {
 }
 
 .footnote {
-  font-size: 0.9em;
+  font-size: $footnotefontsize;
 }
 
 /*
