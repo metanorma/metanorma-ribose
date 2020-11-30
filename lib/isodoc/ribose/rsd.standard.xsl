@@ -55,7 +55,7 @@
 	
 	<xsl:template match="/">
 		<xsl:call-template name="namespaceCheck"/>
-		<fo:root font-family="SourceSansPro-Light, STIX Two Math" font-size="10.5pt" xml:lang="{$lang}">
+		<fo:root font-family="Source Sans Pro, STIX Two Math" font-weight="300" font-size="10.5pt" xml:lang="{$lang}">
 			<fo:layout-master-set>
 				
 				<fo:simple-page-master master-name="odd" page-width="{$pageWidth}" page-height="{$pageHeight}">
@@ -107,12 +107,12 @@
 				<fo:flow flow-name="xsl-region-body">
 					<fo:block font-size="16pt" margin-bottom="16pt"> </fo:block>
 					<fo:block font-size="16pt" margin-bottom="16pt"> </fo:block>
-					<fo:block font-size="22pt" font-weight="bold" margin-bottom="12pt"><xsl:value-of select="$doctitle"/></fo:block>
+					<fo:block font-size="22pt" font-weight="normal" margin-bottom="12pt"><xsl:value-of select="$doctitle"/></fo:block>
 					<fo:block font-size="22pt" margin-bottom="14pt"> </fo:block>
 					<fo:block font-size="22pt" margin-bottom="14pt"> </fo:block>
 					<fo:block font-size="22pt" margin-bottom="6pt"> </fo:block>
 					
-					<fo:block font-family="SourceSerifPro" font-size="12pt" line-height="230%">
+					<fo:block font-family="Source Serif Pro" font-size="12pt" line-height="230%">
 						<fo:block>Ronald Tse</fo:block>
 						<fo:block>Wai Kit Wong</fo:block>
 						<fo:block>Daniel Wyatt</fo:block>
@@ -144,7 +144,7 @@
 						</xsl:call-template>
 					</fo:block>
 					
-					<fo:block font-size="12pt" font-weight="bold" font-style="italic" margin-bottom="12pt">
+					<fo:block font-size="12pt" font-weight="normal" font-style="italic" margin-bottom="12pt">
 						<xsl:text>Unrestricted</xsl:text>
 					</fo:block>
 					
@@ -165,8 +165,8 @@
 							<xsl:with-param name="name" select="'title-toc'"/>
 						</xsl:call-template>
 					</xsl:variable>
-					<fo:block font-size="14pt" font-weight="bold" margin-bottom="15.5pt"><xsl:value-of select="$title-toc"/></fo:block>
-					<fo:block font-weight="bold" line-height="125%">
+					<fo:block font-size="14pt" font-weight="normal" margin-bottom="15.5pt"><xsl:value-of select="$title-toc"/></fo:block>
+					<fo:block font-weight="normal" line-height="125%">
 						<xsl:for-each select="xalan:nodeset($contents)//item[@display = 'true']">
 							<fo:block>
 								<xsl:if test="@level = 1">
@@ -225,7 +225,7 @@
 				
 					<fo:block line-height="130%">
 					
-						<fo:block font-size="16pt" font-weight="bold" margin-bottom="18pt"><xsl:value-of select="$doctitle"/></fo:block>
+						<fo:block font-size="16pt" font-weight="normal" margin-bottom="18pt"><xsl:value-of select="$doctitle"/></fo:block>
 					
 						<xsl:apply-templates select="/rsd:rsd-standard/rsd:preface/rsd:abstract"/>
 						<xsl:apply-templates select="/rsd:rsd-standard/rsd:preface/rsd:foreword"/>
@@ -328,7 +328,7 @@
 	</xsl:template>
 	
 	<xsl:template match="rsd:license-statement//rsd:title">
-		<fo:block text-align="center" font-weight="bold" margin-top="4pt">
+		<fo:block text-align="center" font-weight="normal" margin-top="4pt">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
@@ -349,7 +349,7 @@
 	</xsl:template>
 		
 	<xsl:template match="rsd:copyright-statement//rsd:title">
-		<fo:block font-weight="bold" text-align="center">
+		<fo:block font-weight="normal" text-align="center">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
@@ -373,7 +373,7 @@
 	</xsl:template>
 
 	<xsl:template match="rsd:legal-statement//rsd:title">
-		<fo:block font-weight="bold" padding-top="2mm" margin-bottom="6pt">
+		<fo:block font-weight="normal" padding-top="2mm" margin-bottom="6pt">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
@@ -434,7 +434,7 @@
 		
 		<xsl:element name="{$element-name}">
 			<xsl:attribute name="font-size"><xsl:value-of select="$font-size"/></xsl:attribute>
-			<xsl:attribute name="font-weight">bold</xsl:attribute>
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
 			<xsl:attribute name="space-before">13.5pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 			<xsl:attribute name="keep-with-next">always</xsl:attribute>		
@@ -529,7 +529,7 @@
 	
 	
 	<xsl:template match="rsd:bibitem">
-		<fo:block font-family="SourceSansPro" font-size="11pt" id="{@id}" margin-bottom="12pt" start-indent="12mm" text-indent="-12mm">
+		<fo:block font-family="Source Sans Pro" font-size="11pt" id="{@id}" margin-bottom="12pt" start-indent="12mm" text-indent="-12mm">
 			<xsl:if test=".//rsd:fn">
 				<xsl:attribute name="line-height-shift-adjustment">disregard-shifts</xsl:attribute>
 			</xsl:if>
@@ -727,10 +727,10 @@
 			</xsl:choose>
 		</xsl:variable>
 		<fo:block font-size="{$font-size}">
-			<fo:block font-weight="bold" keep-with-next="always">
+			<fo:block font-weight="normal" keep-with-next="always">
 				<xsl:apply-templates select="ancestor::rsd:term/rsd:name" mode="presentation"/>
 			</fo:block>
-			<fo:block font-weight="bold" keep-with-next="always" line-height="1">
+			<fo:block font-weight="normal" keep-with-next="always" line-height="1">
 				<xsl:apply-templates/>
 			</fo:block>
 		</fo:block>
@@ -774,7 +774,7 @@
 	<xsl:template match="rsd:admonition">
 		<fo:block-container border="0.5pt solid rgb(79, 129, 189)" color="rgb(79, 129, 189)" margin-left="16mm" margin-right="16mm" margin-bottom="12pt">
 			<fo:block-container margin-left="0mm" margin-right="0mm" padding="2mm" padding-top="3mm">
-				<fo:block font-size="11pt" margin-bottom="6pt" font-weight="bold" font-style="italic" text-align="center">					
+				<fo:block font-size="11pt" margin-bottom="6pt" font-weight="normal" font-style="italic" text-align="center">					
 					<xsl:value-of select="java:toUpperCase(java:java.lang.String.new(@type))"/>
 				</fo:block>
 				<fo:block font-style="italic">
@@ -820,7 +820,7 @@
 	</xsl:template>
 		
 	<xsl:template name="insertHeaderFooter">
-		<xsl:param name="font-weight" select="'bold'"/>
+		<xsl:param name="font-weight" select="'normal'"/>
 		<fo:static-content flow-name="header-odd">
 			<fo:block-container height="100%" display-align="after">
 				<fo:block text-align="right">
@@ -1062,7 +1062,7 @@
 		<xsl:attribute name="wrap-option">wrap</xsl:attribute>
 		
 		
-			<xsl:attribute name="font-family">SourceCodePro</xsl:attribute>			
+			<xsl:attribute name="font-family">Source Code Pro</xsl:attribute>			
 			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 			<xsl:attribute name="keep-with-next">always</xsl:attribute>
 			<xsl:attribute name="line-height">113%</xsl:attribute>
@@ -1102,8 +1102,8 @@
 		
 		
 		
-					
-			<xsl:attribute name="font-family">SourceSansPro</xsl:attribute>
+		
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
 			<xsl:attribute name="font-size">11pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		
@@ -1142,11 +1142,10 @@
 		
 		
 		
-			<xsl:attribute name="font-family">SourceSansPro</xsl:attribute>
 			<xsl:attribute name="font-size">11pt</xsl:attribute>			
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
-			<xsl:attribute name="font-weight">bold</xsl:attribute>
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
 			<xsl:attribute name="keep-with-next">always</xsl:attribute>			 
 		
 		
@@ -1196,7 +1195,7 @@
 		
 		
 			<xsl:attribute name="font-size">12pt</xsl:attribute>
-			<xsl:attribute name="font-family">SourceSansPro</xsl:attribute>
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		
@@ -1204,7 +1203,7 @@
 		
 		
 		
-			<xsl:attribute name="font-family">SourceSansPro</xsl:attribute>
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
 			<xsl:attribute name="font-size">11pt</xsl:attribute>			
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		
@@ -1323,6 +1322,7 @@
 	</xsl:attribute-set><xsl:attribute-set name="term-style">
 		
 	</xsl:attribute-set><xsl:attribute-set name="figure-name-style">
+		
 				
 		
 		
@@ -1335,9 +1335,8 @@
 		
 		
 		
-			<xsl:attribute name="font-family">SourceSansPro</xsl:attribute>
 			<xsl:attribute name="font-size">12pt</xsl:attribute>
-			<xsl:attribute name="font-weight">bold</xsl:attribute>
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
 			<xsl:attribute name="text-align">center</xsl:attribute>
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
@@ -1371,7 +1370,7 @@
 
 	</xsl:attribute-set><xsl:attribute-set name="tt-style">
 		
-			<xsl:attribute name="font-family">SourceCodePro</xsl:attribute>			
+			<xsl:attribute name="font-family">Source Code Pro</xsl:attribute>			
 		
 		
 		
@@ -1383,7 +1382,7 @@
 		<xsl:attribute name="keep-with-previous">always</xsl:attribute>
 		
 			<xsl:attribute name="font-size">12pt</xsl:attribute>
-			<xsl:attribute name="font-family">SourceSansPro</xsl:attribute>
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="domain-style">
 				
@@ -2581,6 +2580,9 @@
 		</fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='strong'] | *[local-name()='b']">
 		<fo:inline font-weight="bold">
+			
+				<xsl:attribute name="font-weight">normal</xsl:attribute>
+			
 			<xsl:apply-templates/>
 		</fo:inline>
 	</xsl:template><xsl:template match="*[local-name()='sup']">
@@ -3205,7 +3207,8 @@
 			</fo:inline>
 		</xsl:if>
 	</xsl:template><xsl:template match="*[local-name() = 'figure']">
-		<fo:block-container id="{@id}">
+		<fo:block-container id="{@id}">			
+			
 			<fo:block>
 				<xsl:apply-templates/>
 			</fo:block>
@@ -3256,7 +3259,7 @@
 		<xsl:apply-templates mode="bookmarks"/>
 	</xsl:template><xsl:template match="*[local-name() = 'stem']" mode="contents">
 		<xsl:apply-templates select="."/>
-	</xsl:template><xsl:template match="*[local-name() = 'stem']" mode="bookmarks">
+	</xsl:template><xsl:template match="*[local-name() = 'references'][@hidden='true']" mode="contents" priority="3"/><xsl:template match="*[local-name() = 'stem']" mode="bookmarks">
 		<xsl:apply-templates mode="bookmarks"/>
 	</xsl:template><xsl:template name="addBookmarks">
 		<xsl:param name="contents"/>
@@ -3989,7 +3992,7 @@
 		<fo:block id="{@id}">
 			<xsl:apply-templates/>
 		</fo:block>
-	</xsl:template><xsl:template match="/*/*[local-name() = 'bibliography']/*[local-name() = 'references'][@normative='true']">
+	</xsl:template><xsl:template match="*[local-name() = 'references'][@hidden='true']" priority="3"/><xsl:template match="*[local-name() = 'bibitem'][@hidden='true']" priority="3"/><xsl:template match="/*/*[local-name() = 'bibliography']/*[local-name() = 'references'][@normative='true']">
 		
 		<fo:block id="{@id}">
 			<xsl:apply-templates/>
