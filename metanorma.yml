@@ -11,6 +11,8 @@ htmlstylesheet: lib/isodoc/ribose/html/htmlstyle.scss
 html_bodyfont: '"Source Sans Pro",sans-serif'
 html_headerfont: '"Source Sans Pro",sans-serif'
 html_monospacefont: '"Source Code Pro",monospace'
+html_normalfontsize: "15px"
+html_footnotefontsize: "0.9em"
 scripts: lib/isodoc/ribose/html/scripts.html
 scripts_pdf: lib/isodoc/ribose/html/scripts.pdf.html
 standardstylesheet: lib/isodoc/ribose/html/rsd.scss
@@ -21,6 +23,10 @@ wordstylesheet: lib/isodoc/ribose/html/wordstyle.scss
 word_bodyfont: '"Source Sans Pro","Arial",sans-serif'
 word_headerfont: '"Source Sans Pro","Arial",sans-serif'
 word_monospacefont: '"Source Code Pro",monospace'
+word_normalfontsize: "12.0pt"
+word_smallerfontsize: "11.0pt"
+word_monospacefontsize: "10.0pt"
+word_footnotefontsize: "10.0pt"
 docid_template: "{{ docnumeric }}{% if stageabbr %}({{ stageabbr }}){%endif%}"
 published_stages:
   - published
