@@ -15,6 +15,15 @@ module Metanorma
         )
       end
 
+      def fonts_manifest
+        {
+          "Source Sans Pro" => nil,
+          "STIX Two Math" => nil,
+          "Source Serif Pro" => nil,
+          "Source Code Pro" => nil,
+        }
+      end
+
       def version
         "Metanorma::Ribose #{Metanorma::Ribose::VERSION}"
       end
