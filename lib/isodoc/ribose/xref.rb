@@ -2,6 +2,9 @@ require "metanorma-generic"
 
 module IsoDoc
   module Ribose
+    class Counter < IsoDoc::XrefGen::Counter
+    end
+
     class Xref < IsoDoc::Generic::Xref
       def annex_name_lbl(clause, num)
         obl = l10n("(#{@labels['inform_annex']})")
@@ -21,9 +24,11 @@ module IsoDoc
         @anchors[clause["id"]] =
           { label: num, level: level, xref: num }
         # subclauses are not prefixed with "Clause"
+        i = Counter.new
         clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).
-          each_with_index do |c, i|
-          section_names1(c, "#{num}.#{i + 1}", level + 1)
+          each do |c|
+          i.increment(c)
+          section_names1(c, "#{num}.#{i.print}", level + 1)
         end
       end
     end
