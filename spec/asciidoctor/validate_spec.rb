@@ -14,6 +14,7 @@ RSpec.describe Asciidoctor::Ribose do
 
     it "generates error file" do
       expect do
+        mock_pdf
         Metanorma::Compile
           .new
           .compile("spec/assets/xref_error.adoc", type: "ribose", :"agree-to-terms" => true)
