@@ -8,16 +8,17 @@ RSpec.describe Asciidoctor::Ribose do
 
   it "processes a blank document" do
     input = <<~"INPUT"
-    #{ASCIIDOC_BLANK_HDR}
+      #{ASCIIDOC_BLANK_HDR}
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-    #{BLANK_HDR}
-<sections/>
-</rsd-standard>
+      #{BLANK_HDR}
+      <sections/>
+      </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+      .to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -29,15 +30,13 @@ RSpec.describe Asciidoctor::Ribose do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-    #{BLANK_HDR}
-<sections/>
-</rsd-standard>
+      #{BLANK_HDR}
+      <sections/>
+      </rsd-standard>
     OUTPUT
 
-    FileUtils.rm_f "test.html"
-    FileUtils.rm_f "test.doc"
-    FileUtils.rm_f "test.pdf"
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+      .to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
     expect(File.exist?("test.doc")).to be true
     expect(File.exist?("test.pdf")).to be true
@@ -75,67 +74,69 @@ RSpec.describe Asciidoctor::Ribose do
       :title: Main Title
       :security: Client Confidential
       :recipient: tbd@example.com
-      
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-    <?xml version="1.0" encoding="UTF-8"?>
-<rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
-<bibdata type="standard">
-  <title language="en" format="text/plain">Main Title</title>
-<docidentifier type="Ribose">1000(wd)</docidentifier>
-<docnumber>1000</docnumber>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>Ribose</name>
-    </organization>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>Ribose</name>
-    </organization>
-  </contributor>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-  <language>en</language>
-  <script>Latn</script>
-  <status>
-    <stage>working-draft</stage>
-    <iteration>3</iteration>
-  </status>
-  <copyright>
-    <from>2001</from>
-    <owner>
-      <organization>
-        <name>Ribose</name>
-      </organization>
-    </owner>
-  </copyright>
-  <ext>
-  <doctype>standard</doctype>
-  <editorialgroup>
-    <committee type="A">TC</committee>
-    <committee type="A1">TC1</committee>
-  </editorialgroup>
-  <security>Client Confidential</security>
-  <recipient>tbd@example.com</recipient>
-  </ext>
-</bibdata>
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement").sub(/Ribose Group Inc\. #{Time.new.year}/, "Ribose Group Inc. 2001")}
-<sections/>
-</rsd-standard>
+      <?xml version="1.0" encoding="UTF-8"?>
+      <rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+      <bibdata type="standard">
+        <title language="en" format="text/plain">Main Title</title>
+      <docidentifier type="Ribose">1000(wd)</docidentifier>
+      <docnumber>1000</docnumber>
+        <contributor>
+          <role type="author"/>
+          <organization>
+            <name>Ribose</name>
+          </organization>
+        </contributor>
+        <contributor>
+          <role type="publisher"/>
+          <organization>
+            <name>Ribose</name>
+          </organization>
+        </contributor>
+        <edition>2</edition>
+      <version>
+        <revision-date>2000-01-01</revision-date>
+        <draft>3.4</draft>
+      </version>
+        <language>en</language>
+        <script>Latn</script>
+        <status>
+          <stage>working-draft</stage>
+          <iteration>3</iteration>
+        </status>
+        <copyright>
+          <from>2001</from>
+          <owner>
+            <organization>
+              <name>Ribose</name>
+            </organization>
+          </owner>
+        </copyright>
+        <ext>
+        <doctype>standard</doctype>
+        <editorialgroup>
+          <committee type="A">TC</committee>
+          <committee type="A1">TC1</committee>
+        </editorialgroup>
+        <security>Client Confidential</security>
+        <recipient>tbd@example.com</recipient>
+        </ext>
+      </bibdata>
+      #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement") \
+        .sub(/Ribose Group Inc\. #{Time.new.year}/, 'Ribose Group Inc. 2001')}
+      <sections/>
+      </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+      .to be_equivalent_to output
   end
 
-    it "processes committee-draft" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ribose, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes committee-draft" do
+    options = [backend: :ribose, header_footer: true]
+    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", *options)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       = Document title
       Author
       :docfile: test.adoc
@@ -151,54 +152,55 @@ RSpec.describe Asciidoctor::Ribose do
       :language: en
       :title: Main Title
     INPUT
-        <rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
-<bibdata type="standard">
-  <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="Ribose">1000(cd)</docidentifier>
-  <docnumber>1000</docnumber>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>Ribose</name>
-    </organization>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>Ribose</name>
-    </organization>
-  </contributor>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-  <language>en</language>
-  <script>Latn</script>
-  <status>
-    <stage>committee-draft</stage>
-    <iteration>3</iteration>
-  </status>
-  <copyright>
-    <from>#{Date.today.year}</from>
-    <owner>
-      <organization>
-        <name>Ribose</name>
-      </organization>
-    </owner>
-  </copyright>
-  <ext>
-  <doctype>standard</doctype>
-  </ext>
-</bibdata>
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
-<sections/>
-</rsd-standard>
-        OUTPUT
-    end
+      <rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+        <bibdata type="standard">
+          <title language="en" format="text/plain">Main Title</title>
+          <docidentifier type="Ribose">1000(cd)</docidentifier>
+          <docnumber>1000</docnumber>
+          <contributor>
+            <role type="author"/>
+            <organization>
+              <name>Ribose</name>
+            </organization>
+          </contributor>
+          <contributor>
+            <role type="publisher"/>
+            <organization>
+              <name>Ribose</name>
+            </organization>
+          </contributor>
+          <edition>2</edition>
+        <version>
+          <revision-date>2000-01-01</revision-date>
+          <draft>3.4</draft>
+        </version>
+          <language>en</language>
+          <script>Latn</script>
+          <status>
+            <stage>committee-draft</stage>
+            <iteration>3</iteration>
+          </status>
+          <copyright>
+            <from>#{Date.today.year}</from>
+            <owner>
+              <organization>
+                <name>Ribose</name>
+              </organization>
+            </owner>
+          </copyright>
+          <ext>
+          <doctype>standard</doctype>
+          </ext>
+        </bibdata>
+                #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
+        <sections/>
+      </rsd-standard>
+    OUTPUT
+  end
 
-            it "processes draft-standard" do
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", backend: :ribose, header_footer: true)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+  it "processes draft-standard" do
+    options = [backend: :ribose, header_footer: true]
+    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", *options)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       = Document title
       Author
       :docfile: test.adoc
@@ -214,121 +216,121 @@ RSpec.describe Asciidoctor::Ribose do
       :language: en
       :title: Main Title
     INPUT
-        <rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
-<bibdata type="standard">
-  <title language="en" format="text/plain">Main Title</title>
-  <docidentifier type="Ribose">1000(d)</docidentifier>
-  <docnumber>1000</docnumber>
-  <contributor>
-    <role type="author"/>
-    <organization>
-      <name>Ribose</name>
-    </organization>
-  </contributor>
-  <contributor>
-    <role type="publisher"/>
-    <organization>
-      <name>Ribose</name>
-    </organization>
-  </contributor>
-  <edition>2</edition>
-<version>
-  <revision-date>2000-01-01</revision-date>
-  <draft>3.4</draft>
-</version>
-  <language>en</language>
-  <script>Latn</script>
-  <status>
-    <stage>draft-standard</stage>
-    <iteration>3</iteration>
-  </status>
-  <copyright>
-    <from>#{Date.today.year}</from>
-    <owner>
-      <organization>
-        <name>Ribose</name>
-      </organization>
-    </owner>
-  </copyright>
-  <ext>
-  <doctype>standard</doctype>
-  </ext>
-</bibdata>
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
-<sections/>
-</rsd-standard>
-OUTPUT
-        end
-
-    it "ignores unrecognised status" do
-      input = <<~"INPUT"
-        = Document title
-        Author
-        :docfile: test.adoc
-        :nodoc:
-        :novalid:
-        :docnumber: 1000
-        :doctype: standard
-        :edition: 2
-        :revdate: 2000-01-01
-        :draft: 3.4
-        :copyright-year: 2001
-        :status: standard
-        :iteration: 3
-        :language: en
-        :title: Main Title
-      INPUT
-
-      output = <<~"OUTPUT"
-       <rsd-standard xmlns='https://www.metanorma.org/ns/rsd' type="semantic" version="#{Metanorma::Ribose::VERSION}">
-         <bibdata type='standard'>
-           <title language='en' format='text/plain'>Main Title</title>
-           <docidentifier type="Ribose">1000</docidentifier>
-           <docnumber>1000</docnumber>
-           <contributor>
-             <role type='author'/>
-             <organization>
-               <name>Ribose</name>
-             </organization>
-           </contributor>
-           <contributor>
-             <role type='publisher'/>
-             <organization>
-               <name>Ribose</name>
-             </organization>
-           </contributor>
-           <edition>2</edition>
-           <version>
-             <revision-date>2000-01-01</revision-date>
-             <draft>3.4</draft>
-           </version>
-           <language>en</language>
-           <script>Latn</script>
-           <status>
-             <stage>standard</stage>
-             <iteration>3</iteration>
-           </status>
-           <copyright>
-             <from>2001</from>
-             <owner>
-               <organization>
-                 <name>Ribose</name>
-               </organization>
-             </owner>
-           </copyright>
-           <ext>
-             <doctype>standard</doctype>
-           </ext>
-         </bibdata>
-
-
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement").sub(/Ribose Group Inc\. #{Time.new.year}/, "Ribose Group Inc. 2001")}
+      <rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+        <bibdata type="standard">
+          <title language="en" format="text/plain">Main Title</title>
+          <docidentifier type="Ribose">1000(d)</docidentifier>
+          <docnumber>1000</docnumber>
+          <contributor>
+            <role type="author"/>
+            <organization>
+              <name>Ribose</name>
+            </organization>
+          </contributor>
+          <contributor>
+            <role type="publisher"/>
+            <organization>
+              <name>Ribose</name>
+            </organization>
+          </contributor>
+          <edition>2</edition>
+        <version>
+          <revision-date>2000-01-01</revision-date>
+          <draft>3.4</draft>
+        </version>
+          <language>en</language>
+          <script>Latn</script>
+          <status>
+            <stage>draft-standard</stage>
+            <iteration>3</iteration>
+          </status>
+          <copyright>
+            <from>#{Date.today.year}</from>
+            <owner>
+              <organization>
+                <name>Ribose</name>
+              </organization>
+            </owner>
+          </copyright>
+          <ext>
+          <doctype>standard</doctype>
+          </ext>
+        </bibdata>
+                #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
         <sections/>
-        </rsd-standard>
-      OUTPUT
+      </rsd-standard>
+    OUTPUT
+  end
 
-      expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to(be_equivalent_to(output))
-    end
+  it "ignores unrecognised status" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :doctype: standard
+      :edition: 2
+      :revdate: 2000-01-01
+      :draft: 3.4
+      :copyright-year: 2001
+      :status: standard
+      :iteration: 3
+      :language: en
+      :title: Main Title
+    INPUT
+
+    output = <<~"OUTPUT"
+      <rsd-standard xmlns='https://www.metanorma.org/ns/rsd' type="semantic" version="#{Metanorma::Ribose::VERSION}">
+        <bibdata type='standard'>
+          <title language='en' format='text/plain'>Main Title</title>
+          <docidentifier type="Ribose">1000</docidentifier>
+          <docnumber>1000</docnumber>
+          <contributor>
+            <role type='author'/>
+            <organization>
+              <name>Ribose</name>
+            </organization>
+          </contributor>
+          <contributor>
+            <role type='publisher'/>
+            <organization>
+              <name>Ribose</name>
+            </organization>
+          </contributor>
+          <edition>2</edition>
+          <version>
+            <revision-date>2000-01-01</revision-date>
+            <draft>3.4</draft>
+          </version>
+          <language>en</language>
+          <script>Latn</script>
+          <status>
+            <stage>standard</stage>
+            <iteration>3</iteration>
+          </status>
+          <copyright>
+            <from>2001</from>
+            <owner>
+              <organization>
+                <name>Ribose</name>
+              </organization>
+            </owner>
+          </copyright>
+          <ext>
+            <doctype>standard</doctype>
+          </ext>
+        </bibdata>
+        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement") \
+          .sub(/Ribose Group Inc\. #{Time.new.year}/, 'Ribose Group Inc. 2001')}
+        <sections/>
+      </rsd-standard>
+    OUTPUT
+
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+      .to(be_equivalent_to(output))
+  end
 
   it "strips inline header" do
     input = <<~"INPUT"
@@ -339,18 +341,23 @@ OUTPUT
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-    #{BLANK_HDR}
-             <preface><foreword id="_" obligation="informative">
-         <title>Foreword</title>
-         <p id="_">This is a preamble</p>
-       </foreword></preface><sections>
-       <clause id="_" obligation="normative">
-         <title>Section 1</title>
-       </clause></sections>
-       </rsd-standard>
+        #{BLANK_HDR}
+        <preface>
+          <foreword id="_" obligation="informative">
+            <title>Foreword</title>
+            <p id="_">This is a preamble</p>
+          </foreword>
+        </preface>
+        <sections>
+          <clause id="_" obligation="normative">
+            <title>Section 1</title>
+          </clause>
+        </sections>
+      </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+      .to be_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -430,35 +437,58 @@ OUTPUT
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-            #{BLANK_HDR}
-       <sections>
-        <p id="_"><em>emphasis</em>
-       <strong>strong</strong>
-       <tt>monospace</tt>
-       “double quote”
-       ‘single quote’
-       super<sup>script</sup>
-       sub<sub>script</sub>
-       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow>
-  <mi>a</mi>
-</mrow>
-<mrow>
-  <mn>90</mn>
-</mrow>
-</msub></math></stem>
-       <stem type="MathML"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub> <mrow> <mrow> <mi mathvariant="bold-italic">F</mi> </mrow> </mrow> <mrow> <mrow> <mi mathvariant="bold-italic">Α</mi> </mrow> </mrow> </msub> </math></stem>
-       <keyword>keyword</keyword>
-       <strike>strike</strike>
-       <smallcap>smallcap</smallcap></p>
-       </sections>
-       </rsd-standard>
+        #{BLANK_HDR}
+        <sections>
+          <p id="_">
+            <em>emphasis</em>
+            <strong>strong</strong>
+            <tt>monospace</tt>“double quote”
+               ‘single quote’
+               super
+            <sup>script</sup>
+            sub
+            <sub>script</sub>
+            <stem type="MathML">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <msub>
+                  <mrow>
+                    <mi>a</mi></mrow>
+                  <mrow>
+                    <mn>90</mn>
+                  </mrow>
+                </msub>
+              </math>
+            </stem>
+            <stem type="MathML">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <msub>
+                  <mrow>
+                    <mrow>
+                      <mi mathvariant="bold-italic">F</mi>
+                    </mrow>
+                  </mrow>
+                  <mrow>
+                    <mrow>
+                      <mi mathvariant="bold-italic">Α</mi>
+                    </mrow>
+                  </mrow>
+                </msub>
+              </math>
+            </stem>
+            <keyword>keyword</keyword>
+            <strike>strike</strike>
+            <smallcap>smallcap</smallcap>
+          </p>
+        </sections>
+      </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+      .to be_equivalent_to output
   end
 
-    it "processes executive summaries" do
-      input = <<~"INPUT"
+  it "processes executive summaries" do
+    input = <<~"INPUT"
       #{ASCIIDOC_BLANK_HDR}
 
       Foreword
@@ -479,35 +509,34 @@ OUTPUT
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-    #{BLANK_HDR.sub(/<status>/, "<abstract> <p>Abstract</p> </abstract> <status>")}
-       <preface>
-  <abstract id='_'>
-  <title>Abstract</title>
-    <p id='_'>Abstract</p>
-  </abstract>
-  <foreword id='_' obligation='informative'>
-    <title>Foreword</title>
-    <p id='_'>Foreword</p>
-  </foreword>
-  <executivesummary id='_'>
-    <title>Executive Summary</title>
-    <p id='_'>Executive Summary</p>
-  </executivesummary>
-  <introduction id='_' obligation='informative'>
-    <title>Introduction</title>
-    <p id='_'>Introduction</p>
-  </introduction>
-  <clause id='_' obligation='informative'>
-    <title>Prefatory</title>
-    <p id='_'>Prefatory</p>
-  </clause>
-</preface>
-<sections> </sections>
-</rsd-standard>
+        #{BLANK_HDR.sub(/<status>/, '<abstract> <p>Abstract</p> </abstract> <status>')}
+        <preface>
+          <abstract id='_'>
+          <title>Abstract</title>
+            <p id='_'>Abstract</p>
+          </abstract>
+          <foreword id='_' obligation='informative'>
+            <title>Foreword</title>
+            <p id='_'>Foreword</p>
+          </foreword>
+          <executivesummary id='_'>
+            <title>Executive Summary</title>
+            <p id='_'>Executive Summary</p>
+          </executivesummary>
+          <introduction id='_' obligation='informative'>
+            <title>Introduction</title>
+            <p id='_'>Introduction</p>
+          </introduction>
+          <clause id='_' obligation='informative'>
+            <title>Prefatory</title>
+            <p id='_'>Prefatory</p>
+          </clause>
+        </preface>
+        <sections> </sections>
+      </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true)))).to be_equivalent_to output
-
-    end
-
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+      .to be_equivalent_to output
+  end
 end
