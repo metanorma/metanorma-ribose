@@ -28,12 +28,13 @@ RSpec.describe Metanorma::Ribose::Processor do
     INPUT
 
     output = xmlpp(strip_guid(<<~"OUTPUT"))
-        #{BLANK_HDR}
+        #{blank_hdr_gen}
         <sections/>
       </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(processor.input_to_isodoc(input, nil)))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(
+      (Nokogiri::XML(processor.input_to_isodoc(input, nil))).to_xml))).to be_equivalent_to output
   end
 
   it "generates HTML from IsoDoc XML" do

@@ -1,7 +1,7 @@
 <boilerplate>
   <copyright-statement>
     <clause>
-      <p> © Ribose Group Inc. {{ docyear }}</p>
+      <p> © {{ publisher }} {{ docyear }}</p>
     </clause>
   </copyright-statement>
       {% if unpublished %}
@@ -31,15 +31,15 @@
   <feedback-statement>
     <clause>
       <p align="left" id="boilerplate-name">
-        Ribose Group Inc.
+        {% if publisher %}{{ publisher }}{% else %}Ribose Group Inc.{% endif %}
       </p>
-      <p align="left" id="boilerplate-address">Suite 1, 8/F, New Henry House<br/>
+      <p align="left" id="boilerplate-address">{% if pub_address %}{{ pub_address }}{% else %}Suite 1, 8/F, New Henry House<br/>
         10 Ice House Street<br/>
         Central<br/>
-        Hong Kong<br/>
+        Hong Kong{% endif %}<br/>
         <br />
-        <link target="mailto:copyright@ribose.com">copyright@ribose.com</link><br />
-        <link target="https://www.ribose.com">www.ribose.com</link>
+        {% if pub_email %}<link target="mailto:{{ pub_email }}">{{ pub_email }}</link>{% else %}<link target="mailto:copyright@ribose.com">copyright@ribose.com</link>{% endif %}<br />
+        {% if pub_uri %}<link target="{{ pub_uri }}">{{ pub_uri }}</link>{% else %}<link target="https://www.ribose.com">www.ribose.com</link>{% endif %}
       </p>
     </clause>
   </feedback-statement>
