@@ -2,6 +2,10 @@ require "spec_helper"
 require "fileutils"
 
 RSpec.describe Asciidoctor::Ribose do
+  before(:all) do
+    @blank_hdr = blank_hdr_gen
+  end
+
   it "has a version number" do
     expect(Metanorma::Ribose::VERSION).not_to be nil
   end
@@ -12,7 +16,7 @@ RSpec.describe Asciidoctor::Ribose do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-      #{BLANK_HDR}
+      #{@blank_hdr}
       <sections/>
       </rsd-standard>
     OUTPUT
@@ -30,7 +34,7 @@ RSpec.describe Asciidoctor::Ribose do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-      #{BLANK_HDR}
+      #{@blank_hdr}
       <sections/>
       </rsd-standard>
     OUTPUT
@@ -124,19 +128,124 @@ RSpec.describe Asciidoctor::Ribose do
         <recipient>tbd@example.com</recipient>
         </ext>
       </bibdata>
-      #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement") \
-        .sub(/Ribose Group Inc\. #{Time.new.year}/, 'Ribose Group Inc. 2001')}
       <sections/>
       </rsd-standard>
     OUTPUT
 
+    output = output.sub(%r{</bibdata>}, "</bibdata>\n#{boilerplate(Nokogiri::XML(output))}")
+
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+      .to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes custom publisher" do
+    input = <<~"INPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :doctype: standard
+      :publisher: Fred
+      :pub-address: 10 Jack St + \\
+      Antarctica
+      :pub-email: me@me.com
+      :pub-uri: me.example.com
+    INPUT
+    output = xmlpp(<<~"OUTPUT")
+    <rsd-standard xmlns='https://www.metanorma.org/ns/rsd' type='semantic' version='1.7.0'>
+  <bibdata type='standard'>
+    <title language='en' format='text/plain'>Document title</title>
+    <docidentifier type='Ribose'>1000</docidentifier>
+    <docnumber>1000</docnumber>
+    <contributor>
+      <role type='author'/>
+      <organization>
+        <name>Fred</name>
+        <address>
+  <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
+</address>
+<email>me@me.com</email>
+<uri>me.example.com</uri>
+      </organization>
+    </contributor>
+    <contributor>
+      <role type='publisher'/>
+      <organization>
+        <name>Fred</name>
+        <address>
+  <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
+</address>
+<email>me@me.com</email>
+<uri>me.example.com</uri>
+      </organization>
+    </contributor>
+    <language>en</language>
+    <script>Latn</script>
+    <status>
+      <stage>published</stage>
+    </status>
+    <copyright>
+      <from>2021</from>
+      <owner>
+        <organization>
+          <name>Fred</name>
+          <address>
+  <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
+</address>
+<email>me@me.com</email>
+<uri>me.example.com</uri>
+        </organization>
+      </owner>
+    </copyright>
+    <ext>
+      <doctype>standard</doctype>
+    </ext>
+  </bibdata>
+  <boilerplate>
+    <copyright-statement>
+      <clause>
+        <p id='_'> &#169; Fred 2021</p>
+      </clause>
+    </copyright-statement>
+    <legal-statement>
+      <clause>
+        <p id='_'>
+          All rights reserved. Unless otherwise specified, no part of this
+          publication may be reproduced or utilized otherwise in any form or by
+          any means, electronic or mechanical, including photocopying, or
+          posting on the internet or an intranet, without prior written
+          permission. Permission can be requested from the address below.
+        </p>
+      </clause>
+    </legal-statement>
+    <feedback-statement>
+      <clause>
+        <p align='left' id='boilerplate-name'> Fred </p>
+        <p align='left' id='boilerplate-address'>
+        10 Jack St
+          <br/>
+          Antarctica
+          <br/>
+          <br/>
+          <link target='mailto:me@me.com'>me@me.com</link>
+          <br/>
+          <link target='me.example.com'>me.example.com</link>
+        </p>
+      </clause>
+    </feedback-statement>
+  </boilerplate>
+  <sections> </sections>
+</rsd-standard>
+    OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
       .to be_equivalent_to output
-  end
+    end
 
   it "processes committee-draft" do
     options = [backend: :ribose, header_footer: true]
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", *options)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    out = Asciidoctor.convert(<<~"INPUT", *options)
       = Document title
       Author
       :docfile: test.adoc
@@ -152,7 +261,8 @@ RSpec.describe Asciidoctor::Ribose do
       :language: en
       :title: Main Title
     INPUT
-      <rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+    expect(out).to include "<license-statement>"
+    expect(xmlpp(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <bibdata type="standard">
           <title language="en" format="text/plain">Main Title</title>
           <docidentifier type="Ribose">1000(cd)</docidentifier>
@@ -192,15 +302,12 @@ RSpec.describe Asciidoctor::Ribose do
           <doctype>standard</doctype>
           </ext>
         </bibdata>
-                #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
-        <sections/>
-      </rsd-standard>
     OUTPUT
   end
 
   it "processes draft-standard" do
     options = [backend: :ribose, header_footer: true]
-    expect(xmlpp(strip_guid(Asciidoctor.convert(<<~"INPUT", *options)))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+    out = Asciidoctor.convert(<<~"INPUT", *options)
       = Document title
       Author
       :docfile: test.adoc
@@ -216,7 +323,8 @@ RSpec.describe Asciidoctor::Ribose do
       :language: en
       :title: Main Title
     INPUT
-      <rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+    expect(out).to include "<license-statement>"
+    expect(xmlpp(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml))).to be_equivalent_to xmlpp(<<~"OUTPUT")
         <bibdata type="standard">
           <title language="en" format="text/plain">Main Title</title>
           <docidentifier type="Ribose">1000(d)</docidentifier>
@@ -256,13 +364,11 @@ RSpec.describe Asciidoctor::Ribose do
           <doctype>standard</doctype>
           </ext>
         </bibdata>
-                #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement")}
-        <sections/>
-      </rsd-standard>
     OUTPUT
   end
 
   it "ignores unrecognised status" do
+    options = [backend: :ribose, header_footer: true]
     input = <<~"INPUT"
       = Document title
       Author
@@ -282,7 +388,6 @@ RSpec.describe Asciidoctor::Ribose do
     INPUT
 
     output = <<~"OUTPUT"
-      <rsd-standard xmlns='https://www.metanorma.org/ns/rsd' type="semantic" version="#{Metanorma::Ribose::VERSION}">
         <bibdata type='standard'>
           <title language='en' format='text/plain'>Main Title</title>
           <docidentifier type="Ribose">1000</docidentifier>
@@ -322,14 +427,10 @@ RSpec.describe Asciidoctor::Ribose do
             <doctype>standard</doctype>
           </ext>
         </bibdata>
-        #{BOILERPLATE.sub(/<legal-statement/, "#{LICENSE_BOILERPLATE}\n<legal-statement") \
-          .sub(/Ribose Group Inc\. #{Time.new.year}/, 'Ribose Group Inc. 2001')}
-        <sections/>
-      </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
-      .to(be_equivalent_to(output))
+    out = Asciidoctor.convert(input, *options)
+    expect(xmlpp(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml))).to be_equivalent_to xmlpp(output)
   end
 
   it "strips inline header" do
@@ -341,7 +442,7 @@ RSpec.describe Asciidoctor::Ribose do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-        #{BLANK_HDR}
+        #{@blank_hdr}
         <preface>
           <foreword id="_" obligation="informative">
             <title>Foreword</title>
@@ -437,7 +538,7 @@ RSpec.describe Asciidoctor::Ribose do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-        #{BLANK_HDR}
+        #{@blank_hdr}
         <sections>
           <p id="_">
             <em>emphasis</em>
@@ -509,7 +610,7 @@ RSpec.describe Asciidoctor::Ribose do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-        #{BLANK_HDR.sub(/<status>/, '<abstract> <p>Abstract</p> </abstract> <status>')}
+        #{@blank_hdr.sub(/<status>/, '<abstract> <p>Abstract</p> </abstract> <status>')}
         <preface>
           <abstract id='_'>
           <title>Abstract</title>

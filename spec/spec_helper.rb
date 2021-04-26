@@ -76,12 +76,19 @@ HDR
 
 BOILERPLATE_XML = File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "ribose", "boilerplate.xml")
 
-BOILERPLATE =
-  HTMLEntities.new.decode(File.read(BOILERPLATE_XML, encoding: "utf-8")
-    .gsub(/\{\{ docyear \}\}/, Date.today.year.to_s)
-    .gsub(/<p>/, '<p id="_">')
-    .gsub(/\{% if unpublished %\}.+?\{% endif %\}/m, "")
-    .gsub(/\{% if ip_notice_received %\}\{% else %\}not\{% endif %\}/m, ""))
+def boilerplate(xmldoc)
+  file = File.read(BOILERPLATE_XML, encoding: "utf-8")
+  conv = Asciidoctor::Ribose::Converter
+    .new(nil, backend: :ribose, header_footer: true)
+  conv.init(Asciidoctor::Document.new([]))
+  ret = Nokogiri::XML(
+    conv.boilerplate_isodoc(xmldoc).populate_template(file, nil)
+    .gsub(/<p>/, "<p id='_'>")
+    .gsub(/<ol>/, "<ol id='_' type='alphabet'>")
+  )
+  conv.smartquotes_cleanup(ret)
+  HTMLEntities.new.decode(ret.to_xml)
+end
 
 LICENSE_BOILERPLATE = <<~CONTENT.freeze
   <license-statement>
@@ -133,8 +140,14 @@ BLANK_HDR = <<~"HDR".freeze
       <doctype>standard</doctype>
       </ext>
     </bibdata>
-    #{BOILERPLATE}
 HDR
+
+def blank_hdr_gen
+  <<~"HDR"
+  #{BLANK_HDR}
+  #{boilerplate(Nokogiri::XML(BLANK_HDR + '</ribose-standard>'))}
+  HDR
+end
 
 HTML_HDR = <<~"HDR".freeze
   <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">

@@ -25,8 +25,13 @@ RSpec.describe IsoDoc::Ribose do
         <contributor>
           <role type="publisher"/>
           <organization>
-            <name>Ribose</name>
-          </organization>
+        <name>Fred</name>
+        <address>
+  <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
+</address>
+<email>me@me.com</email>
+<uri>me.example.com</uri>
+      </organization>
         </contributor>
         <language>en</language>
         <script>Latn</script>
@@ -54,7 +59,7 @@ RSpec.describe IsoDoc::Ribose do
 
     output = <<~"OUTPUT"
       {:accesseddate=>"XXX",
-      :agency=>"Ribose",
+      :agency=>"Fred",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -74,8 +79,11 @@ RSpec.describe IsoDoc::Ribose do
       :logo=>"#{File.join(logoloc, 'logo.png')}",
       :metadata_extensions=>{"doctype"=>"standard", "editorialgroup"=>{"committee_type"=>"A", "committee"=>"TC"}, "security"=>"Client Confidential", "recipient"=>"Fred"},
       :obsoleteddate=>"XXX",
+      :pub_address=>"10 Jack St<br/>Antarctica",
+      :pub_email=>"me@me.com",
+      :pub_uri=>"me.example.com",
       :publisheddate=>"XXX",
-      :publisher=>"Ribose",
+      :publisher=>"Fred",
       :receiveddate=>"XXX",
       :revdate=>"2000-01-01",
       :revdate_MMMddyyyy=>"January 01, 2000",
@@ -442,7 +450,7 @@ RSpec.describe IsoDoc::Ribose do
     INPUT
 
     output = xmlpp(<<~"OUTPUT")
-        #{BLANK_HDR}
+        #{blank_hdr_gen}
         <sections/>
       </rsd-standard>
     OUTPUT
