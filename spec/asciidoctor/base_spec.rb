@@ -163,11 +163,6 @@ RSpec.describe Asciidoctor::Ribose do
       <role type='author'/>
       <organization>
         <name>Fred</name>
-        <address>
-  <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
-</address>
-<email>me@me.com</email>
-<uri>me.example.com</uri>
       </organization>
     </contributor>
     <contributor>
