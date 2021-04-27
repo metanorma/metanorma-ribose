@@ -154,7 +154,7 @@ RSpec.describe Asciidoctor::Ribose do
       :pub-uri: me.example.com
     INPUT
     output = xmlpp(<<~"OUTPUT")
-    <rsd-standard xmlns='https://www.metanorma.org/ns/rsd' type='semantic' version='1.7.0'>
+    <rsd-standard xmlns='https://www.metanorma.org/ns/rsd' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
   <bibdata type='standard'>
     <title language='en' format='text/plain'>Document title</title>
     <docidentifier type='Ribose'>1000</docidentifier>
