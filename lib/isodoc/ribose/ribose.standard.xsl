@@ -2795,6 +2795,7 @@
 				
 				
 				
+				
 				10
 						
 			</xsl:variable>
@@ -3872,6 +3873,7 @@
 					<xsl:variable name="_font-size">
 						
 												
+						
 						
 						
 						
@@ -5077,6 +5079,7 @@
 	</xsl:template><xsl:template name="namespaceCheck">
 		<xsl:variable name="documentNS" select="namespace-uri(/*)"/>
 		<xsl:variable name="XSLNS">			
+			
 			
 			
 			
