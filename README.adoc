@@ -1,4 +1,4 @@
-= metanorma-ribose: Asciidoctor processor for Ribose Standard Documents 
+= Metanorma processor for Ribose documents 
 
 image:https://img.shields.io/gem/v/metanorma-rsd.svg["Gem Version", link="https://rubygems.org/gems/metanorma-rsd"]
 image:https://github.com/metanorma/metanorma-rsd/workflows/rake/badge.svg["Build Status", link="https://github.com/metanorma/metanorma-rsd/actions?workflow=rake"]
