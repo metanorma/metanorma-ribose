@@ -34,7 +34,8 @@ RSpec.describe Metanorma::Ribose::Processor do
     OUTPUT
 
     expect(xmlpp(strip_guid(
-      (Nokogiri::XML(processor.input_to_isodoc(input, nil))).to_xml))).to be_equivalent_to output
+                   Nokogiri::XML(processor.input_to_isodoc(input, nil)).to_xml,
+                 ))).to be_equivalent_to output
   end
 
   it "generates HTML from IsoDoc XML" do
@@ -67,7 +68,7 @@ RSpec.describe Metanorma::Ribose::Processor do
     expect(
       xmlpp(File.read("test.html", encoding: "utf-8")
         .gsub(%r{^.*<main}m, "<main")
-        .gsub(%r{</main>.*}m, "</main>"))
+        .gsub(%r{</main>.*}m, "</main>")),
     ).to be_equivalent_to output
   end
 end

@@ -1,60 +1,64 @@
 require "spec_helper"
 
-logoloc = File.join(File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "lib", "metanorma")), "..", "..", "lib", "isodoc", "ribose", "html")
+logoloc = File.join(
+  File.expand_path(File.join(File.dirname(__FILE__), "..", "..",
+                             "lib", "metanorma")),
+  "..", "..", "lib", "isodoc", "ribose", "html"
+)
 
 RSpec.describe IsoDoc::Ribose do
   it "processes default metadata" do
     csdc = IsoDoc::Ribose::HtmlConvert.new({})
     input = <<~"INPUT"
-      <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
-      <bibdata type="standard">
-        <title language="en" format="plain">Main Title</title>
-        <docidentifier>1000(wd)</docidentifier>
-        <docnumber>1000</docnumber>
-        <edition>2</edition>
-        <version>
-        <revision-date>2000-01-01</revision-date>
-        <draft>3.4</draft>
-      </version>
-        <contributor>
-          <role type="author"/>
-          <organization>
-            <name>Ribose</name>
-          </organization>
-        </contributor>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-        <name>Fred</name>
-        <address>
-  <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
-</address>
-<email>me@me.com</email>
-<uri>me.example.com</uri>
-      </organization>
-        </contributor>
-        <language>en</language>
-        <script>Latn</script>
-        <status><stage>working-draft</stage></status>
-        <copyright>
-          <from>2001</from>
-          <owner>
-            <organization>
-              <name>Ribose</name>
+            <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
+            <bibdata type="standard">
+              <title language="en" format="plain">Main Title</title>
+              <docidentifier>1000(wd)</docidentifier>
+              <docnumber>1000</docnumber>
+              <edition>2</edition>
+              <version>
+              <revision-date>2000-01-01</revision-date>
+              <draft>3.4</draft>
+            </version>
+              <contributor>
+                <role type="author"/>
+                <organization>
+                  <name>Ribose</name>
+                </organization>
+              </contributor>
+              <contributor>
+                <role type="publisher"/>
+                <organization>
+              <name>Fred</name>
+              <address>
+        <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
+      </address>
+      <email>me@me.com</email>
+      <uri>me.example.com</uri>
             </organization>
-          </owner>
-        </copyright>
-        <ext>
-        <doctype>standard</doctype>
-        <editorialgroup>
-          <committee type="A">TC</committee>
-        </editorialgroup>
-        <security>Client Confidential</security>
-        <recipient>Fred</recipient>
-        </ext>
-      </bibdata>
-      <sections/>
-      </rsd-standard>
+              </contributor>
+              <language>en</language>
+              <script>Latn</script>
+              <status><stage>working-draft</stage></status>
+              <copyright>
+                <from>2001</from>
+                <owner>
+                  <organization>
+                    <name>Ribose</name>
+                  </organization>
+                </owner>
+              </copyright>
+              <ext>
+              <doctype>standard</doctype>
+              <editorialgroup>
+                <committee type="A">TC</committee>
+              </editorialgroup>
+              <security>Client Confidential</security>
+              <recipient>Fred</recipient>
+              </ext>
+            </bibdata>
+            <sections/>
+            </rsd-standard>
     INPUT
 
     output = <<~"OUTPUT"
@@ -102,7 +106,8 @@ RSpec.describe IsoDoc::Ribose do
     OUTPUT
 
     docxml, = csdc.convert_init(input, "test", true)
-    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s).gsub(/, :/, ",\n:")).to be_equivalent_to output
+    expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
+      .gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
   it "processes pre" do
@@ -251,7 +256,7 @@ RSpec.describe IsoDoc::Ribose do
           <introduction id="B" obligation="informative">
             <title>Introduction</title>
             <clause id="C" inline-header="false" obligation="informative">
-              <title depth="2">Introduction Subsection</title>
+            <title depth='2'>0.1.<tab/>Introduction Subsection</title>
             </clause>
           </introduction>
         </preface>
@@ -355,7 +360,7 @@ RSpec.describe IsoDoc::Ribose do
           <div class='Section3' id='B'>
             <h1 class='IntroTitle'>Introduction</h1>
             <div id='C'>
-              <h2>Introduction Subsection</h2>
+              <h2>0.1.&#160; Introduction Subsection</h2>
             </div>
           </div>
           <p class='zzSTDTitle1'/>
@@ -439,6 +444,64 @@ RSpec.describe IsoDoc::Ribose do
       .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to output
   end
 
+  it "processes introduction with no subsections" do
+    input = <<~"INPUT"
+      <rsd-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+          <foreword obligation="informative">
+            <title>Foreword</title>
+            <p>This is a preamble before <xref target="B"/></p>
+          </foreword>
+          <introduction id="B" obligation="informative">
+            <title>Introduction</title>
+          </introduction>
+        </preface>
+      </rsd-standard>
+    INPUT
+    presxml = <<~OUTPUT
+          <rsd-standard xmlns='http://riboseinc.com/isoxml' type='presentation'>
+       <preface>
+         <foreword obligation='informative'>
+           <title>Foreword</title>
+           <p>
+             This is a preamble before
+             <xref target='B'>Introduction</xref>
+           </p>
+         </foreword>
+         <introduction id='B' obligation='informative'>
+           <title>Introduction</title>
+         </introduction>
+       </preface>
+      </rsd-standard>
+    OUTPUT
+    output = <<~OUTPUT
+        #{HTML_HDR}
+              <br/>
+          <div>
+            <h1 class='ForewordTitle'>Foreword</h1>
+            <p>
+               This is a preamble before
+              <a href='#B'>Introduction</a>
+            </p>
+          </div>
+          <br/>
+          <div class='Section3' id='B'>
+            <h1 class='IntroTitle'>Introduction</h1>
+          </div>
+          <p class='zzSTDTitle1'/>
+        </div>
+      </body>
+    OUTPUT
+    expect(xmlpp(IsoDoc::Ribose::PresentationXMLConvert.new({})
+     .convert("test", input, true)
+     .gsub(%r{^.*<body}m, "<body")
+     .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::Ribose::HtmlConvert.new({})
+      .convert("test", presxml, true)
+      .gsub(%r{^.*<body}m, "<body")
+      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to output
+  end
+
   it "injects JS into blank html" do
     system "rm -f test.html"
     input = <<~"INPUT"
@@ -455,7 +518,8 @@ RSpec.describe IsoDoc::Ribose do
       </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :ribose, header_footer: true))))
+    expect(xmlpp(strip_guid(Asciidoctor
+      .convert(input, backend: :ribose, header_footer: true))))
       .to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
@@ -567,8 +631,8 @@ RSpec.describe IsoDoc::Ribose do
               <title>Foreword</title>
               <p id='A'>
                 This is a preamble
-                <xref target='C'>Introduction Subsection</xref>
-                <xref target='C1'>Introduction, 2</xref>
+                <xref target='C'>0.1</xref>
+                <xref target='C1'>0.2</xref>
                 <xref target='D'>Clause 1</xref>
                 <xref target='H'>Clause 3</xref>
                 <xref target='I'>3.1</xref>
@@ -586,12 +650,19 @@ RSpec.describe IsoDoc::Ribose do
               </p>
             </foreword>
             <introduction id='B' obligation='informative'>
-              <title>Introduction</title>
-              <clause id='C' inline-header='false' obligation='informative'>
-                <title depth='2'>Introduction Subsection</title>
-              </clause>
-              <clause id='C1' inline-header='false' obligation='informative'>Text</clause>
-            </introduction>
+             <title>Introduction</title>
+             <clause id='C' inline-header='false' obligation='informative'>
+               <title depth='2'>
+                 0.1.
+                 <tab/>
+                 Introduction Subsection
+               </title>
+             </clause>
+             <clause id='C1' inline-header='false' obligation='informative'>
+               <title>0.2.</title>
+               Text
+             </clause>
+           </introduction>
           </preface>
           <sections>
             <clause id='D' obligation='normative' type='scope'>

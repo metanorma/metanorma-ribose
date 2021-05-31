@@ -4,11 +4,7 @@ require "metanorma/ribose/processor"
 
 module Metanorma
   module Ribose
-
     class Configuration < Metanorma::Generic::Configuration
-      def initialize(*args)
-        super
-      end
     end
 
     class << self
