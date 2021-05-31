@@ -482,8 +482,8 @@
 		
 		<xsl:variable name="font-size">
 			<xsl:choose>
-				<xsl:when test="ancestor::rsd:preface and $level &gt;= 2">12pt</xsl:when>
-				<xsl:when test="ancestor::rsd:preface">13pt</xsl:when>
+				<!-- <xsl:when test="ancestor::rsd:preface and $level &gt;= 2">12pt</xsl:when>
+				<xsl:when test="ancestor::rsd:preface">13pt</xsl:when> -->
 				<xsl:when test="$level = 1">24pt</xsl:when>
 				<xsl:when test="$level = 2">14pt</xsl:when>
 				<xsl:when test="$level &gt;= 3">12pt</xsl:when>
@@ -1273,12 +1273,14 @@
 		
 		
 		
+		
+		
+		
+		
 			<xsl:attribute name="font-size">10pt</xsl:attribute>			
-			<xsl:attribute name="margin-left">12.5mm</xsl:attribute>
-			<xsl:attribute name="margin-right">12.5mm</xsl:attribute>			
-		
-		
-		
+			<xsl:attribute name="margin-top">12pt</xsl:attribute>			
+			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>			
+			<xsl:attribute name="line-height">115%</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="example-body-style">
 		
@@ -1297,14 +1299,9 @@
 		
 		
 		
-		
-			<xsl:attribute name="font-size">11pt</xsl:attribute>			
-			<xsl:attribute name="margin-top">12pt</xsl:attribute>
-			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 			<xsl:attribute name="font-weight">normal</xsl:attribute>
-			<xsl:attribute name="keep-with-next">always</xsl:attribute>			 
-		
-		
+			<xsl:attribute name="padding-right">4mm</xsl:attribute>
+				
 				
 		
 		
@@ -1420,9 +1417,10 @@
 		
 		
 		
+		
+		
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
 			<xsl:attribute name="padding-right">4mm</xsl:attribute>
-		
-		
 		
 	</xsl:attribute-set><xsl:attribute-set name="note-p-style">
 		
@@ -3594,8 +3592,9 @@
 			
 			
 				<xsl:if test="ancestor::rsd:ul or ancestor::rsd:ol and not(ancestor::rsd:note[1]/following-sibling::*)">
-				<xsl:attribute name="margin-bottom">0pt</xsl:attribute>
-			</xsl:if>
+					<xsl:attribute name="margin-top">6pt</xsl:attribute>
+					<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
+				</xsl:if>
 			
 			
 			<fo:block-container margin-left="0mm">
@@ -3656,8 +3655,6 @@
 				</xsl:when>
 				<xsl:otherwise>
 					
-						<xsl:text>:</xsl:text>
-					
 					
 				</xsl:otherwise>
 			</xsl:choose>
@@ -3674,8 +3671,6 @@
 					<xsl:value-of select="$sfx"/>					
 				</xsl:when>
 				<xsl:otherwise>
-					
-						<xsl:text>:</xsl:text>
 					
 					
 				</xsl:otherwise>
@@ -4359,11 +4354,17 @@
 	</xsl:template><xsl:template match="*[local-name() = 'example']">
 		<fo:block id="{@id}" xsl:use-attribute-sets="example-style">
 			
+				<xsl:if test="ancestor::rsd:ul or ancestor::rsd:ol">
+					<xsl:attribute name="margin-top">6pt</xsl:attribute>
+					<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
+				</xsl:if>
+			
+			
 			<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
 			
 			<xsl:variable name="element">
-				block				
-				
+								
+				inline
 				<xsl:if test=".//*[local-name() = 'table']">block</xsl:if> 
 			</xsl:variable>
 			
@@ -4384,8 +4385,8 @@
 	</xsl:template><xsl:template match="*[local-name() = 'example']/*[local-name() = 'name']"/><xsl:template match="*[local-name() = 'example']/*[local-name() = 'name']" mode="presentation">
 
 		<xsl:variable name="element">
-			block
 			
+			inline
 			<xsl:if test="following-sibling::*[1][local-name() = 'table']">block</xsl:if> 
 		</xsl:variable>		
 		<xsl:choose>
@@ -4409,7 +4410,12 @@
 	</xsl:template><xsl:template match="*[local-name() = 'example']/*[local-name() = 'p']">
 		<xsl:variable name="num"><xsl:number/></xsl:variable>
 		<xsl:variable name="element">
-			block
+			
+			
+				<xsl:choose>
+					<xsl:when test="$num = 1">inline</xsl:when>
+					<xsl:otherwise>block</xsl:otherwise>
+				</xsl:choose>
 			
 			
 		</xsl:variable>		
