@@ -11,7 +11,7 @@ module Metanorma
         super.merge(
           html: "html",
           doc: "doc",
-          pdf: "pdf"
+          pdf: "pdf",
         )
       end
 
@@ -28,16 +28,20 @@ module Metanorma
         "Metanorma::Ribose #{Metanorma::Ribose::VERSION}"
       end
 
-      def output(isodoc_node, inname, outname, format, options={})
+      def output(isodoc_node, inname, outname, format, options = {})
         case format
         when :html
-          IsoDoc::Ribose::HtmlConvert.new(options).convert(inname, isodoc_node, nil, outname)
+          IsoDoc::Ribose::HtmlConvert.new(options)
+            .convert(inname, isodoc_node, nil, outname)
         when :doc
-          IsoDoc::Ribose::WordConvert.new(options).convert(inname, isodoc_node, nil, outname)
+          IsoDoc::Ribose::WordConvert.new(options)
+            .convert(inname, isodoc_node, nil, outname)
         when :pdf
-          IsoDoc::Ribose::PdfConvert.new(options).convert(inname, isodoc_node, nil, outname)
+          IsoDoc::Ribose::PdfConvert.new(options)
+            .convert(inname, isodoc_node, nil, outname)
         when :presentation
-          IsoDoc::Ribose::PresentationXMLConvert.new(options).convert(inname, isodoc_node, nil, outname)
+          IsoDoc::Ribose::PresentationXMLConvert.new(options)
+            .convert(inname, isodoc_node, nil, outname)
         else
           super
         end

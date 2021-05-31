@@ -1,7 +1,7 @@
 module IsoDoc
   module Ribose
     module BaseConvert
-      def executivesummary docxml, out
+      def executivesummary(docxml, out)
         f = docxml.at(ns("//executivesummary")) || return
         title_attr = { class: "IntroTitle" }
         page_break(out)
@@ -15,6 +15,7 @@ module IsoDoc
 
       def is_clause?(name)
         return true if name == "executivesummary"
+
         super
       end
 

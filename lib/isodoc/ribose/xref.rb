@@ -8,16 +8,21 @@ module IsoDoc
     class Xref < IsoDoc::Generic::Xref
       def annex_name_lbl(clause, num)
         obl = l10n("(#{@labels['inform_annex']})")
-        obl = l10n("(#{@labels['norm_annex']})") if clause["obligation"] == "normative"
+        clause["obligation"] == "normative" and
+          obl = l10n("(#{@labels['norm_annex']})")
         l10n("#{@labels['annex']} #{num}<br/>#{obl}")
       end
 
-      def initial_anchor_names(d)
-        preface_names(d.at(ns("//executivesummary")))
+      def initial_anchor_names(doc)
+        preface_names(doc.at(ns("//executivesummary")))
         super
+        introduction_names(doc.at(ns("//introduction")))
         sequential_asset_names(
-          d.xpath(ns("//preface/abstract | //foreword | //introduction | "\
-                     "//preface/clause | //acknowledgements | //executivesummary")))
+          doc.xpath(
+            ns("//preface/abstract | //foreword | //introduction | "\
+               "//preface/clause | //acknowledgements | //executivesummary"),
+          ),
+        )
       end
 
       def section_names1(clause, num, level)
@@ -25,10 +30,24 @@ module IsoDoc
           { label: num, level: level, xref: num }
         # subclauses are not prefixed with "Clause"
         i = Counter.new
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | ./references")).
-          each do |c|
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | "\
+                        "./references")).each do |c|
           i.increment(c)
           section_names1(c, "#{num}.#{i.print}", level + 1)
+        end
+      end
+
+      # we can reference 0-number clauses in introduction
+      def introduction_names(clause)
+        return if clause.nil?
+
+        clause.at(ns("./clause")) and
+          @anchors[clause["id"]] = { label: "0", level: 1, type: "clause",
+                                     xref: clause.at(ns("./title"))&.text }
+        i = Counter.new
+        clause.xpath(ns("./clause")).each do |c|
+          i.increment(c)
+          section_names1(c, "0.#{i.print}", 2)
         end
       end
     end

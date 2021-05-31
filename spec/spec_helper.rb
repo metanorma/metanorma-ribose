@@ -36,16 +36,19 @@ RSpec.configure do |config|
 end
 
 def metadata(hash)
-  Hash[hash.sort].delete_if { |_, v| v.nil? || v.respond_to?(:empty?) && v.empty? }
+  Hash[hash.sort]
+    .delete_if { |_, v| v.nil? || v.respond_to?(:empty?) && v.empty? }
 end
 
 def strip_guid(str)
-  str.gsub(%r{ id="_[^"]+"}, ' id="_"').gsub(%r{ target="_[^"]+"}, ' target="_"')
+  str.gsub(%r{ id="_[^"]+"}, ' id="_"')
+    .gsub(%r{ target="_[^"]+"}, ' target="_"')
 end
 
 def htmlencode(html)
-  HTMLEntities.new.encode(html, :hexadecimal).gsub(/&#x3e;/, ">").gsub(/&#xa;/, "\n")
-    .gsub(/&#x22;/, '"').gsub(/&#x3c;/, "<").gsub(/&#x26;/, "&").gsub(/&#x27;/, "'")
+  HTMLEntities.new.encode(html, :hexadecimal).gsub(/&#x3e;/, ">")
+    .gsub(/&#xa;/, "\n").gsub(/&#x22;/, '"')
+    .gsub(/&#x3c;/, "<").gsub(/&#x26;/, "&").gsub(/&#x27;/, "'")
     .gsub(/\\u(....)/) { "&#x#{$1.downcase};" }
 end
 
@@ -74,7 +77,8 @@ VALIDATING_BLANK_HDR = <<~"HDR".freeze
 
 HDR
 
-BOILERPLATE_XML = File.join(File.dirname(__FILE__), "..", "lib", "asciidoctor", "ribose", "boilerplate.xml")
+BOILERPLATE_XML = File.join(File.dirname(__FILE__), "..",
+                            "lib", "asciidoctor", "ribose", "boilerplate.xml")
 
 def boilerplate(xmldoc)
   file = File.read(BOILERPLATE_XML, encoding: "utf-8")
@@ -84,7 +88,7 @@ def boilerplate(xmldoc)
   ret = Nokogiri::XML(
     conv.boilerplate_isodoc(xmldoc).populate_template(file, nil)
     .gsub(/<p>/, "<p id='_'>")
-    .gsub(/<ol>/, "<ol id='_' type='alphabet'>")
+    .gsub(/<ol>/, "<ol id='_' type='alphabet'>"),
   )
   conv.smartquotes_cleanup(ret)
   HTMLEntities.new.decode(ret.to_xml)
@@ -144,8 +148,8 @@ HDR
 
 def blank_hdr_gen
   <<~"HDR"
-  #{BLANK_HDR}
-  #{boilerplate(Nokogiri::XML(BLANK_HDR + '</ribose-standard>'))}
+    #{BLANK_HDR}
+    #{boilerplate(Nokogiri::XML("#{BLANK_HDR}</ribose-standard>"))}
   HDR
 end
 
