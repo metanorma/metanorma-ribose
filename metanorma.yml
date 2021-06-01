@@ -5,6 +5,7 @@ document_namespace: https://www.metanorma.org/ns/rsd
 xml_root_tag: 'rsd-standard'
 logo_path: lib/isodoc/ribose/html/logo.png
 validate_rng_file: lib/asciidoctor/ribose/rsd.rng
+i18nyaml: lib/isodoc/ribose/i18n-en.yaml
 htmlcoverpage: lib/isodoc/ribose/html/html_rsd_titlepage.html
 htmlintropage: lib/isodoc/ribose/html/html_rsd_intro.html
 htmlstylesheet: lib/isodoc/ribose/html/htmlstyle.scss
