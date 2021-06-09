@@ -1216,6 +1216,8 @@
 		
 		
 		
+			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
+			<xsl:attribute name="font-weight">600</xsl:attribute>
 			<xsl:attribute name="text-decoration">underline</xsl:attribute>
 		
 		
@@ -1266,11 +1268,9 @@
 		
 		
 		
-			<xsl:attribute name="font-weight">normal</xsl:attribute>
-			<xsl:attribute name="font-size">11pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		
-		
+
 	</xsl:attribute-set><xsl:attribute-set name="example-style">
 		
 		
@@ -1284,10 +1284,8 @@
 		
 		
 		
-			<xsl:attribute name="font-size">10pt</xsl:attribute>			
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>			
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>			
-			<xsl:attribute name="line-height">115%</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="example-body-style">
 		
@@ -1306,8 +1304,9 @@
 		
 		
 		
-			<xsl:attribute name="font-weight">normal</xsl:attribute>
-			<xsl:attribute name="padding-right">4mm</xsl:attribute>
+			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
+			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 				
 				
 		
@@ -1332,10 +1331,13 @@
 		
 	</xsl:attribute-set><xsl:attribute-set name="termexample-name-style">
 		
-			<xsl:attribute name="padding-right">10mm</xsl:attribute>
 		
 		
+				
 		
+			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
+			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 				
 	</xsl:attribute-set><xsl:attribute-set name="table-name-style">
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
@@ -1353,12 +1355,16 @@
 		
 		
 		
-			<xsl:attribute name="font-size">12pt</xsl:attribute>
-			<xsl:attribute name="font-weight">normal</xsl:attribute>
-			<xsl:attribute name="text-align">center</xsl:attribute>
+			<xsl:attribute name="font-size">13pt</xsl:attribute>
+			<xsl:attribute name="font-weight">300</xsl:attribute>
+			<xsl:attribute name="color">black</xsl:attribute>
+			<xsl:attribute name="text-align">left</xsl:attribute>
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
-			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
-			<xsl:attribute name="keep-with-previous">always</xsl:attribute>
+			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+		
+	</xsl:attribute-set><xsl:attribute-set name="table-footer-cell-style">
+		
+			<xsl:attribute name="border">solid black 0pt</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="appendix-style">
 		
@@ -1366,6 +1372,7 @@
 		
 			<xsl:attribute name="font-size">12pt</xsl:attribute>
 			<xsl:attribute name="font-weight">normal</xsl:attribute>
+			<xsl:attribute name="color">black</xsl:attribute>
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		
@@ -1374,7 +1381,7 @@
 		
 		
 			<xsl:attribute name="font-weight">normal</xsl:attribute>
-			<xsl:attribute name="font-size">11pt</xsl:attribute>			
+			<xsl:attribute name="color">black</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="xref-style">
@@ -1404,13 +1411,12 @@
 		
 		
 		
-			<xsl:attribute name="font-size">10pt</xsl:attribute>			
+		
+		
+		
+		
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>			
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>			
-			<xsl:attribute name="line-height">115%</xsl:attribute>
-		
-		
-		
 		
 	</xsl:attribute-set><xsl:variable name="note-body-indent">10mm</xsl:variable><xsl:variable name="note-body-indent-table">5mm</xsl:variable><xsl:attribute-set name="note-name-style">
 		
@@ -1426,8 +1432,9 @@
 		
 		
 		
-			<xsl:attribute name="font-weight">normal</xsl:attribute>
-			<xsl:attribute name="padding-right">4mm</xsl:attribute>
+			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
+			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="note-p-style">
 		
@@ -1449,17 +1456,22 @@
 	</xsl:attribute-set><xsl:attribute-set name="termnote-style">
 		
 		
-			<xsl:attribute name="font-size">10pt</xsl:attribute>			
-			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		
 		
 		
 		
+		
+			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="termnote-name-style">		
 		
 				
 		
+		
+				<xsl:attribute name="font-weight">600</xsl:attribute>
+				<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
+				<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
+			
 	</xsl:attribute-set><xsl:attribute-set name="quote-style">		
 		
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
@@ -1487,7 +1499,6 @@
 		
 		
 		
-			<xsl:attribute name="font-style">italic</xsl:attribute>
 			<xsl:attribute name="keep-with-previous">always</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="origin-style">
@@ -1513,14 +1524,16 @@
 		
 		
 		
-			<xsl:attribute name="font-size">12pt</xsl:attribute>
-			<xsl:attribute name="font-weight">normal</xsl:attribute>
-			<xsl:attribute name="text-align">center</xsl:attribute>
+			<xsl:attribute name="font-size">13pt</xsl:attribute>
+			<xsl:attribute name="font-weight">300</xsl:attribute>
+			<xsl:attribute name="color">black</xsl:attribute>
+			<xsl:attribute name="text-align">left</xsl:attribute>
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
-			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
-			<xsl:attribute name="keep-with-previous">always</xsl:attribute>
+			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+			<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		
 		
+
 		
 		
 		
@@ -1561,8 +1574,12 @@
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		<xsl:attribute name="keep-with-previous">always</xsl:attribute>
 		
-			<xsl:attribute name="font-size">12pt</xsl:attribute>
-			<xsl:attribute name="font-weight">normal</xsl:attribute>
+			<xsl:attribute name="font-size">13pt</xsl:attribute>
+			<xsl:attribute name="font-weight">300</xsl:attribute>
+			<xsl:attribute name="color">black</xsl:attribute>
+			<xsl:attribute name="text-align">left</xsl:attribute>
+			<xsl:attribute name="margin-top">12pt</xsl:attribute>
+			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="domain-style">
 				
@@ -1571,11 +1588,13 @@
 		
 		
 			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="color">black</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="deprecates-style">
 		
 		
 			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="color">black</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="definition-style">
 		
@@ -1602,6 +1621,8 @@
 	</xsl:attribute-set><xsl:attribute-set name="mathml-style">
 		<xsl:attribute name="font-family">STIX Two Math</xsl:attribute>
 		
+		
+	</xsl:attribute-set><xsl:attribute-set name="list-style">
 		
 	</xsl:attribute-set><xsl:variable name="border-block-added">2.5pt solid rgb(0, 176, 80)</xsl:variable><xsl:variable name="border-block-deleted">2.5pt solid rgb(255, 0, 0)</xsl:variable><xsl:template name="processPrefaceSectionsDefault_Contents">
 		<xsl:apply-templates select="/*/*[local-name()='preface']/*[local-name()='abstract']" mode="contents"/>
@@ -1656,11 +1677,11 @@
 		<xsl:variable name="table">
 	
 			<xsl:variable name="simple-table">	
-				<xsl:call-template name="getSimpleTable"/>			
+				<xsl:call-template name="getSimpleTable"/>
 			</xsl:variable>
 		
 			<!-- <xsl:if test="$namespace = 'bipm'">
-				<fo:block>&#xA0;</fo:block>				
+				<fo:block>&#xA0;</fo:block>
 			</xsl:if> -->
 			
 			<!-- $namespace = 'iso' or  -->
@@ -1763,6 +1784,10 @@
 									
 					
 									
+					
+					
+						<attribute name="border">0pt solid black</attribute>
+						<attribute name="font-size">9.5pt</attribute>
 					
 				</xsl:variable>
 				
@@ -2209,6 +2234,8 @@
 							
 							
 							
+								<xsl:attribute name="border">solid black 0pt</xsl:attribute>
+							
 							
 							<!-- except gb  -->
 							
@@ -2289,6 +2316,7 @@
 					
 					
 							<xsl:attribute name="font-weight">normal</xsl:attribute>
+							<xsl:attribute name="color">black</xsl:attribute>
 						
 				</xsl:if>
 				<xsl:if test="$parent-name = 'tfoot'">
@@ -2298,6 +2326,19 @@
 				
 				
 				
+				
+				
+					<xsl:attribute name="min-height">8.5mm</xsl:attribute>
+					<xsl:if test="$parent-name = 'thead'">
+						<xsl:attribute name="background-color">rgb(32, 98, 169)</xsl:attribute>
+						<xsl:attribute name="color">white</xsl:attribute>
+					</xsl:if>
+					<xsl:if test="$parent-name = 'tbody'">
+						<xsl:variable name="number"><xsl:number/></xsl:variable>
+						<xsl:if test="$number mod 2 = 0">
+							<xsl:attribute name="background-color">rgb(254, 247, 228)</xsl:attribute>
+						</xsl:if>
+					</xsl:if>					
 				
 				<!-- <xsl:if test="$namespace = 'bipm'">
 					<xsl:attribute name="height">8mm</xsl:attribute>
@@ -2330,6 +2371,7 @@
 			
 			
 				<xsl:attribute name="font-weight">normal</xsl:attribute>
+				<xsl:attribute name="border">0pt solid black</xsl:attribute>
 			
 			<xsl:if test="$lang = 'ar'">
 				<xsl:attribute name="padding-right">1mm</xsl:attribute>
@@ -2385,6 +2427,10 @@
 			
 			
 			
+			
+			
+				<xsl:attribute name="border">0pt solid black</xsl:attribute>
+				<xsl:attribute name="padding-top">0.5mm</xsl:attribute>
 			
 			<xsl:if test=".//*[local-name() = 'table']">
 				<xsl:attribute name="padding-right">1mm</xsl:attribute>
@@ -2599,6 +2645,11 @@
 			
 			
 			
+			
+				<xsl:attribute name="font-size">70%</xsl:attribute>
+				<xsl:attribute name="vertical-align">super</xsl:attribute>
+				<xsl:attribute name="font-style">italic</xsl:attribute>
+			
 			<fo:basic-link internal-destination="{@reference}_{ancestor::*[@id][1]/@id}" fox:alt-text="{@reference}"> <!-- @reference   | ancestor::*[local-name()='clause'][1]/@id-->
 				
 				
@@ -2692,6 +2743,7 @@
 							
 							
 								<xsl:attribute name="font-weight">normal</xsl:attribute>
+								<xsl:attribute name="color">black</xsl:attribute>
 							
 							<xsl:variable name="title-key">
 								
@@ -2903,6 +2955,9 @@
 		
 		<fo:table-row>
 			
+			
+				<xsl:attribute name="min-height">7mm</xsl:attribute>
+			
 			<fo:table-cell>
 				
 				<fo:block margin-top="6pt">
@@ -2917,6 +2972,11 @@
 					
 					
 					
+					
+					
+						<xsl:attribute name="margin-top">0pt</xsl:attribute>
+						<xsl:attribute name="font-weight">600</xsl:attribute>
+						<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 					
 					<xsl:apply-templates/>
 					<!-- <xsl:if test="$namespace = 'gb'">
@@ -2973,6 +3033,7 @@
 		<fo:inline font-weight="bold">
 			
 				<xsl:attribute name="font-weight">normal</xsl:attribute>
+				<xsl:attribute name="color">black</xsl:attribute>
 			
 			<xsl:apply-templates/>
 		</fo:inline>
@@ -3491,6 +3552,13 @@
 		</xsl:variable>
 		<fo:inline xsl:use-attribute-sets="link-style">
 			
+			
+				<xsl:if test="not(ancestor::*[local-name() = 'bibitem'])">
+					<xsl:attribute name="color">black</xsl:attribute>
+					<xsl:attribute name="text-decoration">none</xsl:attribute>
+					<xsl:attribute name="font-weight">300</xsl:attribute>
+				</xsl:if>
+			
 			<xsl:choose>
 				<xsl:when test="$target_text = ''">
 					<xsl:apply-templates/>
@@ -3662,6 +3730,8 @@
 				</xsl:when>
 				<xsl:otherwise>
 					
+						<xsl:text>:</xsl:text>
+					
 					
 				</xsl:otherwise>
 			</xsl:choose>
@@ -3678,6 +3748,8 @@
 					<xsl:value-of select="$sfx"/>					
 				</xsl:when>
 				<xsl:otherwise>
+					
+						<xsl:text>:</xsl:text>
 					
 					
 				</xsl:otherwise>
@@ -3719,7 +3791,19 @@
 				<xsl:with-param name="isDeleted" select="$isDeleted"/>
 			</xsl:call-template>
 			
+				<xsl:apply-templates select="*[local-name() = 'name']" mode="presentation"/>
+			
 			<fo:block>
+				 <!-- background for image -->
+					<xsl:attribute name="background-color">rgb(236,242,246)</xsl:attribute>
+					<xsl:attribute name="padding-left">11mm</xsl:attribute>
+					<xsl:attribute name="margin-left">0mm</xsl:attribute>
+					<xsl:attribute name="padding-right">11mm</xsl:attribute>
+					<xsl:attribute name="margin-right">0mm</xsl:attribute>
+					<xsl:attribute name="padding-top">7.5mm</xsl:attribute>
+					<xsl:attribute name="padding-bottom">7.5mm</xsl:attribute>
+					<xsl:attribute name="margin-bottom">3mm</xsl:attribute>
+				
 				<xsl:apply-templates/>
 			</fo:block>
 			<xsl:call-template name="fn_display_figure"/>
@@ -3727,8 +3811,6 @@
 				<xsl:call-template name="note"/>
 			</xsl:for-each>
 			
-			
-				<xsl:apply-templates select="*[local-name() = 'name']" mode="presentation"/>
 			
 		</fo:block-container>
 	</xsl:template><xsl:template match="*[local-name() = 'figure'][@class = 'pseudocode']">
@@ -4084,6 +4166,7 @@
 	
 		<fo:block-container margin-left="0mm">
 			<xsl:copy-of select="@id"/>
+			<xsl:attribute name="space-after">12pt</xsl:attribute>
 			<xsl:if test="parent::*[local-name() = 'note']">
 				<xsl:attribute name="margin-left">
 					<xsl:choose>
@@ -4094,7 +4177,11 @@
 				
 			</xsl:if>
 			<fo:block-container margin-left="0mm">
-	
+		
+				
+					<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
+				
+				
 				<fo:block xsl:use-attribute-sets="sourcecode-style">
 					<xsl:variable name="_font-size">
 						
@@ -4123,9 +4210,11 @@
 						</xsl:choose>
 					</xsl:attribute>
 				</xsl:if>
-					<xsl:apply-templates/>			
-				</fo:block>
-				<xsl:apply-templates select="*[local-name()='name']" mode="presentation"/>
+				
+				<xsl:apply-templates/>			
+			</fo:block>
+				
+				
 				
 			</fo:block-container>
 		</fo:block-container>
@@ -4409,7 +4498,7 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:inline xsl:use-attribute-sets="example-name-style">
-					<xsl:apply-templates/>
+					<xsl:apply-templates/>: 
 				</fo:inline>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -4453,12 +4542,8 @@
 				</xsl:when>
 				<xsl:otherwise>					
 					
-						<xsl:text>[</xsl:text>
-					
 					<!-- <xsl:apply-templates />					 -->
 					<xsl:copy-of select="$termsource_text"/>
-					
-						<xsl:text>]</xsl:text>
 					
 				</xsl:otherwise>
 			</xsl:choose>
@@ -4480,12 +4565,15 @@
 				<fo:inline>
 					
 					
+						<xsl:attribute name="font-weight">600</xsl:attribute>
+						<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 					
 					
-						<xsl:call-template name="getTitle">
-							<xsl:with-param name="name" select="'title-source'"/>
-						</xsl:call-template>
+					
+						<xsl:value-of select="$localized.source"/>
 						<xsl:text>: </xsl:text>
+					
+					
 					
 					
 				</fo:inline>
@@ -4601,7 +4689,7 @@
 			
 			
 			
-			3.5
+			1.5
 			
 			
 			
@@ -4654,10 +4742,10 @@
 	</xsl:template><xsl:template match="*[local-name() = 'deprecates']">
 		<xsl:variable name="title-deprecated">
 			
-			
-				<xsl:call-template name="getTitle">
-					<xsl:with-param name="name" select="'title-deprecated'"/>
+				<xsl:call-template name="getLocalizedString">
+					<xsl:with-param name="key">deprecated</xsl:with-param>
 				</xsl:call-template>
+			
 			
 		</xsl:variable>
 		<fo:block xsl:use-attribute-sets="deprecates-style">
@@ -4705,6 +4793,7 @@
 	</xsl:template><xsl:template match="*[local-name() = 'clause']">
 		<fo:block>
 			<xsl:call-template name="setId"/>
+			
 			
 			
 			<xsl:apply-templates/>
@@ -5469,4 +5558,14 @@
 				<xsl:value-of select="$align"/>
 			</xsl:when>
 		</xsl:choose>
+	</xsl:template><xsl:template name="setTextAlignment">
+		<xsl:param name="default">left</xsl:param>
+		<xsl:attribute name="text-align">
+			<xsl:choose>
+				<xsl:when test="@align"><xsl:value-of select="@align"/></xsl:when>
+				<xsl:when test="ancestor::*[local-name() = 'td']/@align"><xsl:value-of select="ancestor::*[local-name() = 'td']/@align"/></xsl:when>
+				<xsl:when test="ancestor::*[local-name() = 'th']/@align"><xsl:value-of select="ancestor::*[local-name() = 'th']/@align"/></xsl:when>
+				<xsl:otherwise><xsl:value-of select="$default"/></xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
 	</xsl:template></xsl:stylesheet>
