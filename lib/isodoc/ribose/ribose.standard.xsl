@@ -62,7 +62,7 @@
 	
 	<xsl:template match="/">
 		<xsl:call-template name="namespaceCheck"/>
-		<fo:root font-family="Source Sans Pro, STIX Two Math" font-weight="300" font-size="11.5pt" color="rgb(50, 50, 50)" xml:lang="{$lang}">
+		<fo:root font-family="OpenSans, STIX Two Math" font-weight="300" font-size="11pt" color="rgb(88, 88, 90)" xml:lang="{$lang}">
 			<fo:layout-master-set>
 				
 				<!-- Cover page -->
@@ -387,16 +387,16 @@
 						</fo:block>
 					</fo:block-container>
 					
-					<!-- title and logo -->
+					<!-- title and version  -->
 					<fo:block-container height="60mm" display-align="center">
 						<xsl:variable name="title" select="/rsd:rsd-standard/rsd:bibdata/rsd:title[@language = $lang]"/>
 						<xsl:if test="string-length($title) &gt; 80">
 							<xsl:attribute name="margin-right">-30mm</xsl:attribute>
 						</xsl:if>
-						<fo:block font-size="28pt" font-weight="bold">
+						<fo:block font-size="27pt" font-weight="bold">
 								<xsl:apply-templates select="/rsd:rsd-standard/rsd:bibdata/rsd:title[@language = $lang]" mode="cover_page"/>
 						</fo:block>
-						<fo:block space-before="9pt" font-size="16.8pt" font-weight="normal">
+						<fo:block space-before="9pt" font-size="16.8pt" font-weight="600">
 							<xsl:value-of select="$docnumber_version"/>
 						</fo:block>
 					</fo:block-container>
@@ -410,7 +410,7 @@
 				<fo:flow flow-name="xsl-region-body">
 					<xsl:if test="xalan:nodeset($contents)//item[@display = 'true']">
 					<!-- <fo:block-container absolute-position="fixed" left="13mm" top="15mm"> -->
-						<fo:block font-size="28pt" font-weight="600" color="black" margin-left="-15mm" margin-bottom="13mm">
+						<fo:block font-size="27pt" font-weight="bold" color="black" margin-left="-15mm" margin-bottom="13mm">
 							<xsl:call-template name="getLocalizedString">
 								<xsl:with-param name="key">table_of_contents</xsl:with-param>
 							</xsl:call-template>
@@ -420,13 +420,13 @@
 						<fo:block-container margin-left="32mm" margin-right="-17mm">
 							<fo:block-container margin-left="0mm" margin-right="0mm">
 								<xsl:for-each select="xalan:nodeset($contents)//item[@display = 'true']">
-									<fo:block font-size="14pt">
+									<fo:block font-size="13pt">
 										<xsl:if test="@level = 1">
 											<xsl:if test="preceding-sibling::item[@display = 'true' and @level = 1]">
 												<xsl:attribute name="space-before">16pt</xsl:attribute>
 											</xsl:if>
-											<xsl:attribute name="space-after">2pt</xsl:attribute>
-											<xsl:attribute name="font-weight">600</xsl:attribute> <!-- 600 semibold -->
+											<xsl:attribute name="space-after">4pt</xsl:attribute>
+											<xsl:attribute name="font-weight">bold</xsl:attribute>
 											<xsl:attribute name="keep-with-next">always</xsl:attribute>
 											<xsl:attribute name="color">black</xsl:attribute>
 										</xsl:if>
@@ -669,9 +669,9 @@
 			<xsl:choose>
 				<!-- <xsl:when test="ancestor::rsd:preface and $level &gt;= 2">12pt</xsl:when>
 				<xsl:when test="ancestor::rsd:preface">13pt</xsl:when> -->
-				<xsl:when test="$level = 1">24pt</xsl:when>
-				<xsl:when test="$level = 2">14pt</xsl:when>
-				<xsl:when test="$level &gt;= 3">11.5pt</xsl:when>
+				<xsl:when test="$level = 1">22pt</xsl:when>
+				<xsl:when test="$level = 2">13pt</xsl:when>
+				<xsl:when test="$level &gt;= 3">11pt</xsl:when>
 				<xsl:otherwise>16pt</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
@@ -679,7 +679,7 @@
 		<xsl:variable name="font-weight">
 			<xsl:choose>
 				<xsl:when test="$level &gt;= 4">normal</xsl:when>
-				<xsl:otherwise>600</xsl:otherwise> <!-- 600 - semibold-->
+				<xsl:otherwise>bold</xsl:otherwise> <!-- 600 - semibold-->
 			</xsl:choose>
 		</xsl:variable>
 	
@@ -1015,7 +1015,7 @@
 	<xsl:template match="rsd:li">
 		<fo:list-item space-after="4pt">
 			<fo:list-item-label end-indent="label-end()">
-				<fo:block color="{$color_blue}" font-weight="600">
+				<fo:block color="{$color_blue}" font-weight="bold">
 					<xsl:choose>
 						<xsl:when test="local-name(..) = 'ul' and (../ancestor::rsd:ul or ../ancestor::rsd:ol)">-</xsl:when> <!-- &#x2014; dash -->
 						<xsl:when test="local-name(..) = 'ul'">•</xsl:when> <!--  &#x2014; dash -->
@@ -1051,6 +1051,9 @@
 	
 	<xsl:template match="rsd:ul/rsd:note | rsd:ol/rsd:note" priority="2">
 		<fo:list-item font-size="10pt">
+			<xsl:if test="ancestor::rsd:table">
+				<xsl:attribute name="font-size">8pt</xsl:attribute>
+			</xsl:if>
 			<fo:list-item-label><fo:block/></fo:list-item-label>
 			<fo:list-item-body>
 				<fo:block>
@@ -1069,11 +1072,11 @@
 		</xsl:variable>
 		<xsl:variable name="font-size">
 			<xsl:choose>
-				<xsl:when test="$level &gt;= 2">14pt</xsl:when>
+				<xsl:when test="$level &gt;= 2">13pt</xsl:when>
 				<xsl:otherwise>12pt</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<fo:block font-weight="600" color="black" font-size="{$font-size}" keep-with-next="always"> <!-- 600 - semibold -->
+		<fo:block font-weight="bold" color="black" font-size="{$font-size}" keep-with-next="always"> <!-- 600 - semibold -->
 			<xsl:if test="preceding-sibling::*[1][self::rsd:name]">
 				<xsl:attribute name="space-before">11mm</xsl:attribute>
 				<fo:inline padding-right="1mm">
@@ -1104,7 +1107,7 @@
 					</xsl:choose>
 				</xsl:attribute>
 				<fo:block padding-top="1mm" padding-bottom="0.5mm">
-					<fo:inline font-size="12pt" font-weight="300">
+					<fo:inline font-size="11pt" font-weight="300">
 						<xsl:value-of select="java:toUpperCase(java:java.lang.String.new($term_kind))"/>
 					</fo:inline>
 				</fo:block>
@@ -1124,8 +1127,8 @@
 					<fo:table-row>
 						<fo:table-cell text-align="left">
 							<fo:block margin-left="-15mm"> <!-- Bibliography section title -->
-								<xsl:attribute name="font-size">24pt</xsl:attribute>
-								<xsl:attribute name="font-weight">600</xsl:attribute> <!-- 600 - semibold-->
+								<xsl:attribute name="font-size">22pt</xsl:attribute>
+								<xsl:attribute name="font-weight">bold</xsl:attribute>
 								<xsl:attribute name="margin-bottom">16pt</xsl:attribute>
 								<xsl:attribute name="color">black</xsl:attribute>
 								<xsl:attribute name="line-height">125%</xsl:attribute>
@@ -1218,7 +1221,7 @@
 		<xsl:choose>
 			<xsl:when test="contains(., '—')">
 				<xsl:variable name="name_number" select="normalize-space(translate(substring-before(., '—'), ' ', ' '))"/>
-				<fo:inline font-weight="600" font-style="normal" color="black"><xsl:value-of select="java:toUpperCase(java:java.lang.String.new($name_number))"/><xsl:text>: </xsl:text></fo:inline>
+				<fo:inline font-weight="bold" font-style="normal" color="black"><xsl:value-of select="java:toUpperCase(java:java.lang.String.new($name_number))"/><xsl:text>:</xsl:text></fo:inline>
 				<xsl:value-of select="substring-after(., '—')"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -1359,7 +1362,7 @@
 			</xsl:call-template>
 		</xsl:variable>
 		<fo:static-content flow-name="footer-odd">
-			<fo:block-container font-size="8.5pt" height="100%" color="black">
+			<fo:block-container font-size="8pt" height="100%" color="black">
 				<fo:block text-align-last="justify" margin-right="1mm">
 					<fo:inline padding-right="11mm"><fo:page-number/></fo:inline>
 					<xsl:value-of select="$footerText"/>
@@ -1371,7 +1374,7 @@
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="footer-even">
-			<fo:block-container font-size="8.5pt" height="100%" color="black">
+			<fo:block-container font-size="8pt" height="100%" color="black">
 				<fo:block text-align-last="justify" margin-right="1mm">
 					<fo:inline padding-right="11mm"><fo:page-number/></fo:inline>
 					<fo:inline>
@@ -1623,7 +1626,7 @@
 		
 		
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
-			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
 			<xsl:attribute name="text-decoration">underline</xsl:attribute>
 		
 		
@@ -1710,7 +1713,7 @@
 		
 		
 		
-			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 				
@@ -1741,7 +1744,7 @@
 		
 				
 		
-			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 				
@@ -1838,7 +1841,7 @@
 		
 		
 		
-			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 		
@@ -1874,7 +1877,7 @@
 				
 		
 		
-				<xsl:attribute name="font-weight">600</xsl:attribute>
+				<xsl:attribute name="font-weight">bold</xsl:attribute>
 				<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 				<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 			
@@ -1993,13 +1996,13 @@
 		
 		
 		
-			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
 			<xsl:attribute name="color">black</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="deprecates-style">
 		
 		
-			<xsl:attribute name="font-weight">600</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
 			<xsl:attribute name="color">black</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="definition-style">
@@ -2194,7 +2197,7 @@
 					
 					
 						<attribute name="border">0pt solid black</attribute>
-						<attribute name="font-size">9.5pt</attribute>
+						<attribute name="font-size">8pt</attribute>
 					
 				</xsl:variable>
 				
@@ -2877,6 +2880,9 @@
 				
 				
 				
+					<xsl:attribute name="font-size">8pt</xsl:attribute>					
+				
+				
 				<fo:inline padding-right="2mm">
 					
 					
@@ -3391,7 +3397,7 @@
 					
 					
 						<xsl:attribute name="margin-top">0pt</xsl:attribute>
-						<xsl:attribute name="font-weight">600</xsl:attribute>
+						<xsl:attribute name="font-weight">bold</xsl:attribute>
 						<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 					
 					<xsl:apply-templates/>
@@ -3977,7 +3983,7 @@
 		<fo:inline xsl:use-attribute-sets="link-style">
 			
 			
-				<xsl:if test="not(ancestor::*[local-name() = 'bibitem'])">
+				<xsl:if test="ancestor::*[local-name() = 'bibitem']">
 					<xsl:attribute name="color">black</xsl:attribute>
 					<xsl:attribute name="text-decoration">none</xsl:attribute>
 					<xsl:attribute name="font-weight">300</xsl:attribute>
@@ -5003,7 +5009,7 @@
 				<fo:inline>
 					
 					
-						<xsl:attribute name="font-weight">600</xsl:attribute>
+						<xsl:attribute name="font-weight">bold</xsl:attribute>
 						<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 					
 					
