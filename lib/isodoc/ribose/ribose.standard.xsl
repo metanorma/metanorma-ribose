@@ -1752,7 +1752,9 @@
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 				
-	</xsl:attribute-set><xsl:attribute-set name="table-name-style">
+	</xsl:attribute-set><xsl:variable name="table-border_">
+		
+	</xsl:variable><xsl:variable name="table-border" select="normalize-space($table-border_)"/><xsl:attribute-set name="table-name-style">
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 			
 		
@@ -2196,6 +2198,7 @@
 					<attribute name="width"><xsl:value-of select="normalize-space($table_width)"/></attribute>
 					<attribute name="margin-left"><xsl:value-of select="$margin-left"/>mm</attribute>
 					<attribute name="margin-right"><xsl:value-of select="$margin-left"/>mm</attribute>
+					
 					
 					
 					
