@@ -3,9 +3,11 @@ require "spec_helper"
 RSpec.describe Asciidoctor::Ribose do
   context "when xref_error.adoc compilation" do
     it "generates error file" do
+      FileUtils.rm_rf "xref_error.err"
       File.write("xref_error.adoc", <<~"CONTENT")
         = X
         A
+        :no-pdf:
 
         == Clause
 
