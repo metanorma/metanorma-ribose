@@ -1244,6 +1244,9 @@
 				<fo:inline font-weight="bold" font-style="normal" color="black"><xsl:value-of select="java:toUpperCase(java:java.lang.String.new($name_number))"/><xsl:text>:</xsl:text></fo:inline>
 				<xsl:value-of select="substring-after(., '—')"/>
 			</xsl:when>
+			<xsl:when test="starts-with(., 'Figure ') or starts-with(., 'Table ')">
+				<fo:inline font-weight="bold" font-style="normal" color="black"><xsl:value-of select="java:toUpperCase(java:java.lang.String.new(.))"/></fo:inline>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="."/>
 			</xsl:otherwise>
@@ -1875,6 +1878,15 @@
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
 		
+	</xsl:attribute-set><xsl:attribute-set name="table-note-name-style">
+		
+		
+		
+		
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
+			<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
+		
 	</xsl:attribute-set><xsl:attribute-set name="note-p-style">
 		
 		
@@ -2020,6 +2032,7 @@
 			<xsl:attribute name="text-align">left</xsl:attribute>
 			<xsl:attribute name="margin-top">12pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+			<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		
 	</xsl:attribute-set><xsl:attribute-set name="domain-style">
 				
@@ -3008,9 +3021,8 @@
 				
 				<!-- Table's note name (NOTE, for example) -->
 
-				<fo:inline padding-right="2mm">
+				<fo:inline padding-right="2mm" xsl:use-attribute-sets="table-note-name-style">
 					
-				
 					
 					
 					
@@ -5127,6 +5139,22 @@
 						</xsl:choose>
 					</xsl:attribute>
 				</xsl:if>
+				
+				 <!-- background for image -->
+					<xsl:if test="starts-with(*[local-name() = 'name']/text()[1], 'Figure ')">
+						<xsl:attribute name="background-color">rgb(236,242,246)</xsl:attribute>
+						<xsl:attribute name="padding-left">11mm</xsl:attribute>
+						<xsl:attribute name="margin-left">0mm</xsl:attribute>
+						<xsl:attribute name="padding-right">11mm</xsl:attribute>
+						<xsl:attribute name="margin-right">0mm</xsl:attribute>
+						<xsl:attribute name="padding-top">7.5mm</xsl:attribute>
+						<xsl:attribute name="padding-bottom">7.5mm</xsl:attribute>
+						<!-- <xsl:attribute name="margin-bottom">3mm</xsl:attribute> -->
+						<xsl:if test="following-sibling::*[1][local-name() = 'sourcecode'] and starts-with(*[local-name() = 'name']/text()[1], 'Figure ')">
+							<xsl:attribute name="margin-bottom">16pt</xsl:attribute>
+						</xsl:if>
+					</xsl:if>
+				
 				
 				<xsl:apply-templates/>			
 			</fo:block>
