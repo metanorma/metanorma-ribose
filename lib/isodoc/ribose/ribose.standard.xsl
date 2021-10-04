@@ -1649,7 +1649,7 @@
 		
 		
 			<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
-			<xsl:attribute name="font-weight">bold</xsl:attribute>
+			<xsl:attribute name="font-weight">300</xsl:attribute><!-- bold -->
 			<xsl:attribute name="text-decoration">underline</xsl:attribute>
 		
 		
@@ -5411,7 +5411,7 @@
 	</xsl:template><xsl:template match="*[local-name() = 'termexample']/*[local-name() = 'name']"/><xsl:template match="*[local-name() = 'termexample']/*[local-name() = 'name']" mode="presentation">
 		<xsl:if test="normalize-space() != ''">
 			<fo:inline xsl:use-attribute-sets="termexample-name-style">
-				<xsl:apply-templates/>
+				<xsl:apply-templates/>: 
 			</fo:inline>
 		</xsl:if>
 	</xsl:template><xsl:template match="*[local-name() = 'termexample']/*[local-name() = 'p']">
