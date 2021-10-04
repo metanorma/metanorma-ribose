@@ -3642,7 +3642,7 @@
 				
 					<xsl:choose>
 						<xsl:when test="ancestor::*[local-name() = 'table']">inherit</xsl:when>
-						<xsl:otherwise>10</xsl:otherwise>
+						<xsl:otherwise>110%</xsl:otherwise>
 					</xsl:choose>
 				
 						
@@ -3652,6 +3652,7 @@
 				<xsl:attribute name="font-size">
 					<xsl:choose>
 						<xsl:when test="$font-size = 'inherit'"><xsl:value-of select="$font-size"/></xsl:when>
+						<xsl:when test="contains($font-size, '%')"><xsl:value-of select="$font-size"/></xsl:when>
 						<xsl:when test="ancestor::*[local-name()='note']"><xsl:value-of select="$font-size * 0.91"/>pt</xsl:when>
 						<xsl:otherwise><xsl:value-of select="$font-size"/>pt</xsl:otherwise>
 					</xsl:choose>
@@ -5127,13 +5128,20 @@
 						
 						
 												
-						10
+						
+							<xsl:choose>
+								<xsl:when test="ancestor::*[local-name() = 'table']">inherit</xsl:when>
+								<xsl:otherwise>110%</xsl:otherwise>
+							</xsl:choose>
+						
 								
 				</xsl:variable>
 				<xsl:variable name="font-size" select="normalize-space($_font-size)"/>		
 				<xsl:if test="$font-size != ''">
 					<xsl:attribute name="font-size">
 						<xsl:choose>
+							<xsl:when test="$font-size = 'inherit'"><xsl:value-of select="$font-size"/></xsl:when>
+							<xsl:when test="contains($font-size, '%')"><xsl:value-of select="$font-size"/></xsl:when>
 							<xsl:when test="ancestor::*[local-name()='note']"><xsl:value-of select="$font-size * 0.91"/>pt</xsl:when>
 							<xsl:otherwise><xsl:value-of select="$font-size"/>pt</xsl:otherwise>
 						</xsl:choose>
