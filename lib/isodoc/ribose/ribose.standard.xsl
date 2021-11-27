@@ -1104,7 +1104,7 @@
 				</fo:inline>
 			</xsl:if>
 			
-			<fo:inline padding-right="4mm"><xsl:apply-templates/></fo:inline>
+			<fo:inline padding-right="4mm"><xsl:if test="local-name() = 'preferred'"><xsl:call-template name="setStyle_preferred"/></xsl:if><xsl:apply-templates/></fo:inline>
 			
 			<xsl:variable name="term_kind">
 				<xsl:choose>
@@ -5780,6 +5780,10 @@
 		<fo:block xsl:use-attribute-sets="deprecates-style">
 			<xsl:value-of select="$title-deprecated"/>: <xsl:apply-templates/>
 		</fo:block>
+	</xsl:template><xsl:template name="setStyle_preferred">
+		<xsl:if test="*[local-name() = 'strong']">
+			<xsl:attribute name="font-weight">normal</xsl:attribute>
+		</xsl:if>
 	</xsl:template><xsl:template match="*[local-name() = 'definition']">
 		<fo:block xsl:use-attribute-sets="definition-style">
 			<xsl:apply-templates/>
