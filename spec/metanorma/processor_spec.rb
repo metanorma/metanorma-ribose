@@ -33,9 +33,9 @@ RSpec.describe Metanorma::Ribose::Processor do
       </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(
-                   Nokogiri::XML(processor.input_to_isodoc(input, nil)).to_xml,
-                 ))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Nokogiri::XML(processor
+      .input_to_isodoc(input, nil)).to_xml)))
+      .to be_equivalent_to output
   end
 
   it "generates HTML from IsoDoc XML" do
@@ -58,7 +58,7 @@ RSpec.describe Metanorma::Ribose::Processor do
         <p class="zzSTDTitle1"></p>
         <div id="H">
           <h1 id="toc0">1&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-          <h2 class="TermNum" id="J">1.1&#xA0;<p class="Terms" style="text-align:left;">Term2</p></h2>
+          <p class='Terms' style='text-align:left;' id='J'><strong>1.1</strong>&#xA0;Term2</p>
         </div>
       </main>
     OUTPUT
