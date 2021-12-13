@@ -26,7 +26,7 @@ module Asciidoctor
 
       def make_preface(xml, sect)
         if xml.at("//foreword | //introduction | //acknowledgements | "\
-            "//clause[@preface] | //executivesummary")
+                  "//clause[@preface] | //executivesummary")
           preface = sect.add_previous_sibling("<preface/>").first
           f = xml.at("//foreword") and preface.add_child f.remove
           f = xml.at("//executivesummary") and preface.add_child f.remove
@@ -45,7 +45,7 @@ module Asciidoctor
 
       def executivesummary_parse(attrs, xml, node)
         xml.executivesummary **attr_code(attrs) do |xml_section|
-          xml_section.title { |t| t << node.title || "Executive Summary" }
+          xml_section.title { |t| t << (node.title || "Executive Summary") }
           content = node.content
           xml_section << content
         end
@@ -67,7 +67,7 @@ module Asciidoctor
       def pdf_converter(node)
         return nil if node.attr("no-pdf")
 
-        IsoDoc::Ribose::PdfConvert.new(html_extract_attributes(node))
+        IsoDoc::Ribose::PdfConvert.new(pdf_extract_attributes(node))
       end
 
       def doc_converter(node)
