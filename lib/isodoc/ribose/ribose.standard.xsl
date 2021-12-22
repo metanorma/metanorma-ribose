@@ -3796,7 +3796,7 @@
 				
 					<xsl:choose>
 						<xsl:when test="ancestor::*[local-name() = 'table']">inherit</xsl:when>
-						<xsl:otherwise>110%</xsl:otherwise>
+						<xsl:otherwise>95%</xsl:otherwise> <!-- 110% -->
 					</xsl:choose>
 				
 						
@@ -5278,7 +5278,7 @@
 						
 							<xsl:choose>
 								<xsl:when test="ancestor::*[local-name() = 'table']">inherit</xsl:when>
-								<xsl:otherwise>110%</xsl:otherwise>
+								<xsl:otherwise>95%</xsl:otherwise><!-- 110% -->
 							</xsl:choose>
 						
 								
