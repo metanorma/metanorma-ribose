@@ -14,6 +14,7 @@ html_headerfont: '"Source Sans Pro",sans-serif'
 html_monospacefont: '"Source Code Pro",monospace'
 html_normalfontsize: "15px"
 html_footnotefontsize: "0.9em"
+html_monospacefontsize: "12px"
 scripts: lib/isodoc/ribose/html/scripts.html
 scripts_pdf: lib/isodoc/ribose/html/scripts.pdf.html
 standardstylesheet: lib/isodoc/ribose/html/rsd.scss
