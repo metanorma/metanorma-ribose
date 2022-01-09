@@ -6,10 +6,9 @@ end
 require "bundler/setup"
 require "asciidoctor"
 require "metanorma-ribose"
-require "asciidoctor/ribose"
 require "isodoc/ribose/html_convert"
 require "isodoc/ribose/word_convert"
-require "asciidoctor/standoc/converter"
+require "metanorma/standoc/converter"
 require "rspec/matchers"
 require "equivalent-xml"
 require "htmlentities"
@@ -78,11 +77,11 @@ VALIDATING_BLANK_HDR = <<~"HDR".freeze
 HDR
 
 BOILERPLATE_XML = File.join(File.dirname(__FILE__), "..",
-                            "lib", "asciidoctor", "ribose", "boilerplate.xml")
+                            "lib", "metanorma", "ribose", "boilerplate.xml")
 
 def boilerplate(xmldoc)
   file = File.read(BOILERPLATE_XML, encoding: "utf-8")
-  conv = Asciidoctor::Ribose::Converter
+  conv = Metanorma::Ribose::Converter
     .new(nil, backend: :ribose, header_footer: true)
   conv.init(Asciidoctor::Document.new([]))
   ret = Nokogiri::XML(

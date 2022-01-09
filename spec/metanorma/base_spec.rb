@@ -3,7 +3,7 @@ require "fileutils"
 
 OPTIONS = [backend: :ribose, header_footer: true].freeze
 
-RSpec.describe Asciidoctor::Ribose do
+RSpec.describe Metanorma::Ribose do
   before(:all) do
     @blank_hdr = blank_hdr_gen
   end

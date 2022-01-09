@@ -1,5 +1,5 @@
 require "asciidoctor" unless defined? Asciidoctor::Converter
-require_relative "asciidoctor/ribose/converter"
+require_relative "metanorma/ribose/converter"
 require_relative "isodoc/ribose/base_convert"
 require_relative "isodoc/ribose/html_convert"
 require_relative "isodoc/ribose/word_convert"
