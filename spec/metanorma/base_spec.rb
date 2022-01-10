@@ -185,7 +185,7 @@ RSpec.describe Metanorma::Ribose do
             <stage>published</stage>
           </status>
           <copyright>
-            <from>2021</from>
+            <from>#{Date.today.year}</from>
             <owner>
               <organization>
                 <name>Fred</name>
@@ -204,7 +204,7 @@ RSpec.describe Metanorma::Ribose do
         <boilerplate>
           <copyright-statement>
             <clause>
-              <p id='_'> &#169; Fred 2021</p>
+              <p id='_'> &#169; Fred #{Date.today.year}</p>
             </clause>
           </copyright-statement>
           <legal-statement>
