@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe Asciidoctor::Ribose do
+RSpec.describe Metanorma::Ribose do
   context "when xref_error.adoc compilation" do
     it "generates error file" do
       FileUtils.rm_rf "xref_error.err"
