@@ -92,13 +92,15 @@ RSpec.describe Metanorma::Ribose do
         <contributor>
           <role type="author"/>
           <organization>
-            <name>Ribose</name>
+          <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
           </organization>
         </contributor>
         <contributor>
           <role type="publisher"/>
           <organization>
-            <name>Ribose</name>
+                    <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
           </organization>
         </contributor>
         <edition>2</edition>
@@ -116,7 +118,8 @@ RSpec.describe Metanorma::Ribose do
           <from>2001</from>
           <owner>
             <organization>
-              <name>Ribose</name>
+                      <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
             </organization>
           </owner>
         </copyright>
@@ -268,13 +271,15 @@ RSpec.describe Metanorma::Ribose do
           <contributor>
             <role type="author"/>
             <organization>
-              <name>Ribose</name>
+                      <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
             </organization>
           </contributor>
           <contributor>
             <role type="publisher"/>
             <organization>
-              <name>Ribose</name>
+                      <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
             </organization>
           </contributor>
           <edition>2</edition>
@@ -292,7 +297,8 @@ RSpec.describe Metanorma::Ribose do
             <from>#{Date.today.year}</from>
             <owner>
               <organization>
-                <name>Ribose</name>
+                        <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
               </organization>
             </owner>
           </copyright>
@@ -330,13 +336,15 @@ RSpec.describe Metanorma::Ribose do
           <contributor>
             <role type="author"/>
             <organization>
-              <name>Ribose</name>
+                      <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
             </organization>
           </contributor>
           <contributor>
             <role type="publisher"/>
             <organization>
-              <name>Ribose</name>
+                      <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
             </organization>
           </contributor>
           <edition>2</edition>
@@ -354,7 +362,8 @@ RSpec.describe Metanorma::Ribose do
             <from>#{Date.today.year}</from>
             <owner>
               <organization>
-                <name>Ribose</name>
+                        <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
               </organization>
             </owner>
           </copyright>
@@ -392,13 +401,15 @@ RSpec.describe Metanorma::Ribose do
         <contributor>
           <role type='author'/>
           <organization>
-            <name>Ribose</name>
+                    <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
           </organization>
         </contributor>
         <contributor>
           <role type='publisher'/>
           <organization>
-            <name>Ribose</name>
+                    <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
           </organization>
         </contributor>
         <edition>2</edition>
@@ -416,7 +427,8 @@ RSpec.describe Metanorma::Ribose do
           <from>2001</from>
           <owner>
             <organization>
-              <name>Ribose</name>
+                      <name>Ribose Asia Limited</name>
+          <abbreviation>Ribose</abbreviation>
             </organization>
           </owner>
         </copyright>
