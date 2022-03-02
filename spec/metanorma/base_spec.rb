@@ -149,7 +149,7 @@ RSpec.describe Metanorma::Ribose do
       :nodoc:
       :novalid:
       :docnumber: 1000
-      :doctype: standard
+      :doctype: code
       :publisher: Fred
       :pub-address: 10 Jack St + \\
       Antarctica
@@ -160,7 +160,7 @@ RSpec.describe Metanorma::Ribose do
           <rsd-standard xmlns='https://www.metanorma.org/ns/rsd' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
         <bibdata type='standard'>
           <title language='en' format='text/plain'>Document title</title>
-          <docidentifier type='Ribose'>1000</docidentifier>
+          <docidentifier type='Ribose'>Code 1000</docidentifier>
           <docnumber>1000</docnumber>
           <contributor>
             <role type='author'/>
@@ -198,7 +198,7 @@ RSpec.describe Metanorma::Ribose do
             </owner>
           </copyright>
           <ext>
-            <doctype>standard</doctype>
+            <doctype abbreviation='Code'>code</doctype>
           </ext>
         </bibdata>
         <boilerplate>
