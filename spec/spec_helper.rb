@@ -117,13 +117,15 @@ BLANK_HDR = <<~"HDR".freeze
       <contributor>
         <role type="author"/>
         <organization>
-          <name>Ribose</name>
+            <name>Ribose Asia Limited</name>
+            <abbreviation>Ribose</abbreviation>
         </organization>
       </contributor>
       <contributor>
         <role type="publisher"/>
         <organization>
-          <name>Ribose</name>
+            <name>Ribose Asia Limited</name>
+            <abbreviation>Ribose</abbreviation>
         </organization>
       </contributor>
       <language>en</language>
@@ -135,7 +137,8 @@ BLANK_HDR = <<~"HDR".freeze
         <from>#{Time.new.year}</from>
         <owner>
           <organization>
-            <name>Ribose</name>
+            <name>Ribose Asia Limited</name>
+            <abbreviation>Ribose</abbreviation>
           </organization>
         </owner>
       </copyright>

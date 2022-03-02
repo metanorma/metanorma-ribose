@@ -1,6 +1,6 @@
 metanorma_name: ribose
 organization_name_short: Ribose
-organization_name_long: Ribose
+organization_name_long: Ribose Asia Limited
 document_namespace: https://www.metanorma.org/ns/rsd
 xml_root_tag: 'rsd-standard'
 logo_path: lib/isodoc/ribose/html/logo.png
@@ -29,13 +29,21 @@ word_normalfontsize: "12.0pt"
 word_smallerfontsize: "11.0pt"
 word_monospacefontsize: "10.0pt"
 word_footnotefontsize: "10.0pt"
-docid_template: "{{ docnumeric }}{% if stageabbr %}({{ stageabbr }}){%endif%}"
+docid_template: "{% if doctype_abbr %}{{ doctype_abbr }} {%endif%}{{ docnumeric }}{% if stageabbr %}({{ stageabbr }}){%endif%}"
 published_stages:
   - published
 stage_abbreviations:
   working-draft: wd
   committee-draft: cd
   draft-standard: d
+doctypes:
+  standard:
+  code: Code
+  presentation: Pres
+  proposal: Prop
+  report: Rept
+  specification: Spec
+default_doctype: standard
 metadata_extensions:
  - security
  - recipient
