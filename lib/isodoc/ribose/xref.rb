@@ -14,15 +14,21 @@ module IsoDoc
       end
 
       def initial_anchor_names(doc)
-        preface_names(doc.at(ns("//executivesummary")))
+        if blank?(@parse_settings) || @parse_settings[:clauses]
+          preface_names(doc.at(ns("//executivesummary")))
+        end
         super
-        introduction_names(doc.at(ns("//introduction")))
-        sequential_asset_names(
-          doc.xpath(
-            ns("//preface/abstract | //foreword | //introduction | "\
-               "//preface/clause | //acknowledgements | //executivesummary"),
-          ),
-        )
+        if blank?(@parse_settings) || @parse_settings[:clauses]
+          introduction_names(doc.at(ns("//introduction")))
+        end
+        if blank?(@parse_settings)
+          sequential_asset_names(
+            doc.xpath(
+              ns("//preface/abstract | //foreword | //introduction | "\
+                 "//preface/clause | //acknowledgements | //executivesummary"),
+            ),
+          )
+        end
       end
 
       def section_names1(clause, num, level)
