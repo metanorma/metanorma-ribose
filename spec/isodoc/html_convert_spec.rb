@@ -746,7 +746,7 @@ RSpec.describe IsoDoc::Ribose do
     output = xmlpp(<<~"OUTPUT")
       <div id='H'>
         <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
-        <p class='Terms' style='text-align:left;' id='J'><strong>1.1.</strong>Term2</p>
+        <p class='Terms' style='text-align:left;' id='J'><strong>1.1.</strong>&#xa0;Term2</p>
         <p class='AltTerms' style='text-align:left;'>Term2A</p>
         <p class='AltTerms' style='text-align:left;'>Term2B</p>
         <p class='DeprecatedTerms' style='text-align:left;'>DEPRECATED: Term2C</p>
