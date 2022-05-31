@@ -320,12 +320,13 @@
 					<!-- background image -->
 					<fo:block-container absolute-position="fixed" left="0mm" top="0mm" font-size="0">
 						<fo:block>
-							<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Cover-Background))}" width="{$pageWidth}mm" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Front"/>
+							<!-- <fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Cover-Background))}" width="{$pageWidth}mm" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Front"/> -->
+							<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Cover-Background))}" height="{$pageHeight}mm" content-width="scale-to-fit" scaling="uniform" fox:alt-text="Image Front"/>
 						</fo:block>
 					</fo:block-container>
 					
 					<!-- Ribose logo -->
-					<fo:block-container absolute-position="fixed" left="171mm" top="246mm" height="30mm" width="40mm">
+					<fo:block-container absolute-position="fixed" left="171mm" top="{$pageHeight - 33.4}mm" height="30mm" width="40mm"> <!-- top="246mm" -->
 						<fo:block>
 							<fo:instream-foreign-object content-width="32mm" fox:alt-text="Ribose Logo">
 								<xsl:copy-of select="$Ribose-Logo"/>
@@ -333,7 +334,7 @@
 						</fo:block>
 					</fo:block-container>
 					
-					<fo:block-container absolute-position="fixed" left="0mm" top="227mm" height="41mm" display-align="after">
+					<fo:block-container absolute-position="fixed" left="0mm" top="{$pageHeight - 52.4}mm" height="41mm" display-align="after"> <!--  top="227mm" -->
 						<fo:block font-size="10pt" line-height="1.4">
 							<fo:table table-layout="fixed" width="100%">
 								<fo:table-column column-width="proportional-column-width(13)"/>
@@ -392,7 +393,7 @@
 					</fo:block-container>
 					
 					<!-- title and version  -->
-					<fo:block-container height="60mm" display-align="center">
+					<fo:block-container margin-top="{$pageHeight - 279.4}mm" height="60mm" display-align="center">
 						<xsl:variable name="title" select="/rsd:rsd-standard/rsd:bibdata/rsd:title[@language = $lang]"/>
 						<xsl:if test="string-length($title) &gt; 80">
 							<xsl:attribute name="margin-right">-30mm</xsl:attribute>
@@ -1223,10 +1224,30 @@
 		false
 	</xsl:variable><xsl:variable name="isGenerateTableIF" select="normalize-space($isGenerateTableIF_)"/><xsl:variable name="lang">
 		<xsl:call-template name="getLang"/>
-	</xsl:variable><xsl:variable name="pageWidth_">
-		215.9
+	</xsl:variable><xsl:variable name="papersize" select="java:toLowerCase(java:java.lang.String.new(normalize-space(//*[contains(local-name(), '-standard')]/*[local-name() = 'misc-container']/*[local-name() = 'presentation-metadata']/*[local-name() = 'papersize'])))"/><xsl:variable name="papersize_width_">
+		<xsl:choose>
+			<xsl:when test="$papersize = 'letter'">215.9</xsl:when>
+			<xsl:when test="$papersize = 'a4'">210</xsl:when>
+		</xsl:choose>
+	</xsl:variable><xsl:variable name="papersize_width" select="normalize-space($papersize_width_)"/><xsl:variable name="papersize_height_">
+		<xsl:choose>
+			<xsl:when test="$papersize = 'letter'">279.4</xsl:when>
+			<xsl:when test="$papersize = 'a4'">297</xsl:when>
+		</xsl:choose>
+	</xsl:variable><xsl:variable name="papersize_height" select="normalize-space($papersize_height_)"/><xsl:variable name="pageWidth_">
+		<xsl:choose>
+			<xsl:when test="$papersize_width != ''"><xsl:value-of select="$papersize_width"/></xsl:when>
+			<xsl:otherwise>
+				215.9
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:variable><xsl:variable name="pageWidth" select="normalize-space($pageWidth_)"/><xsl:variable name="pageHeight_">
-		279.4
+		<xsl:choose>
+			<xsl:when test="$papersize_height != ''"><xsl:value-of select="$papersize_height"/></xsl:when>
+			<xsl:otherwise>
+				279.4
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:variable><xsl:variable name="pageHeight" select="normalize-space($pageHeight_)"/><xsl:variable name="marginLeftRight1_">
 		29
 	</xsl:variable><xsl:variable name="marginLeftRight1" select="normalize-space($marginLeftRight1_)"/><xsl:variable name="marginLeftRight2_">
