@@ -2530,7 +2530,10 @@
 		
 		
 		
-		
+		<!-- <xsl:if test="$namespace = 'ieee'">
+			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
+			<xsl:attribute name="provisional-distance-between-starts">9.5mm</xsl:attribute>
+		</xsl:if> -->
 		
 		
 		
@@ -8423,7 +8426,7 @@
 				</fo:block>
 			
 
-	</xsl:template><xsl:template match="*[local-name() = 'references'][not(@normative='true')]/*[local-name() = 'bibitem']" priority="2">
+	</xsl:template><xsl:template match="*[local-name() = 'references'][not(@normative='true')]/*[local-name() = 'bibitem']" name="bibitem_non_normative" priority="2">
 		
 		
 				<fo:list-block id="{@id}" xsl:use-attribute-sets="bibitem-non-normative-list-style">
@@ -8456,6 +8459,7 @@
 						</fo:list-item-body>
 					</fo:list-item>
 				</fo:list-block>
+				 <!-- rsd -->
 			
 		
 	</xsl:template><xsl:template name="processBibitem">
