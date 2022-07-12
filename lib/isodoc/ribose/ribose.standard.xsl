@@ -1533,7 +1533,7 @@
 		
 		
 		
-			<xsl:attribute name="font-family">Source Code Pro, <xsl:value-of select="$font_noto_sans_mono"/></xsl:attribute>			
+			<xsl:attribute name="font-family"><xsl:value-of select="$font_noto_sans_mono"/></xsl:attribute>			
 			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 			<xsl:attribute name="keep-with-next">always</xsl:attribute>
 			<xsl:attribute name="line-height">113%</xsl:attribute>
@@ -2197,7 +2197,7 @@
 		
 	</xsl:attribute-set><xsl:attribute-set name="tt-style">
 		
-			<xsl:attribute name="font-family">Source Code Pro, <xsl:value-of select="$font_noto_sans_mono"/></xsl:attribute>			
+			<xsl:attribute name="font-family"><xsl:value-of select="$font_noto_sans_mono"/></xsl:attribute>			
 		
 		
 		
@@ -7021,7 +7021,7 @@
 						
 						
 						<!-- <xsl:if test="$namespace = 'ieee'">							
-							<xsl:if test="$doctype = 'standard' and $stage = 'published'">8</xsl:if>
+							<xsl:if test="$current_template = 'standard'">8</xsl:if>
 						</xsl:if> -->
 						
 								
