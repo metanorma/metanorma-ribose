@@ -7,8 +7,9 @@ require_relative "isodoc/ribose/pdf_convert"
 require_relative "isodoc/ribose/presentation_xml_convert"
 require_relative "isodoc/ribose/xref"
 require_relative "metanorma/ribose/version"
+require "metanorma"
 
-if defined? Metanorma
+if defined? Metanorma::Registry
   require_relative "metanorma/ribose"
   Metanorma::Registry.instance.register(Metanorma::Ribose::Processor)
 end
