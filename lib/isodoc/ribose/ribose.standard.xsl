@@ -1724,6 +1724,11 @@
 	</xsl:variable>
 	<xsl:variable name="table-border" select="normalize-space($table-border_)"/>
 
+	<xsl:variable name="table-cell-border_">
+
+	</xsl:variable>
+	<xsl:variable name="table-cell-border" select="normalize-space($table-cell-border_)"/>
+
 	<xsl:attribute-set name="table-container-style">
 		<xsl:attribute name="margin-left">0mm</xsl:attribute>
 		<xsl:attribute name="margin-right">0mm</xsl:attribute>
@@ -3672,6 +3677,10 @@
 	<!-- row in table's body (tbody) -->
 	<xsl:template match="*[local-name()='tr']">
 		<fo:table-row xsl:use-attribute-sets="table-body-row-style">
+
+			<xsl:if test="*[local-name() = 'th']">
+				<xsl:attribute name="keep-with-next">always</xsl:attribute>
+			</xsl:if>
 
 				<xsl:variable name="number"><xsl:number/></xsl:variable>
 				<xsl:if test="$number mod 2 = 0">
