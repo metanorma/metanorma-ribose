@@ -320,7 +320,7 @@
 					</fo:block-container>
 
 					<!-- Ribose logo -->
-					<fo:block-container absolute-position="fixed" left="171mm" top="{$pageHeight - 33.4}mm" height="30mm" width="40mm"> <!-- top="246mm" -->
+					<fo:block-container absolute-position="fixed" left="171mm" top="{$pageHeight - 33.4}mm" height="30mm" width="40mm" id="__internal_layout__logo_{generate-id()}"> <!-- top="246mm" -->
 						<fo:block>
 							<fo:instream-foreign-object content-width="32mm" fox:alt-text="Ribose Logo">
 								<xsl:copy-of select="$Ribose-Logo"/>
@@ -405,7 +405,9 @@
 
 			<!-- ToC pages -->
 			<fo:page-sequence master-reference="document" force-page-count="no-force"> <!-- master-reference="toc" -->
-				<xsl:call-template name="insertHeaderFooter"/>
+				<xsl:call-template name="insertHeaderFooter">
+					<xsl:with-param name="section">toc</xsl:with-param>
+				</xsl:call-template>
 				<fo:flow flow-name="xsl-region-body">
 					<xsl:if test="$contents//item[@display = 'true']">
 						<fo:block role="TOC">
@@ -493,7 +495,9 @@
 						<fo:leader leader-pattern="rule" leader-length="30%"/>
 					</fo:block>
 				</fo:static-content>
-				<xsl:call-template name="insertHeaderFooter"/>
+				<xsl:call-template name="insertHeaderFooter">
+					<xsl:with-param name="section">main</xsl:with-param>
+				</xsl:call-template>
 				<fo:flow flow-name="xsl-region-body">
 
 					<fo:block line-height="130%">
@@ -983,7 +987,7 @@
 	</xsl:template>
 
 	<xsl:template name="insertHeaderFooter">
-
+		<xsl:param name="section"/>
 		<!-- LT - left top -->
 		<!-- RT - right top -->
 		<!-- LB - left bottom -->
@@ -995,28 +999,28 @@
 		<xsl:variable name="top_bottom">194</xsl:variable>
 		<!-- Yellow -->
 		<fo:static-content flow-name="header-LT-yellow" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_top}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_top}mm" font-size="0" id="__internal_layout__header-LT-yellow_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-yellow-left))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-RT-yellow" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_top}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_top}mm" font-size="0" id="__internal_layout__header-RT-yellow_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-yellow-right))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-LB-yellow" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_bottom}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_bottom}mm" font-size="0" id="__internal_layout__header-LB-yellow_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-yellow-left))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-RB-yellow" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_bottom}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_bottom}mm" font-size="0" id="__internal_layout__header-RB-yellow_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-yellow-right))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
@@ -1024,28 +1028,28 @@
 		</fo:static-content>
 		<!-- Blue -->
 		<fo:static-content flow-name="header-LT-blue" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_top}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_top}mm" font-size="0" id="__internal_layout__header-LT-blue_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-blue-left))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-RT-blue" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_top}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_top}mm" font-size="0" id="__internal_layout__header-RT-blue_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-blue-right))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-LB-blue" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_bottom}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_bottom}mm" font-size="0" id="__internal_layout__header-LB-blue_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-blue-left))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-RB-blue" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_bottom}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_bottom}mm" font-size="0" id="__internal_layout__header-RB-blue_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-blue-right))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
@@ -1053,28 +1057,28 @@
 		</fo:static-content>
 		<!-- Orange -->
 		<fo:static-content flow-name="header-LT-orange" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_top}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_top}mm" font-size="0" id="__internal_layout__header-LT-orange_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-orange-left))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-RT-orange" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_top}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_top}mm" font-size="0" id="__internal_layout__header-RT-orange_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-orange-right))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-LB-orange" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_bottom}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_left}mm" top="{$top_bottom}mm" font-size="0" id="__internal_layout__header-LB-orange_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-orange-left))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
 			</fo:block-container>
 		</fo:static-content>
 		<fo:static-content flow-name="header-RB-orange" role="artifact">
-			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_bottom}mm" font-size="0">
+			<fo:block-container absolute-position="fixed" left="{$left_right}mm" top="{$top_bottom}mm" font-size="0" id="__internal_layout__header-RB-orange_{$section}_{generate-id()}">
 				<fo:block>
 						<fo:external-graphic src="{concat('data:image/png;base64,', normalize-space($Image-Page-Background-orange-right))}" content-width="100%" content-height="scale-to-fit" scaling="uniform" fox:alt-text="Image Page"/>
 					</fo:block>
@@ -1740,8 +1744,6 @@
 	<xsl:attribute-set name="table-style">
 		<xsl:attribute name="table-omit-footer-at-break">true</xsl:attribute>
 		<xsl:attribute name="table-layout">fixed</xsl:attribute>
-		<xsl:attribute name="margin-left">0mm</xsl:attribute>
-		<xsl:attribute name="margin-right">0mm</xsl:attribute>
 
 			<xsl:attribute name="border">0pt solid black</xsl:attribute>
 			<xsl:attribute name="font-size">9.5pt</xsl:attribute> <!-- 8pt -->
@@ -2922,6 +2924,12 @@
 				<xsl:variable name="table_attributes">
 
 					<xsl:element name="table_attributes" use-attribute-sets="table-style">
+
+						<xsl:if test="$margin-side != 0">
+							<xsl:attribute name="margin-left">0mm</xsl:attribute>
+							<xsl:attribute name="margin-right">0mm</xsl:attribute>
+						</xsl:if>
+
 						<xsl:attribute name="width"><xsl:value-of select="normalize-space($table_width)"/></xsl:attribute>
 
 					</xsl:element>
@@ -5662,6 +5670,9 @@
 		<xsl:value-of select="substring($str, 2)"/>
 	</xsl:template>
 
+	<!-- ======================================= -->
+	<!-- math -->
+	<!-- ======================================= -->
 	<xsl:template match="mathml:math">
 		<xsl:variable name="isAdded" select="@added"/>
 		<xsl:variable name="isDeleted" select="@deleted"/>
@@ -5712,14 +5723,57 @@
 		<xsl:value-of select="$comment_text"/>
 	</xsl:template>
 
+	<xsl:template match="*[local-name() = 'asciimath']">
+		<xsl:param name="process" select="'false'"/>
+		<xsl:if test="$process = 'true'">
+			<xsl:apply-templates/>
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:template match="*[local-name() = 'latexmath']"/>
+
+	<xsl:template name="getMathml_asciimath_text">
+		<xsl:variable name="asciimath" select="../*[local-name() = 'asciimath']"/>
+		<xsl:variable name="latexmath">
+
+		</xsl:variable>
+		<xsl:variable name="asciimath_text_following">
+			<xsl:choose>
+				<xsl:when test="normalize-space($latexmath) != ''">
+					<xsl:value-of select="$latexmath"/>
+				</xsl:when>
+				<xsl:when test="normalize-space($asciimath) != ''">
+					<xsl:value-of select="$asciimath"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="following-sibling::node()[1][self::comment()]"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="asciimath_text_">
+			<xsl:choose>
+				<xsl:when test="normalize-space($asciimath_text_following) != ''">
+					<xsl:value-of select="$asciimath_text_following"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(translate(.,' ⁢','  '))"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="asciimath_text_2" select="java:org.metanorma.fop.Util.unescape($asciimath_text_)"/>
+		<xsl:variable name="asciimath_text" select="java:trim(java:java.lang.String.new($asciimath_text_2))"/>
+		<xsl:value-of select="$asciimath_text"/>
+	</xsl:template>
+
 	<xsl:template name="mathml_instream_object">
-		<xsl:param name="comment_text"/>
+		<xsl:param name="asciimath_text"/>
 		<xsl:param name="mathml_content"/>
 
-		<xsl:variable name="comment_text_">
+		<xsl:variable name="asciimath_text_">
 			<xsl:choose>
-				<xsl:when test="normalize-space($comment_text) != ''"><xsl:value-of select="$comment_text"/></xsl:when>
-				<xsl:otherwise><xsl:call-template name="getMathml_comment_text"/></xsl:otherwise>
+				<xsl:when test="normalize-space($asciimath_text) != ''"><xsl:value-of select="$asciimath_text"/></xsl:when>
+				<!-- <xsl:otherwise><xsl:call-template name="getMathml_comment_text"/></xsl:otherwise> -->
+				<xsl:otherwise><xsl:call-template name="getMathml_asciimath_text"/></xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 
@@ -5736,10 +5790,10 @@
 			</xsl:attribute>
 
 			<!-- <xsl:if test="$add_math_as_text = 'true'"> -->
-			<xsl:if test="normalize-space($comment_text_) != ''">
+			<xsl:if test="normalize-space($asciimath_text_) != ''">
 			<!-- put Mathin Alternate Text -->
 				<xsl:attribute name="fox:alt-text">
-					<xsl:value-of select="$comment_text_"/>
+					<xsl:value-of select="$asciimath_text_"/>
 				</xsl:attribute>
 			</xsl:if>
 			<!-- </xsl:if> -->
@@ -5811,6 +5865,29 @@
 	<xsl:template match="mathml:mtd/mathml:mo/text()[. = '/']" mode="mathml">
 		<xsl:value-of select="."/><xsl:value-of select="$zero_width_space"/>
 	</xsl:template>
+
+	<!-- Examples: 
+		<stem type="AsciiMath">x = 1</stem> 
+		<stem type="AsciiMath"><asciimath>x = 1</asciimath></stem>
+		<stem type="AsciiMath"><asciimath>x = 1</asciimath><latexmath>x = 1</latexmath></stem>
+	-->
+	<xsl:template match="*[local-name() = 'stem'][@type = 'AsciiMath'][count(*) = 0]/text() | *[local-name() = 'stem'][@type = 'AsciiMath'][*[local-name() = 'asciimath']]" priority="3">
+		<fo:inline xsl:use-attribute-sets="mathml-style">
+
+			<xsl:choose>
+				<xsl:when test="self::text()"><xsl:value-of select="."/></xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates>
+						<xsl:with-param name="process">true</xsl:with-param>
+					</xsl:apply-templates>
+				</xsl:otherwise>
+			</xsl:choose>
+
+		</fo:inline>
+	</xsl:template>
+	<!-- ======================================= -->
+	<!-- END: math -->
+	<!-- ======================================= -->
 
 	<xsl:template match="*[local-name()='localityStack']"/>
 
@@ -10034,13 +10111,14 @@
 	</xsl:template>
 
 	<xsl:template name="setId">
+		<xsl:param name="prefix"/>
 		<xsl:attribute name="id">
 			<xsl:choose>
 				<xsl:when test="@id">
-					<xsl:value-of select="@id"/>
+					<xsl:value-of select="concat($prefix, @id)"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="generate-id()"/>
+					<xsl:value-of select="concat($prefix, generate-id())"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:attribute>
