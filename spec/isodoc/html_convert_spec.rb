@@ -473,7 +473,7 @@ RSpec.describe IsoDoc::Ribose do
     expect(xmlpp(IsoDoc::Ribose::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to output
+      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(output)
   end
 
   it "injects JS into blank html" do
