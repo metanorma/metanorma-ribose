@@ -14,7 +14,7 @@ module IsoDoc
         mod = elem.at(ns("./modification")) and
           termsource_modification(mod)
         elem.children = l10n("<strong>#{@i18n.source}:</strong> "\
-                             "#{elem.children.to_xml.strip}")
+                             "#{to_xml(elem.children).strip}")
         elem&.next_element&.name == "termsource" and elem.next = "; "
       end
 
