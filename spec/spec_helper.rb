@@ -34,8 +34,8 @@ RSpec.configure do |config|
 end
 
 def metadata(hash)
-  Hash[hash.sort]
-    .delete_if { |_, v| v.nil? || v.respond_to?(:empty?) && v.empty? }
+  hash.sort.to_h
+    .delete_if { |_, v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
 end
 
 def strip_guid(str)
@@ -58,16 +58,16 @@ def xmlpp(xml)
     else n
     end
   end.join
- xsl = <<~XSL
+  xsl = <<~XSL
     <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
       <xsl:strip-space elements="*"/>
       <xsl:template match="/">
-        <xsml:copy-of select="."/>
+        <xsl:copy-of select="."/>
       </xsl:template>
     </xsl:stylesheet>
   XSL
-  Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml))
+  Nokogiri::XSLT(xsl).transform(Nokogiri::XML(xml, &:noblanks))
     .to_xml(indent: 2, encoding: "UTF-8")
 end
 
