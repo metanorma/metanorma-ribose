@@ -2030,6 +2030,10 @@
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 	</xsl:attribute-set>
 
+	<xsl:attribute-set name="figure-block-style">
+
+	</xsl:attribute-set>
+
 	<xsl:attribute-set name="figure-style">
 		 <!-- background for image -->
 			<xsl:attribute name="background-color">rgb(236,242,246)</xsl:attribute>
@@ -6439,7 +6443,7 @@
 	<xsl:template match="*[local-name() = 'figure']" name="figure">
 		<xsl:variable name="isAdded" select="@added"/>
 		<xsl:variable name="isDeleted" select="@deleted"/>
-		<fo:block-container id="{@id}">
+		<fo:block-container id="{@id}" xsl:use-attribute-sets="figure-block-style">
 
 			<xsl:call-template name="setTrackChangesStyles">
 				<xsl:with-param name="isAdded" select="$isAdded"/>
