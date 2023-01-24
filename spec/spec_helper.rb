@@ -38,6 +38,10 @@ def metadata(hash)
     .delete_if { |_, v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
 end
 
+def presxml_options
+  { semanticxmlinsert: "false" }
+end
+
 def strip_guid(str)
   str.gsub(%r{ id="_[^"]+"}, ' id="_"')
     .gsub(%r{ target="_[^"]+"}, ' target="_"')

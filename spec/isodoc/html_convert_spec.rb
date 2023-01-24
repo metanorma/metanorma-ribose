@@ -408,7 +408,7 @@ RSpec.describe IsoDoc::Ribose do
       </body>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::Ribose::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(presxml)
@@ -466,7 +466,7 @@ RSpec.describe IsoDoc::Ribose do
         </div>
       </body>
     OUTPUT
-    expect(xmlpp(IsoDoc::Ribose::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
      .convert("test", input, true)
      .gsub(%r{^.*<body}m, "<body")
      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(presxml)
@@ -595,7 +595,7 @@ RSpec.describe IsoDoc::Ribose do
         </bibliography>
       </rsd-standard>
     INPUT
-    expect(xmlpp(IsoDoc::Ribose::PresentationXMLConvert.new({})
+    expect(xmlpp(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
@@ -733,7 +733,7 @@ RSpec.describe IsoDoc::Ribose do
                    <locality type='clause'>
                      <referenceFrom>3.1</referenceFrom>
                    </locality>
-                   ISO 7301:2011, Clause 3.1
+                   ISO&#xa0;7301:2011, Clause 3.1
                  </origin>, modified &#x2013; The term "cargo rice" is shown as deprecated, and
                  Note 1 to entry is not included here
                </termsource>
@@ -752,13 +752,14 @@ RSpec.describe IsoDoc::Ribose do
         <p class='DeprecatedTerms' style='text-align:left;'>DEPRECATED: Term2C</p>
         <p class='DeprecatedTerms' style='text-align:left;'>DEPRECATED: Term2D</p>
          <p><b>SOURCE:</b>
-        ISO 7301:2011, Clause 3.1 , modified &#x2013; The term "cargo rice" is shown as deprecated, and Note 1
+        ISO&#xa0;7301:2011, Clause 3.1 , modified &#x2013; The term "cargo rice" is shown as deprecated, and Note 1
         to entry is not included here
        </p>
       </div>
     OUTPUT
 
-    expect(xmlpp(strip_guid(IsoDoc::Ribose::PresentationXMLConvert.new({})
+    expect(xmlpp(strip_guid(IsoDoc::Ribose::PresentationXMLConvert
+      .new(presxml_options)
      .convert("test", input, true)
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
       .to be_equivalent_to xmlpp(presxml)
