@@ -133,6 +133,20 @@ RSpec.describe Metanorma::Ribose do
         <recipient>tbd@example.com</recipient>
         </ext>
       </bibdata>
+               <metanorma-extension>
+           <presentation-metadata>
+             <name>TOC Heading Levels</name>
+             <value>2</value>
+           </presentation-metadata>
+           <presentation-metadata>
+             <name>HTML TOC Heading Levels</name>
+             <value>2</value>
+           </presentation-metadata>
+           <presentation-metadata>
+             <name>DOC TOC Heading Levels</name>
+             <value>2</value>
+           </presentation-metadata>
+         </metanorma-extension>
       <sections/>
       </rsd-standard>
     OUTPUT
@@ -204,6 +218,20 @@ RSpec.describe Metanorma::Ribose do
             <doctype abbreviation='Code'>code</doctype>
           </ext>
         </bibdata>
+                 <metanorma-extension>
+           <presentation-metadata>
+             <name>TOC Heading Levels</name>
+             <value>2</value>
+           </presentation-metadata>
+           <presentation-metadata>
+             <name>HTML TOC Heading Levels</name>
+             <value>2</value>
+           </presentation-metadata>
+           <presentation-metadata>
+             <name>DOC TOC Heading Levels</name>
+             <value>2</value>
+           </presentation-metadata>
+         </metanorma-extension>
         <boilerplate>
           <copyright-statement>
             <clause>
