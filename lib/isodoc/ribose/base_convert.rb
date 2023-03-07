@@ -5,8 +5,8 @@ module IsoDoc
         f = docxml.at(ns("//executivesummary")) || return
         title_attr = { class: "IntroTitle" }
         page_break(out)
-        out.div **{ class: "Section3", id: f["id"] } do |div|
-          clause_name(nil, f&.at(ns("./title")), div, title_attr)
+        out.div class: "Section3", id: f["id"] do |div|
+          clause_name(f, f&.at(ns("./title")), div, title_attr)
           f.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
