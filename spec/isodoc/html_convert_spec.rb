@@ -743,9 +743,9 @@ RSpec.describe IsoDoc::Ribose do
          </ogc-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = xmlpp(strip_guid(<<~"OUTPUT"))
       <div id='H'>
-        <h1 id='toc0'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+        <h1 id='_'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
         <p class='Terms' style='text-align:left;' id='J'><strong>1.1.</strong>&#xa0;Term2</p>
         <p class='AltTerms' style='text-align:left;'>Term2A</p>
         <p class='AltTerms' style='text-align:left;'>Term2B</p>
@@ -765,10 +765,10 @@ RSpec.describe IsoDoc::Ribose do
       .to be_equivalent_to xmlpp(presxml)
     IsoDoc::Ribose::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
-    expect(xmlpp(
+    expect(xmlpp(strip_guid(
              File.read("test.html")
           .gsub(%r{^.*<div id="H">}m, '<div id="H">')
           .gsub(%r{</div>.*}m, "</div>"),
-           )).to be_equivalent_to output
+           ))).to be_equivalent_to output
   end
 end
