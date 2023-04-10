@@ -9,7 +9,7 @@ logoloc = File.join(
 RSpec.describe IsoDoc::Ribose do
   it "processes default metadata" do
     csdc = IsoDoc::Ribose::HtmlConvert.new({})
-    input = <<~"INPUT"
+    input = <<~INPUT
             <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
             <bibdata type="standard">
               <title language="en" format="plain">Main Title</title>
@@ -111,7 +111,7 @@ RSpec.describe IsoDoc::Ribose do
   end
 
   it "processes pre" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
       <preface><foreword>
       <pre>ABC</pre>
@@ -138,7 +138,7 @@ RSpec.describe IsoDoc::Ribose do
   end
 
   it "processes keyword" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
       <preface>
         <foreword>
@@ -167,7 +167,7 @@ RSpec.describe IsoDoc::Ribose do
   end
 
   it "processes section names" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <rsd-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
           <foreword obligation="informative">
@@ -419,7 +419,7 @@ RSpec.describe IsoDoc::Ribose do
   end
 
   it "processes introduction with no subsections" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <rsd-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
           <foreword obligation="informative">
@@ -478,7 +478,7 @@ RSpec.describe IsoDoc::Ribose do
 
   it "injects JS into blank html" do
     system "rm -f test.html"
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -501,7 +501,7 @@ RSpec.describe IsoDoc::Ribose do
   end
 
   it "cross-references sections" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <rsd-standard xmlns="http://riboseinc.com/isoxml">
         <preface>
           <foreword obligation="informative">
@@ -598,7 +598,7 @@ RSpec.describe IsoDoc::Ribose do
     expect(xmlpp(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~"OUTPUT")
+      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(<<~OUTPUT)
         <rsd-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
             <foreword obligation="informative" displayorder="1">
@@ -695,7 +695,7 @@ RSpec.describe IsoDoc::Ribose do
   end
 
   it "processes simple terms & definitions" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document">
         <sections>
         <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -717,7 +717,7 @@ RSpec.describe IsoDoc::Ribose do
          </ogc-standard>
     INPUT
 
-    presxml = <<~"INPUT"
+    presxml = <<~INPUT
       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type='presentation'>
         <sections>
         <terms id="H" obligation="normative" displayorder='1'><title depth='1'>1.<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
@@ -726,8 +726,8 @@ RSpec.describe IsoDoc::Ribose do
           <preferred>Term2</preferred>
           <admitted>Term2A</admitted>
           <admitted>Term2B</admitted>
-          <deprecates>Term2C</deprecates>
-          <deprecates>Term2D</deprecates>
+          <deprecates>DEPRECATED: Term2C</deprecates>
+          <deprecates>DEPRECATED: Term2D</deprecates>
           <termsource status='modified'><strong>SOURCE:</strong>
                  <origin bibitemid='ISO7301' type='inline' citeas='ISO 7301:2011'>
                    <locality type='clause'>
@@ -743,7 +743,7 @@ RSpec.describe IsoDoc::Ribose do
          </ogc-standard>
     INPUT
 
-    output = xmlpp(strip_guid(<<~"OUTPUT"))
+    output = xmlpp(strip_guid(<<~OUTPUT))
       <div id='H'>
         <h1 id='_'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
         <p class='Terms' style='text-align:left;' id='J'><strong>1.1.</strong>&#xa0;Term2</p>
@@ -766,9 +766,9 @@ RSpec.describe IsoDoc::Ribose do
     IsoDoc::Ribose::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
     expect(xmlpp(strip_guid(
-             File.read("test.html")
-          .gsub(%r{^.*<div id="H">}m, '<div id="H">')
-          .gsub(%r{</div>.*}m, "</div>"),
-           ))).to be_equivalent_to output
+                   File.read("test.html")
+                .gsub(%r{^.*<div id="H">}m, '<div id="H">')
+                .gsub(%r{</div>.*}m, "</div>"),
+                 ))).to be_equivalent_to output
   end
 end
