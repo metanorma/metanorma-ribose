@@ -84,7 +84,7 @@ RSpec.describe Metanorma::Ribose do
 
     output = xmlpp(<<~"OUTPUT")
       <?xml version="1.0" encoding="UTF-8"?>
-      <rsd-standard xmlns="https://www.metanorma.org/ns/rsd" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+      <rsd-standard xmlns="https://www.metanorma.org/ns/ribose" type="semantic" version="#{Metanorma::Ribose::VERSION}">
       <bibdata type="standard">
         <title language="en" format="text/plain">Main Title</title>
       <docidentifier type="Ribose">1000(wd)</docidentifier>
@@ -174,7 +174,7 @@ RSpec.describe Metanorma::Ribose do
       :pub-uri: me.example.com
     INPUT
     output = xmlpp(<<~"OUTPUT")
-          <rsd-standard xmlns='https://www.metanorma.org/ns/rsd' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
+          <rsd-standard xmlns='https://www.metanorma.org/ns/ribose' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
         <bibdata type='standard'>
           <title language='en' format='text/plain'>Document title</title>
           <docidentifier type='Ribose'>Code 1000</docidentifier>

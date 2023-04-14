@@ -1,10 +1,10 @@
 metanorma_name: ribose
 organization_name_short: Ribose
 organization_name_long: Ribose Asia Limited
-document_namespace: https://www.metanorma.org/ns/rsd
+document_namespace: https://www.metanorma.org/ns/ribose
 xml_root_tag: 'rsd-standard'
 logo_path: lib/isodoc/ribose/html/logo.png
-validate_rng_file: lib/metanorma/ribose/rsd.rng
+validate_rng_file: lib/metanorma/ribose/ribose.rng
 i18nyaml: lib/isodoc/ribose/i18n-en.yaml
 htmlcoverpage: lib/isodoc/ribose/html/html_rsd_titlepage.html
 htmlintropage: lib/isodoc/ribose/html/html_rsd_intro.html

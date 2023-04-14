@@ -16,7 +16,7 @@ RSpec.describe Metanorma::Ribose do
       let(:default_organization_name_short) { "Ribose" }
       let(:default_organization_name_long) { "Ribose Asia Limited" }
       let(:default_document_namespace) do
-        "https://www.metanorma.org/ns/rsd"
+        "https://www.metanorma.org/ns/ribose"
       end
 
       it "sets default atrributes" do

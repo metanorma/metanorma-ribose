@@ -8,7 +8,7 @@ module Metanorma
     #
     class Converter < Metanorma::Generic::Converter
       XML_ROOT_TAG = "rsd-standard".freeze
-      XML_NAMESPACE = "https://www.metanorma.org/ns/rsd".freeze
+      XML_NAMESPACE = "https://www.metanorma.org/ns/ribose".freeze
 
       register_for "ribose"
 
