@@ -1,13 +1,12 @@
 module IsoDoc
   module Ribose
     module BaseConvert
-      def executivesummary(docxml, out)
-        f = docxml.at(ns("//executivesummary")) || return
+      def executivesummary(clause, out)
         title_attr = { class: "IntroTitle" }
         page_break(out)
-        out.div class: "Section3", id: f["id"] do |div|
-          clause_name(f, f&.at(ns("./title")), div, title_attr)
-          f.elements.each do |e|
+        out.div class: "Section3", id: clause["id"] do |div|
+          clause_name(clause, clause&.at(ns("./title")), div, title_attr)
+          clause.elements.each do |e|
             parse(e, div) unless e.name == "title"
           end
         end
