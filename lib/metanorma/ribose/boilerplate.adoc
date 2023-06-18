@@ -1,0 +1,39 @@
+== copyright-statement
+=== {blank}
+© {{ publisher }} {{ docyear }}
+
+{% if unpublished %}
+== license-statement
+=== Warning for Drafts
+
+This document is not a Ribose Standard. It is distributed for review and
+comment, and is subject to change without notice and may not be referred to as
+a Standard. Recipients of this draft are invited to submit, with their
+comments, notification of any relevant patent rights of which they are aware
+and to provide supporting documentation.
+
+{% endif %}
+
+== legal-statement
+=== {blank}
+All rights reserved. Unless otherwise specified, no part of this
+publication may be reproduced or utilized otherwise in any form or by any
+means, electronic or mechanical, including photocopying, or posting on the
+internet or an intranet, without prior written permission. Permission can
+be requested from the address below.
+
+== feedback-statement
+=== {blank}
+[[boilerplate-name]]
+[align="left"]
+{% if publisher %}{{ publisher }}{% else %}Ribose Group Inc.{% endif %}
+
+[[boilerplate-address]]
+[align="left"]
+{% if pub_address %}{{ pub_address }}{% else %}Suite 1, 8/F, New Henry House +
+10 Ice House Street +
+Central +
+Hong Kong{% endif %} +
+ +
+{% if pub_email %}{{ pub_email }}{% else %}copyright@ribose.com{% endif %} +
+{% if pub_uri %}{{ pub_uri }}{% else %}https://www.ribose.com[www.ribose.com]{% endif %}
