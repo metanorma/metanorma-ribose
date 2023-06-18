@@ -77,7 +77,7 @@ def xmlpp(xml)
     .gsub(%r{ schema-version="[^"]+"}, "")
 end
 
-ASCIIDOC_BLANK_HDR = <<~"HDR".freeze
+ASCIIDOC_BLANK_HDR = <<~HDR.freeze
   = Document title
   Author
   :docfile: test.adoc
@@ -86,7 +86,7 @@ ASCIIDOC_BLANK_HDR = <<~"HDR".freeze
 
 HDR
 
-VALIDATING_BLANK_HDR = <<~"HDR".freeze
+VALIDATING_BLANK_HDR = <<~HDR.freeze
   = Document title
   Author
   :docfile: test.adoc
@@ -95,20 +95,25 @@ VALIDATING_BLANK_HDR = <<~"HDR".freeze
 HDR
 
 BOILERPLATE_XML = File.join(File.dirname(__FILE__), "..",
-                            "lib", "metanorma", "ribose", "boilerplate.xml")
+                            "lib", "metanorma", "ribose", "boilerplate.adoc")
+
+def boilerplate_read(file, xmldoc)
+  conv = Metanorma::Ribose::Converter.new(:ribose, {})
+  conv.init(Asciidoctor::Document.new([]))
+  x = conv.boilerplate_isodoc(xmldoc).populate_template(file, nil)
+  ret = conv.boilerplate_file_restructure(x)
+  ret.to_xml(encoding: "UTF-8", indent: 2,
+             save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
+    .gsub(/<(\/)?sections>/, "<\\1boilerplate>")
+    .gsub(/ id="_[^"]+"/, " id='_'")
+    .gsub(/<ol>/, "<ol id='_' type='alphabet'>")
+end
 
 def boilerplate(xmldoc)
   file = File.read(BOILERPLATE_XML, encoding: "utf-8")
-  conv = Metanorma::Ribose::Converter
-    .new(nil, backend: :ribose, header_footer: true)
-  conv.init(Asciidoctor::Document.new([]))
-  ret = Nokogiri::XML(
-    conv.boilerplate_isodoc(xmldoc).populate_template(file, nil)
-    .gsub(/<p>/, "<p id='_'>")
-    .gsub(/<ol>/, "<ol id='_' type='alphabet'>"),
-  )
-  conv.smartquotes_cleanup(ret)
-  HTMLEntities.new.decode(ret.to_xml)
+  ret = Nokogiri::XML(boilerplate_read(file, xmldoc))
+  ret.root.to_xml(encoding: "UTF-8", indent: 2,
+                  save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
 end
 
 LICENSE_BOILERPLATE = <<~CONTENT.freeze
@@ -187,7 +192,7 @@ def blank_hdr_gen
   HDR
 end
 
-HTML_HDR = <<~"HDR".freeze
+HTML_HDR = <<~HDR.freeze
   <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
     <div class="title-section">
       <p>&#160;</p>
@@ -201,7 +206,7 @@ HTML_HDR = <<~"HDR".freeze
 HDR
 
 def mock_pdf
-  allow(::Mn2pdf).to receive(:convert) do |url, output,|
+  allow(Mn2pdf).to receive(:convert) do |url, output,|
     FileUtils.cp(url.gsub(/"/, ""), output.gsub(/"/, ""))
   end
 end

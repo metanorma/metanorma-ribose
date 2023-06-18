@@ -28,7 +28,7 @@ RSpec.describe Metanorma::Ribose do
   end
 
   it "converts a blank document" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -49,7 +49,7 @@ RSpec.describe Metanorma::Ribose do
   end
 
   it "processes default metadata" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -234,12 +234,12 @@ RSpec.describe Metanorma::Ribose do
          </metanorma-extension>
         <boilerplate>
           <copyright-statement>
-            <clause>
+            <clause id="_" obligation="normative">
               <p id='_'> &#169; Fred #{Date.today.year}</p>
             </clause>
           </copyright-statement>
           <legal-statement>
-            <clause>
+            <clause id="_" obligation="normative">
               <p id='_'>
                 All rights reserved. Unless otherwise specified, no part of this
                 publication may be reproduced or utilized otherwise in any form or by
@@ -250,7 +250,7 @@ RSpec.describe Metanorma::Ribose do
             </clause>
           </legal-statement>
           <feedback-statement>
-            <clause>
+            <clause id="_" obligation="normative">
               <p align='left' id='boilerplate-name'> Fred </p>
               <p align='left' id='boilerplate-address'>
               10 Jack St
@@ -258,9 +258,9 @@ RSpec.describe Metanorma::Ribose do
                 Antarctica
                 <br/>
                 <br/>
-                <link target='mailto:me@me.com'>me@me.com</link>
+                me@me.com
                 <br/>
-                <link target='me.example.com'>me.example.com</link>
+                me.example.com
               </p>
             </clause>
           </feedback-statement>
@@ -273,7 +273,7 @@ RSpec.describe Metanorma::Ribose do
   end
 
   it "processes committee-draft" do
-    out = Asciidoctor.convert(<<~"INPUT", *OPTIONS)
+    out = Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -338,7 +338,7 @@ RSpec.describe Metanorma::Ribose do
   end
 
   it "processes draft-standard" do
-    out = Asciidoctor.convert(<<~"INPUT", *OPTIONS)
+    out = Asciidoctor.convert(<<~INPUT, *OPTIONS)
       = Document title
       Author
       :docfile: test.adoc
@@ -403,7 +403,7 @@ RSpec.describe Metanorma::Ribose do
   end
 
   it "ignores unrecognised status" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -421,7 +421,7 @@ RSpec.describe Metanorma::Ribose do
       :title: Main Title
     INPUT
 
-    output = <<~"OUTPUT"
+    output = <<~OUTPUT
       <bibdata type='standard'>
         <title language='en' format='text/plain'>Main Title</title>
         <docidentifier type="Ribose">1000</docidentifier>
@@ -500,7 +500,7 @@ RSpec.describe Metanorma::Ribose do
   end
 
   it "uses default fonts" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -521,7 +521,7 @@ RSpec.describe Metanorma::Ribose do
   end
 
   it "uses Chinese fonts" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
@@ -543,7 +543,7 @@ RSpec.describe Metanorma::Ribose do
   end
 
   it "uses specified fonts" do
-    input = <<~"INPUT"
+    input = <<~INPUT
       = Document title
       Author
       :docfile: test.adoc
