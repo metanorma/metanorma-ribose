@@ -113,7 +113,7 @@ RSpec.describe IsoDoc::Ribose do
   it "processes pre" do
     input = <<~INPUT
       <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
-      <preface><foreword>
+      <preface><foreword displayorder="1">
       <pre>ABC</pre>
       </foreword></preface>
       </rsd-standard>
@@ -126,7 +126,6 @@ RSpec.describe IsoDoc::Ribose do
             <h1 class="ForewordTitle">Foreword</h1>
             <pre>ABC</pre>
           </div>
-          <p class="zzSTDTitle1"/>
         </div>
       </body>
     OUTPUT
@@ -141,7 +140,7 @@ RSpec.describe IsoDoc::Ribose do
     input = <<~INPUT
       <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
       <preface>
-        <foreword>
+        <foreword displayorder="1">
           <keyword>ABC</keyword>
           </foreword>
         </preface>
@@ -155,7 +154,6 @@ RSpec.describe IsoDoc::Ribose do
             <h1 class="ForewordTitle">Foreword</h1>
             <span class="keyword">ABC</span>
           </div>
-          <p class="zzSTDTitle1"/>
         </div>
       </body>
     OUTPUT
@@ -298,6 +296,9 @@ RSpec.describe IsoDoc::Ribose do
               <title depth="2">5.2.<tab/>Clause 4.2</title>
             </clause>
           </clause>
+          <references id="R" normative="true" obligation="informative" displayorder="6">
+            <title depth="1">2.<tab/>Normative References</title>
+          </references>
         </sections>
         <annex id="P" inline-header="false" obligation="normative" displayorder="10">
           <title>Annex A<br/>(normative)<br/><br/>Annex</title>
@@ -309,9 +310,6 @@ RSpec.describe IsoDoc::Ribose do
           </clause>
         </annex>
         <bibliography>
-          <references id="R" normative="true" obligation="informative" displayorder="6">
-            <title depth="1">2.<tab/>Normative References</title>
-          </references>
           <clause id="S" obligation="informative" displayorder="11">
             <title depth="1">Bibliography</title>
             <references id="T" normative="false" obligation="informative">
@@ -344,7 +342,6 @@ RSpec.describe IsoDoc::Ribose do
                <h2>0.1.  Introduction Subsection</h2>
              </div>
            </div>
-           <p class="zzSTDTitle1"/>
            <div id="D">
              <h1>1.  Scope</h1>
              <p id="E">Text</p>
@@ -469,7 +466,6 @@ RSpec.describe IsoDoc::Ribose do
           <div class='Section3' id='B'>
             <h1 class='IntroTitle'>Introduction</h1>
           </div>
-          <p class='zzSTDTitle1'/>
         </div>
       </body>
     OUTPUT
@@ -676,6 +672,9 @@ RSpec.describe IsoDoc::Ribose do
                 <title depth="2">5.2.<tab/>Clause 4.2</title>
               </clause>
             </clause>
+            <references id="R" obligation="informative" normative="true" displayorder="5">
+              <title depth="1">2.<tab/>Normative References</title>
+            </references>
           </sections>
           <annex id="P" inline-header="false" obligation="normative" displayorder="9">
             <title>Annex A<br/>(normative)<br/><br/>Annex</title>
@@ -690,9 +689,6 @@ RSpec.describe IsoDoc::Ribose do
             </appendix>
           </annex>
           <bibliography>
-            <references id="R" obligation="informative" normative="true" displayorder="5">
-              <title depth="1">2.<tab/>Normative References</title>
-            </references>
             <clause id="S" obligation="informative" displayorder="10">
               <title depth="1">Bibliography</title>
               <references id="T" obligation="informative" normative="false">
