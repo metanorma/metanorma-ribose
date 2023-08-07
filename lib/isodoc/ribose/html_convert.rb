@@ -13,16 +13,6 @@ module IsoDoc
         Metanorma::Ribose.configuration
       end
 
-      def make_body3(body, docxml)
-        body.div class: "main-section" do |div3|
-          boilerplate docxml, div3
-          front docxml, div3
-          middle docxml, div3
-          footnotes div3
-          comments div3
-        end
-      end
-
       include BaseConvert
       include Init
     end

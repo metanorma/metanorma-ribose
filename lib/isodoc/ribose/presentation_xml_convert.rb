@@ -10,6 +10,8 @@ module IsoDoc
         prefix_name(elem, "<br/><br/>", lbl, "title")
       end
 
+      def middle_title(docxml); end
+
       def termsource1(elem)
         mod = elem.at(ns("./modification")) and
           termsource_modification(mod)
