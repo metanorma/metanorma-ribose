@@ -14,9 +14,6 @@ module IsoDoc
       end
 
       def initial_anchor_names(doc)
-        if blank?(@parse_settings) || @parse_settings[:clauses]
-          preface_names(doc.at(ns("//executivesummary")))
-        end
         super
         if blank?(@parse_settings) || @parse_settings[:clauses]
           introduction_names(doc.at(ns("//introduction")))
@@ -24,7 +21,7 @@ module IsoDoc
         if blank?(@parse_settings)
           sequential_asset_names(
             doc.xpath(
-              ns("//preface/abstract | //foreword | //introduction | "\
+              ns("//preface/abstract | //foreword | //introduction | " \
                  "//preface/clause | //acknowledgements | //executivesummary"),
             ),
           )
@@ -36,7 +33,7 @@ module IsoDoc
           { label: num, level: level, xref: num }
         # subclauses are not prefixed with "Clause"
         i = Counter.new
-        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | "\
+        clause.xpath(ns("./clause | ./terms | ./term | ./definitions | " \
                         "./references")).each do |c|
           i.increment(c)
           section_names1(c, "#{num}.#{i.print}", level + 1)
@@ -45,15 +42,13 @@ module IsoDoc
 
       # we can reference 0-number clauses in introduction
       def introduction_names(clause)
-        return if clause.nil?
-
+        clause.nil? and return
         clause.at(ns("./clause")) and
           @anchors[clause["id"]] = { label: "0", level: 1, type: "clause",
                                      xref: clause.at(ns("./title"))&.text }
         i = Counter.new
         clause.xpath(ns("./clause")).each do |c|
-          i.increment(c)
-          section_names1(c, "0.#{i.print}", 2)
+          section_names1(c, "0.#{i.increment(c).print}", 2)
         end
       end
     end
