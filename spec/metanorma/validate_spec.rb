@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe Metanorma::Ribose do
   context "when xref_error.adoc compilation" do
     it "generates error file" do
-      FileUtils.rm_rf "xref_error.err"
+      FileUtils.rm_rf "xref_error.err.html"
       File.write("xref_error.adoc", <<~"CONTENT")
         = X
         A
@@ -18,7 +18,7 @@ RSpec.describe Metanorma::Ribose do
         Metanorma::Compile
           .new
           .compile("xref_error.adoc", type: "ribose", no_install_fonts: true)
-      end.to(change { File.exist?("xref_error.err") }
+      end.to(change { File.exist?("xref_error.err.html") }
               .from(false).to(true))
     end
   end
