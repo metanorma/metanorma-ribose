@@ -32,11 +32,10 @@ module IsoDoc
         @anchors[clause["id"]] =
           { label: num, level: level, xref: num }
         # subclauses are not prefixed with "Clause"
-        i = Counter.new
+        i = Counter.new(0, prefix: "#{num}.")
         clause.xpath(ns("./clause | ./terms | ./term | ./definitions | " \
                         "./references")).each do |c|
-          i.increment(c)
-          section_names1(c, "#{num}.#{i.print}", level + 1)
+          section_names1(c, i.increment(c).print, level + 1)
         end
       end
 
@@ -46,9 +45,9 @@ module IsoDoc
         clause.at(ns("./clause")) and
           @anchors[clause["id"]] = { label: "0", level: 1, type: "clause",
                                      xref: clause.at(ns("./title"))&.text }
-        i = Counter.new
+        i = Counter.new(0, prefix: "0.")
         clause.xpath(ns("./clause")).each do |c|
-          section_names1(c, "0.#{i.increment(c).print}", 2)
+          section_names1(c, i.increment(c).print, 2)
         end
       end
     end
