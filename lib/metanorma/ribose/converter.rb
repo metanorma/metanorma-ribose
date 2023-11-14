@@ -57,7 +57,8 @@ module Metanorma
 
       def presentation_xml_converter(node)
         IsoDoc::Ribose::PresentationXMLConvert
-          .new(html_extract_attributes(node))
+          .new(html_extract_attributes(node)
+          .merge(output_formats: ::Metanorma::Ribose::Processor.new.output_formats))
       end
 
       def html_converter(node)

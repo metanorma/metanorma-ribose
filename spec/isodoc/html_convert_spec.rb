@@ -67,6 +67,7 @@ RSpec.describe IsoDoc::Ribose do
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
+      :correcteddate=>"XXX",
       :createddate=>"XXX",
       :docnumber=>"1000(wd)",
       :docnumeric=>"1000",
