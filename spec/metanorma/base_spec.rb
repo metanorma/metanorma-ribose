@@ -85,55 +85,55 @@ RSpec.describe Metanorma::Ribose do
     output = xmlpp(<<~"OUTPUT")
       <?xml version="1.0" encoding="UTF-8"?>
       <rsd-standard xmlns="https://www.metanorma.org/ns/ribose" type="semantic" version="#{Metanorma::Ribose::VERSION}">
-      <bibdata type="standard">
-        <title language="en" format="text/plain">Main Title</title>
-      <docidentifier type="Ribose">1000(wd)</docidentifier>
-      <docnumber>1000</docnumber>
-        <contributor>
-          <role type="author"/>
-          <organization>
-          <name>Ribose Asia Limited</name>
-          <abbreviation>Ribose</abbreviation>
-          </organization>
-        </contributor>
-        <contributor>
-          <role type="publisher"/>
-          <organization>
-                    <name>Ribose Asia Limited</name>
-          <abbreviation>Ribose</abbreviation>
-          </organization>
-        </contributor>
-        <edition>2</edition>
-      <version>
-        <revision-date>2000-01-01</revision-date>
-        <draft>3.4</draft>
-      </version>
-        <language>en</language>
-        <script>Latn</script>
-        <status>
-          <stage>working-draft</stage>
-          <iteration>3</iteration>
-        </status>
-        <copyright>
-          <from>2001</from>
-          <owner>
-            <organization>
-                      <name>Ribose Asia Limited</name>
-          <abbreviation>Ribose</abbreviation>
-            </organization>
-          </owner>
-        </copyright>
-        <ext>
-        <doctype>standard</doctype>
-        <editorialgroup>
-          <committee type="A">TC</committee>
-          <committee type="A1">TC1</committee>
-        </editorialgroup>
-        <security>Client Confidential</security>
-        <recipient>tbd@example.com</recipient>
-        </ext>
-      </bibdata>
-               <metanorma-extension>
+              <bibdata type="standard">
+           <title language="en" format="text/plain">Main Title</title>
+           <docidentifier type="Ribose">1000(wd)</docidentifier>
+           <docnumber>1000</docnumber>
+           <contributor>
+             <role type="author"/>
+             <organization>
+               <name>Ribose Asia Limited</name>
+               <abbreviation>Ribose</abbreviation>
+             </organization>
+           </contributor>
+           <contributor>
+             <role type="publisher"/>
+             <organization>
+               <name>Ribose Asia Limited</name>
+               <abbreviation>Ribose</abbreviation>
+             </organization>
+           </contributor>
+           <edition>2</edition>
+           <version>
+             <revision-date>2000-01-01</revision-date>
+             <draft>3.4</draft>
+           </version>
+           <language>en</language>
+           <script>Latn</script>
+           <status>
+             <stage>working-draft</stage>
+             <iteration>3</iteration>
+           </status>
+           <copyright>
+             <from>2001</from>
+             <owner>
+               <organization>
+                 <name>Ribose Asia Limited</name>
+                 <abbreviation>Ribose</abbreviation>
+               </organization>
+             </owner>
+           </copyright>
+           <ext>
+             <doctype>standard</doctype>
+             <editorialgroup>
+               <committee type="A">TC</committee>
+               <committee type="A1">TC1</committee>
+             </editorialgroup>
+             <security>Client Confidential</security>
+             <recipient>tbd@example.com</recipient>
+           </ext>
+         </bibdata>
+         <metanorma-extension>
            <presentation-metadata>
              <name>TOC Heading Levels</name>
              <value>2</value>
@@ -147,12 +147,12 @@ RSpec.describe Metanorma::Ribose do
              <value>2</value>
            </presentation-metadata>
          </metanorma-extension>
-      <sections/>
-      </rsd-standard>
+         <sections/>
+       </rsd-standard>
     OUTPUT
 
     output = output
-      .sub(%r{</bibdata>}, "</bibdata>\n#{boilerplate(Nokogiri::XML(output))}")
+      .sub(%r{</metanorma-extension>}, "</metanorma-extension>\n#{boilerplate(Nokogiri::XML(output))}")
 
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
@@ -175,50 +175,55 @@ RSpec.describe Metanorma::Ribose do
     INPUT
     output = xmlpp(<<~"OUTPUT")
           <rsd-standard xmlns='https://www.metanorma.org/ns/ribose' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
-        <bibdata type='standard'>
-          <title language='en' format='text/plain'>Document title</title>
-          <docidentifier type='Ribose'>Code 1000</docidentifier>
-          <docnumber>1000</docnumber>
-          <contributor>
-            <role type='author'/>
-            <organization>
-              <name>Fred</name>
-            </organization>
-          </contributor>
-          <contributor>
-            <role type='publisher'/>
-            <organization>
-              <name>Fred</name>
-              <address>
-        <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
-      </address>
-      <email>me@me.com</email>
-      <uri>me.example.com</uri>
-            </organization>
-          </contributor>
-          <language>en</language>
-          <script>Latn</script>
-          <status>
-            <stage>published</stage>
-          </status>
-          <copyright>
-            <from>#{Date.today.year}</from>
-            <owner>
-              <organization>
-                <name>Fred</name>
-                <address>
-        <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
-      </address>
-      <email>me@me.com</email>
-      <uri>me.example.com</uri>
-              </organization>
-            </owner>
-          </copyright>
-          <ext>
-            <doctype abbreviation='Code'>code</doctype>
-          </ext>
-        </bibdata>
-                 <metanorma-extension>
+          <bibdata type="standard">
+           <title language="en" format="text/plain">Document title</title>
+           <docidentifier type="Ribose">Code 1000</docidentifier>
+           <docnumber>1000</docnumber>
+           <contributor>
+             <role type="author"/>
+             <organization>
+               <name>Fred</name>
+               <address>
+                 <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
+               </address>
+               <email>me@me.com</email>
+               <uri>me.example.com</uri>
+             </organization>
+           </contributor>
+           <contributor>
+             <role type="publisher"/>
+             <organization>
+               <name>Fred</name>
+               <address>
+                 <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
+               </address>
+               <email>me@me.com</email>
+               <uri>me.example.com</uri>
+             </organization>
+           </contributor>
+           <language>en</language>
+           <script>Latn</script>
+           <status>
+             <stage>published</stage>
+           </status>
+           <copyright>
+             <from>#{Date.today.year}</from>
+             <owner>
+               <organization>
+                 <name>Fred</name>
+                 <address>
+                   <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
+                 </address>
+                 <email>me@me.com</email>
+                 <uri>me.example.com</uri>
+               </organization>
+             </owner>
+           </copyright>
+           <ext>
+             <doctype abbreviation="Code">code</doctype>
+           </ext>
+         </bibdata>
+         <metanorma-extension>
            <presentation-metadata>
              <name>TOC Heading Levels</name>
              <value>2</value>
@@ -232,41 +237,32 @@ RSpec.describe Metanorma::Ribose do
              <value>2</value>
            </presentation-metadata>
          </metanorma-extension>
-        <boilerplate>
-          <copyright-statement>
-            <clause id="_" obligation="normative">
-              <p id='_'> &#169; Fred #{Date.today.year}</p>
-            </clause>
-          </copyright-statement>
-          <legal-statement>
-            <clause id="_" obligation="normative">
-              <p id='_'>
-                All rights reserved. Unless otherwise specified, no part of this
-                publication may be reproduced or utilized otherwise in any form or by
-                any means, electronic or mechanical, including photocopying, or
-                posting on the internet or an intranet, without prior written
-                permission. Permission can be requested from the address below.
-              </p>
-            </clause>
-          </legal-statement>
-          <feedback-statement>
-            <clause id="_" obligation="normative">
-              <p align='left' id='boilerplate-name'> Fred </p>
-              <p align='left' id='boilerplate-address'>
-              10 Jack St
-                <br/>
-                Antarctica
-                <br/>
-                <br/>
-                me@me.com
-                <br/>
-                me.example.com
-              </p>
-            </clause>
-          </feedback-statement>
-        </boilerplate>
-        <sections> </sections>
-      </rsd-standard>
+         <boilerplate>
+           <copyright-statement>
+             <clause id="_" obligation="normative">
+               <p id="_">© Fred #{Date.today.year}</p>
+             </clause>
+           </copyright-statement>
+           <legal-statement>
+             <clause id="_" obligation="normative">
+               <p id="_">All rights reserved. Unless otherwise specified, no part of this
+       publication may be reproduced or utilized otherwise in any form or by any
+       means, electronic or mechanical, including photocopying, or posting on the
+       internet or an intranet, without prior written permission. Permission can
+       be requested from the address below.</p>
+             </clause>
+           </legal-statement>
+           <feedback-statement>
+             <clause id="_" obligation="normative">
+               <p id="boilerplate-name" align="left">Fred</p>
+               <p id="boilerplate-address" align="left">10 Jack St<br/>Antarctica<br/><br/>
+       me@me.com<br/>
+       me.example.com</p>
+             </clause>
+           </feedback-statement>
+         </boilerplate>
+         <sections/>
+       </rsd-standard>
     OUTPUT
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
