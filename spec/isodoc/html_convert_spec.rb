@@ -63,7 +63,9 @@ RSpec.describe IsoDoc::Ribose do
 
     output = <<~"OUTPUT"
       {:accesseddate=>"XXX",
+      :adapteddate=>"XXX",
       :agency=>"Fred",
+      :announceddate=>"XXX",
       :circulateddate=>"XXX",
       :confirmeddate=>"XXX",
       :copieddate=>"XXX",
@@ -94,6 +96,7 @@ RSpec.describe IsoDoc::Ribose do
       :revdate_MMMddyyyy=>"January 01, 2000",
       :revdate_monthyear=>"January 2000",
       :script=>"Latn",
+      :stable_untildate=>"XXX",
       :stage=>"Working Draft",
       :stage_display=>"Working Draft",
       :stageabbr=>"wd",

@@ -146,13 +146,18 @@ RSpec.describe Metanorma::Ribose do
              <name>DOC TOC Heading Levels</name>
              <value>2</value>
            </presentation-metadata>
+           <presentation-metadata>
+             <name>PDF TOC Heading Levels</name>
+             <value>2</value>
+           </presentation-metadata>
          </metanorma-extension>
          <sections/>
        </rsd-standard>
     OUTPUT
 
     output = output
-      .sub(%r{</metanorma-extension>}, "</metanorma-extension>\n#{boilerplate(Nokogiri::XML(output))}")
+      .sub(%r{</metanorma-extension>},
+           "</metanorma-extension>\n#{boilerplate(Nokogiri::XML(output))}")
 
     expect(xmlpp(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to xmlpp(output)
@@ -234,6 +239,10 @@ RSpec.describe Metanorma::Ribose do
            </presentation-metadata>
            <presentation-metadata>
              <name>DOC TOC Heading Levels</name>
+             <value>2</value>
+           </presentation-metadata>
+           <presentation-metadata>
+             <name>PDF TOC Heading Levels</name>
              <value>2</value>
            </presentation-metadata>
          </metanorma-extension>
