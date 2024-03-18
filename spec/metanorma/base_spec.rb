@@ -87,7 +87,7 @@ RSpec.describe Metanorma::Ribose do
       <rsd-standard xmlns="https://www.metanorma.org/ns/ribose" type="semantic" version="#{Metanorma::Ribose::VERSION}">
               <bibdata type="standard">
            <title language="en" format="text/plain">Main Title</title>
-           <docidentifier type="Ribose">1000(wd)</docidentifier>
+           <docidentifier primary="true" type="Ribose">1000(wd)</docidentifier>
            <docnumber>1000</docnumber>
            <contributor>
              <role type="author"/>
@@ -182,7 +182,7 @@ RSpec.describe Metanorma::Ribose do
           <rsd-standard xmlns='https://www.metanorma.org/ns/ribose' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
           <bibdata type="standard">
            <title language="en" format="text/plain">Document title</title>
-           <docidentifier type="Ribose">Code 1000</docidentifier>
+           <docidentifier primary="true" type="Ribose">Code 1000</docidentifier>
            <docnumber>1000</docnumber>
            <contributor>
              <role type="author"/>
@@ -299,7 +299,7 @@ RSpec.describe Metanorma::Ribose do
       .to be_equivalent_to xmlpp(<<~"OUTPUT")
         <bibdata type="standard">
           <title language="en" format="text/plain">Main Title</title>
-          <docidentifier type="Ribose">1000(cd)</docidentifier>
+          <docidentifier primary="true" type="Ribose">1000(cd)</docidentifier>
           <docnumber>1000</docnumber>
           <contributor>
             <role type="author"/>
@@ -364,7 +364,7 @@ RSpec.describe Metanorma::Ribose do
       .to be_equivalent_to xmlpp(<<~"OUTPUT")
         <bibdata type="standard">
           <title language="en" format="text/plain">Main Title</title>
-          <docidentifier type="Ribose">1000(d)</docidentifier>
+          <docidentifier primary="true" type="Ribose">1000(d)</docidentifier>
           <docnumber>1000</docnumber>
           <contributor>
             <role type="author"/>
@@ -429,7 +429,7 @@ RSpec.describe Metanorma::Ribose do
     output = <<~OUTPUT
       <bibdata type='standard'>
         <title language='en' format='text/plain'>Main Title</title>
-        <docidentifier type="Ribose">1000</docidentifier>
+        <docidentifier primary="true" type="Ribose">1000</docidentifier>
         <docnumber>1000</docnumber>
         <contributor>
           <role type='author'/>
