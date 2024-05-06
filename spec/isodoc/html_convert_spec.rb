@@ -362,22 +362,26 @@ RSpec.describe IsoDoc::Ribose do
              </div>
              <div id="K">
                <h2>3.2.</h2>
+               <div class="figdl">
                <dl>
                  <dt>
                    <p>Symbol</p>
                  </dt>
                  <dd>Definition</dd>
                </dl>
+               </div>
              </div>
            </div>
            <div id="L" class="Symbols">
              <h1>4.</h1>
+             <div class="figdl">
              <dl>
                <dt>
                  <p>Symbol</p>
                </dt>
                <dd>Definition</dd>
              </dl>
+             </div>
            </div>
            <div id="M">
              <h1>5.  Clause 4</h1>
@@ -760,7 +764,7 @@ RSpec.describe IsoDoc::Ribose do
 
     output = xmlpp(strip_guid(<<~OUTPUT))
       <div id='H'>
-        <h1 id='_'>1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</h1>
+        <h1 id='_'><a class="anchor" href="#H"/><a class="header" href="#H">1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
         <p class='Terms' style='text-align:left;' id='J'><strong>1.1.</strong>&#xa0;Term2</p>
         <p class='AltTerms' style='text-align:left;'>Term2A</p>
         <p class='AltTerms' style='text-align:left;'>Term2B</p>
