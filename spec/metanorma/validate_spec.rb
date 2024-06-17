@@ -17,7 +17,7 @@ RSpec.describe Metanorma::Ribose do
       expect do
         Metanorma::Compile
           .new
-          .compile("xref_error.adoc", type: "ribose", no_install_fonts: true)
+          .compile("xref_error.adoc", type: "ribose", install_fonts: false)
       end.to(change { File.exist?("xref_error.err.html") }
               .from(false).to(true))
     end
