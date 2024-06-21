@@ -16,8 +16,6 @@ html_normalfontsize: "15px"
 html_footnotefontsize: "0.9em"
 html_monospacefontsize: "12px"
 boilerplate: lib/metanorma/ribose/boilerplate.adoc
-scripts: lib/isodoc/ribose/html/scripts.html
-scripts_pdf: lib/isodoc/ribose/html/scripts.pdf.html
 standardstylesheet: lib/isodoc/ribose/html/rsd.scss
 header: lib/isodoc/ribose/html/header.html
 wordcoverpage: lib/isodoc/ribose/html/word_rsd_titlepage.html
