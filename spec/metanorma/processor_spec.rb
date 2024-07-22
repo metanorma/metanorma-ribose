@@ -27,13 +27,13 @@ RSpec.describe Metanorma::Ribose::Processor do
       #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = xmlpp(strip_guid(<<~"OUTPUT"))
+    output = Xml::C14n.format(strip_guid(<<~"OUTPUT"))
         #{blank_hdr_gen}
         <sections/>
       </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Nokogiri::XML(processor
+    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(processor
       .input_to_isodoc(input, nil)).to_xml)))
       .to be_equivalent_to output
   end
@@ -53,7 +53,7 @@ RSpec.describe Metanorma::Ribose::Processor do
       </rsd-standard>
     INPUT
 
-    output = xmlpp(strip_guid(<<~OUTPUT))
+    output = Xml::C14n.format(strip_guid(<<~OUTPUT))
        <main class="main-section">
          <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
          <div id="H">
@@ -69,7 +69,7 @@ RSpec.describe Metanorma::Ribose::Processor do
     processor.output(input, "test.xml", "test.html", :html)
 
     expect(
-      xmlpp(strip_guid(File.read("test.html", encoding: "utf-8")
+      Xml::C14n.format(strip_guid(File.read("test.html", encoding: "utf-8")
         .gsub(%r{^.*<main}m, "<main")
         .gsub(%r{</main>.*}m, "</main>"))),
     ).to be_equivalent_to output

@@ -123,7 +123,7 @@ RSpec.describe IsoDoc::Ribose do
       </rsd-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
       #{HTML_HDR}
           <br/>
           <div>
@@ -134,7 +134,7 @@ RSpec.describe IsoDoc::Ribose do
       </body>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::Ribose::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::Ribose::HtmlConvert.new({})
       .convert("test", input, true)
       .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to output
@@ -151,7 +151,7 @@ RSpec.describe IsoDoc::Ribose do
       </rsd-standard>
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
           #{HTML_HDR}
           <br/>
           <div>
@@ -162,7 +162,7 @@ RSpec.describe IsoDoc::Ribose do
       </body>
     OUTPUT
 
-    expect(xmlpp(IsoDoc::Ribose::HtmlConvert.new({})
+    expect(Xml::C14n.format(IsoDoc::Ribose::HtmlConvert.new({})
       .convert("test", input, true)
       .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to output
@@ -324,7 +324,7 @@ RSpec.describe IsoDoc::Ribose do
       </rsd-standard>
     OUTPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
         #{HTML_HDR}
            <br/>
            <div id="_" class="TOC">
@@ -413,11 +413,11 @@ RSpec.describe IsoDoc::Ribose do
        </body>
     OUTPUT
 
-    expect(xmlpp(strip_guid(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ribose::HtmlConvert.new({})
+      .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ribose::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to output
@@ -477,14 +477,14 @@ RSpec.describe IsoDoc::Ribose do
         </div>
       </body>
     OUTPUT
-    expect(xmlpp(strip_guid(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
      .convert("test", input, true)
      .gsub(%r{^.*<body}m, "<body")
-     .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to xmlpp(presxml)
-    expect(xmlpp(IsoDoc::Ribose::HtmlConvert.new({})
+     .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ribose::HtmlConvert.new({})
       .convert("test", presxml, true)
       .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to xmlpp(output)
+      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to Xml::C14n.format(output)
   end
 
   it "injects JS into blank html" do
@@ -497,13 +497,13 @@ RSpec.describe IsoDoc::Ribose do
       :no-pdf:
     INPUT
 
-    output = xmlpp(<<~"OUTPUT")
+    output = Xml::C14n.format(<<~"OUTPUT")
         #{blank_hdr_gen}
         <sections/>
       </rsd-standard>
     OUTPUT
 
-    expect(xmlpp(strip_guid(Asciidoctor
+    expect(Xml::C14n.format(strip_guid(Asciidoctor
       .convert(input, backend: :ribose, header_footer: true))))
       .to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
@@ -606,10 +606,10 @@ RSpec.describe IsoDoc::Ribose do
         </bibliography>
       </rsd-standard>
     INPUT
-    expect(xmlpp(strip_guid(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
       .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to xmlpp(<<~OUTPUT)
+      .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to Xml::C14n.format(<<~OUTPUT)
         <rsd-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
             <clause type="toc" id="_" displayorder="1">
@@ -762,7 +762,7 @@ RSpec.describe IsoDoc::Ribose do
          </ogc-standard>
     INPUT
 
-    output = xmlpp(strip_guid(<<~OUTPUT))
+    output = Xml::C14n.format(strip_guid(<<~OUTPUT))
       <div id='H'>
         <h1 id='_'><a class="anchor" href="#H"/><a class="header" href="#H">1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
         <p class='Terms' style='text-align:left;' id='J'><strong>1.1.</strong>&#xa0;Term2</p>
@@ -777,14 +777,14 @@ RSpec.describe IsoDoc::Ribose do
       </div>
     OUTPUT
 
-    expect(xmlpp(strip_guid(IsoDoc::Ribose::PresentationXMLConvert
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ribose::PresentationXMLConvert
       .new(presxml_options)
      .convert("test", input, true)
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to xmlpp(presxml)
+      .to be_equivalent_to Xml::C14n.format(presxml)
     IsoDoc::Ribose::HtmlConvert.new({ filename: "test" })
       .convert("test", presxml, false)
-    expect(xmlpp(strip_guid(
+    expect(Xml::C14n.format(strip_guid(
                    File.read("test.html")
                 .gsub(%r{^.*<div id="H">}m, '<div id="H">')
                 .gsub(%r{</div>.*}m, "</div>"),
