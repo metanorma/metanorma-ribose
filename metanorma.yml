@@ -49,3 +49,8 @@ metadata_extensions:
 webfont:
   - "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600,600i&display=swap"
   - "https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" 
+fonts_manifest:
+  Source Sans Pro:
+  STIX Two Math:
+  Source Serif Pro:
+  Source Code Pro:
