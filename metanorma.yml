@@ -21,6 +21,7 @@ header: lib/isodoc/ribose/html/header.html
 wordcoverpage: lib/isodoc/ribose/html/word_rsd_titlepage.html
 wordintropage: lib/isodoc/ribose/html/word_rsd_intro.html
 wordstylesheet: lib/isodoc/ribose/html/wordstyle.scss
+pdf_stylesheet: lib/isodoc/ribose/ribose.standard.xsl
 word_bodyfont: '"Source Sans Pro","Arial",sans-serif'
 word_headerfont: '"Source Sans Pro","Arial",sans-serif'
 word_monospacefont: '"Source Code Pro",monospace'
