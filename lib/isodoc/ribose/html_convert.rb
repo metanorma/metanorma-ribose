@@ -9,10 +9,6 @@ module IsoDoc
     # schema encapsulation of the document for validation
     #
     class HtmlConvert < IsoDoc::Generic::HtmlConvert
-      def configuration
-        Metanorma::Ribose.configuration
-      end
-
       include BaseConvert
       include Init
     end

@@ -21,6 +21,10 @@ module IsoDoc
       def clausedelim
         ""
       end
+
+      def configuration
+        Metanorma::Ribose.configuration
+      end
     end
   end
 end
