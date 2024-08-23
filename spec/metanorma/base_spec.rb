@@ -294,7 +294,7 @@ RSpec.describe Metanorma::Ribose do
       :language: en
       :title: Main Title
     INPUT
-    expect(out).to include "<license-statement>"
+    expect(out).to include("<license-statement>")
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
       .to be_equivalent_to Xml::C14n.format(<<~"OUTPUT")
         <bibdata type="standard">
@@ -359,7 +359,7 @@ RSpec.describe Metanorma::Ribose do
       :language: en
       :title: Main Title
     INPUT
-    expect(out).to include "<license-statement>"
+    expect(out).to include("<license-statement>")
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
       .to be_equivalent_to Xml::C14n.format(<<~"OUTPUT")
         <bibdata type="standard">
