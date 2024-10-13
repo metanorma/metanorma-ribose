@@ -125,6 +125,7 @@ RSpec.describe Metanorma::Ribose do
            </copyright>
            <ext>
              <doctype>standard</doctype>
+      <flavor>ribose</flavor>
              <editorialgroup>
                <committee type="A">TC</committee>
                <committee type="A1">TC1</committee>
@@ -226,6 +227,7 @@ RSpec.describe Metanorma::Ribose do
            </copyright>
            <ext>
              <doctype abbreviation="Code">code</doctype>
+      <flavor>ribose</flavor>
            </ext>
          </bibdata>
          <metanorma-extension>
@@ -337,6 +339,7 @@ RSpec.describe Metanorma::Ribose do
           </copyright>
           <ext>
           <doctype>standard</doctype>
+      <flavor>ribose</flavor>
           </ext>
         </bibdata>
       OUTPUT
@@ -402,6 +405,7 @@ RSpec.describe Metanorma::Ribose do
           </copyright>
           <ext>
           <doctype>standard</doctype>
+      <flavor>ribose</flavor>
           </ext>
         </bibdata>
       OUTPUT
@@ -467,6 +471,7 @@ RSpec.describe Metanorma::Ribose do
         </copyright>
         <ext>
           <doctype>standard</doctype>
+      <flavor>ribose</flavor>
         </ext>
       </bibdata>
     OUTPUT

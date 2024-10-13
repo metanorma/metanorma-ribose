@@ -147,6 +147,7 @@ BLANK_HDR = <<~"HDR".freeze
       </copyright>
       <ext>
       <doctype>standard</doctype>
+      <flavor>ribose</flavor>
       </ext>
     </bibdata>
                         <metanorma-extension>
