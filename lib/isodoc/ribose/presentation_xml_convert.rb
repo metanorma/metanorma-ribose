@@ -33,6 +33,10 @@ module IsoDoc
                      %w(), doc)
       end
 
+      def note_delim(_elem)
+        ": "
+      end
+
       include Init
     end
   end

@@ -451,6 +451,79 @@ RSpec.describe IsoDoc::Ribose do
       .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to Xml::C14n.format(output)
   end
 
+  it "processes notes" do
+    input = <<~INPUT
+      <rsd-standard xmlns="http://riboseinc.com/isoxml">
+        <preface>
+          <foreword obligation="informative">
+            <title>Foreword</title>
+            <p>This is a preamble</p>
+            <note id="A">First note</note>
+            <note id="B">First note</note>
+          </foreword>
+        </preface>
+      </rsd-standard>
+    INPUT
+    presxml = <<~OUTPUT
+      <rsd-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+          <preface>
+             <clause type="toc" id="_" displayorder="1">
+                <title depth="1">Contents</title>
+             </clause>
+             <foreword obligation="informative" displayorder="2">
+                <title>Foreword</title>
+                <p>This is a preamble</p>
+                <note id="A">
+                   <name>NOTE  1:</name>
+                   First note
+                </note>
+                <note id="B">
+                   <name>NOTE  2:</name>
+                   First note
+                </note>
+             </foreword>
+          </preface>
+       </rsd-standard>
+    OUTPUT
+    output = <<~OUTPUT
+        #{HTML_HDR}
+            <br/>
+          <div id="_" class="TOC">
+            <h1 class="IntroTitle">Contents</h1>
+          </div>
+              <br/>
+                           <div>
+                <h1 class="ForewordTitle">Foreword</h1>
+                <p>This is a preamble</p>
+                <div id="A" class="Note">
+                   <p>
+                      <span class="note_label">NOTE  1:</span>
+                       
+                   </p>
+                   First note
+                </div>
+                <div id="B" class="Note">
+                   <p>
+                      <span class="note_label">NOTE  2:</span>
+                       
+                   </p>
+                   First note
+                </div>
+             </div>
+          </div>
+       </body>
+    OUTPUT
+    expect(Xml::C14n.format(strip_guid(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
+     .convert("test", input, true)
+     .gsub(%r{^.*<body}m, "<body")
+     .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to Xml::C14n.format(presxml)
+    expect(Xml::C14n.format(IsoDoc::Ribose::HtmlConvert.new({})
+      .convert("test", presxml, true)
+      .gsub(%r{^.*<body}m, "<body")
+      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to Xml::C14n.format(output)
+  end
+
+
   it "injects JS into blank html" do
     system "rm -f test.html"
     input = <<~INPUT
