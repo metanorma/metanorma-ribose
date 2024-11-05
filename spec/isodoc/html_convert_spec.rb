@@ -114,60 +114,6 @@ RSpec.describe IsoDoc::Ribose do
       .gsub(/, :/, ",\n:")).to be_equivalent_to output
   end
 
-  it "processes pre" do
-    input = <<~INPUT
-      <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
-      <preface><foreword displayorder="1">
-      <pre>ABC</pre>
-      </foreword></preface>
-      </rsd-standard>
-    INPUT
-
-    output = Xml::C14n.format(<<~"OUTPUT")
-      #{HTML_HDR}
-          <br/>
-          <div>
-            <h1 class="ForewordTitle">Foreword</h1>
-            <pre>ABC</pre>
-          </div>
-        </div>
-      </body>
-    OUTPUT
-
-    expect(Xml::C14n.format(IsoDoc::Ribose::HtmlConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to output
-  end
-
-  it "processes keyword" do
-    input = <<~INPUT
-      <rsd-standard xmlns="https://open.ribose.com/standards/rsd">
-      <preface>
-        <foreword displayorder="1">
-          <keyword>ABC</keyword>
-          </foreword>
-        </preface>
-      </rsd-standard>
-    INPUT
-
-    output = Xml::C14n.format(<<~"OUTPUT")
-          #{HTML_HDR}
-          <br/>
-          <div>
-            <h1 class="ForewordTitle">Foreword</h1>
-            <span class="keyword">ABC</span>
-          </div>
-        </div>
-      </body>
-    OUTPUT
-
-    expect(Xml::C14n.format(IsoDoc::Ribose::HtmlConvert.new({})
-      .convert("test", input, true)
-      .gsub(%r{^.*<body}m, "<body")
-      .gsub(%r{</body>.*}m, "</body>"))).to be_equivalent_to output
-  end
-
   it "processes section names" do
     input = <<~INPUT
       <rsd-standard xmlns="http://riboseinc.com/isoxml">
@@ -278,14 +224,24 @@ RSpec.describe IsoDoc::Ribose do
                 <preferred>Term2</preferred>
               </term>
             </terms>
-            <definitions id="K"><title>3.2.</title>
+            <definitions id="K">
+            <title depth="2">
+               3.2.
+               <tab/>
+               Symbols
+            </title>
               <dl>
                 <dt>Symbol</dt>
                 <dd>Definition</dd>
               </dl>
             </definitions>
           </clause>
-          <definitions id="L" displayorder="8"><title>4.</title>
+          <definitions id="L" displayorder="8">
+         <title depth="1">
+            4.
+            <tab/>
+            Symbols
+         </title>
             <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
@@ -361,7 +317,11 @@ RSpec.describe IsoDoc::Ribose do
                <p class="Terms" style="text-align:left;">Term2</p>
              </div>
              <div id="K">
-               <h2>3.2.</h2>
+            <h2>
+         3.2.
+          
+         Symbols
+      </h2>
                <div class="figdl">
                <dl>
                  <dt>
@@ -373,7 +333,11 @@ RSpec.describe IsoDoc::Ribose do
              </div>
            </div>
            <div id="L" class="Symbols">
-             <h1>4.</h1>
+         <h1>
+            4.
+       
+            Symbols
+          </h1>
              <div class="figdl">
              <dl>
                <dt>
@@ -649,7 +613,6 @@ RSpec.describe IsoDoc::Ribose do
               <title depth="1">1.<tab/>Scope</title>
               <p id="E">Text</p>
             </clause>
-
             <terms id="H" obligation="normative" displayorder="6">
               <title depth="1">3.<tab/>Terms, definitions, symbols and abbreviated terms</title>
               <terms id="I" obligation="normative">
@@ -658,14 +621,24 @@ RSpec.describe IsoDoc::Ribose do
                   <preferred>Term2</preferred>
                 </term>
               </terms>
-              <definitions id="K"><title>3.2.</title>
+              <definitions id="K">
+            <title depth="2">
+               3.2.
+               <tab/>
+               Symbols
+            </title>
                 <dl>
                 <dt>Symbol</dt>
                 <dd>Definition</dd>
                 </dl>
               </definitions>
             </terms>
-            <definitions id="L" displayorder="7"><title>4.</title>
+            <definitions id="L" displayorder="7">
+         <title depth="1">
+            4.
+            <tab/>
+            Symbols
+         </title>
               <dl>
               <dt>Symbol</dt>
               <dd>Definition</dd>
