@@ -61,7 +61,7 @@ RSpec.describe IsoDoc::Ribose do
             </rsd-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = 
       {:accesseddate=>"XXX",
       :adapteddate=>"XXX",
       :agency=>"Fred",
@@ -107,7 +107,6 @@ RSpec.describe IsoDoc::Ribose do
       :updateddate=>"XXX",
       :vote_endeddate=>"XXX",
       :vote_starteddate=>"XXX"}
-    OUTPUT
 
     docxml, = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
