@@ -5,16 +5,19 @@ require "metanorma-generic"
 module IsoDoc
   module Ribose
     class PresentationXMLConvert < IsoDoc::Generic::PresentationXMLConvert
-      def annex1(elem)
+      # KILL
+      def annex1x(elem)
         lbl = @xrefs.anchor(elem["id"], :label)
         prefix_name(elem, "<br/><br/>", lbl, "title")
+      end
+
+      def annex_delim(_elem)
+        "<br/><br/>"
       end
 
       def middle_title(docxml); end
 
       def termsource1(elem)
-        mod = elem.at(ns("./modification")) and
-          termsource_modification(mod)
         elem.children = l10n("<strong>#{@i18n.source}:</strong> " \
                              "#{to_xml(elem.children).strip}")
         elem&.next_element&.name == "termsource" and elem.next = "; "
@@ -32,6 +35,11 @@ module IsoDoc
         preface_move(doc.at(ns("//preface/acknowledgements")),
                      %w(), doc)
       end
+
+       def clause(docxml)
+         super
+         docxml.xpath(ns("//executivesummary | //appendix")).each { |x| clause1(x) }
+       end
 
       include Init
     end
