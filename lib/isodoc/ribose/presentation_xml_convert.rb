@@ -24,15 +24,15 @@ module IsoDoc
       end
 
       def preface_rearrange(doc)
-        preface_move(doc.at(ns("//preface/abstract")),
+        preface_move(doc.xpath(ns("//preface/abstract")),
                      %w(foreword executivesummary introduction clause acknowledgements), doc)
-        preface_move(doc.at(ns("//preface/foreword")),
+        preface_move(doc.xpath(ns("//preface/foreword")),
                      %w(executivesummary introduction clause acknowledgements), doc)
-        preface_move(doc.at(ns("//preface/executivesummary")),
+        preface_move(doc.xpath(ns("//preface/executivesummary")),
                      %w(introduction clause acknowledgements), doc)
-        preface_move(doc.at(ns("//preface/introduction")),
+        preface_move(doc.xpath(ns("//preface/introduction")),
                      %w(clause acknowledgements), doc)
-        preface_move(doc.at(ns("//preface/acknowledgements")),
+        preface_move(doc.xpath(ns("//preface/acknowledgements")),
                      %w(), doc)
       end
 
