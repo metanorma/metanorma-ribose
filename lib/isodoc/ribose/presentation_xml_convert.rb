@@ -17,11 +17,18 @@ module IsoDoc
 
       def middle_title(docxml); end
 
-      def termsource1(elem)
+      # KILL
+      def termsource1xx(elem)
         elem.children = l10n("<strong>#{@i18n.source}:</strong> " \
                              "#{to_xml(elem.children).strip}")
         elem&.next_element&.name == "termsource" and elem.next = "; "
       end
+
+       def termsource_label(elem, sources)
+         elem.replace(l10n("<strong>#{@i18n.source}</strong>: #{sources}"))
+    end
+
+       def designation_boldface(desgn); end
 
       def preface_rearrange(doc)
         preface_move(doc.xpath(ns("//preface/abstract")),

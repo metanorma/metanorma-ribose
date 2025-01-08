@@ -141,7 +141,7 @@ RSpec.describe IsoDoc::Ribose do
             <terms id="I" obligation="normative">
               <title>Normal Terms</title>
               <term id="J">
-                <preferred>Term2</preferred>
+                <preferred><expression><name>Term2</name></expression></preferred>
               </term>
             </terms>
             <definitions id="K">
@@ -308,7 +308,16 @@ RSpec.describe IsoDoc::Ribose do
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="J">1</semx>
                       </fmt-xref-label>
-                      <preferred>Term2</preferred>
+                                     <preferred id="_">
+                  <expression>
+                     <name>Term2</name>
+                  </expression>
+               </preferred>
+               <fmt-preferred>
+                  <p>
+                     <semx element="preferred" source="_">Term2</semx>
+                  </p>
+               </fmt-preferred>
                    </term>
                 </terms>
                 <definitions id="K">
@@ -910,11 +919,11 @@ RSpec.describe IsoDoc::Ribose do
         <sections>
         <terms id="H" obligation="normative"><title>Terms, Definitions, Symbols and Abbreviated Terms</title>
           <term id="J">
-          <preferred>Term2</preferred>
-          <admitted>Term2A</admitted>
-          <admitted>Term2B</admitted>
-          <deprecates>Term2C</deprecates>
-          <deprecates>Term2D</deprecates>
+          <preferred><expression><name>Term2</name></expression></preferred>
+          <admitted><expression><name>Term2A</name></expression></admitted>
+          <admitted><expression><name>Term2B</name></expression></admitted>
+          <deprecates><expression><name>Term2C</name></expression></deprecates>
+          <deprecates><expression><name>Term2D</name></expression></deprecates>
           <termsource status="modified">
         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011"><locality type="clause"><referenceFrom>3.1</referenceFrom></locality></origin>
           <modification>
@@ -965,21 +974,78 @@ RSpec.describe IsoDoc::Ribose do
                       <span class="fmt-autonum-delim">.</span>
                       <semx element="autonum" source="J">1</semx>
                    </fmt-xref-label>
-                   <preferred>Term2</preferred>
-                   <admitted>Term2A</admitted>
-                   <admitted>Term2B</admitted>
-                   <deprecates>DEPRECATED: Term2C</deprecates>
-                   <deprecates>DEPRECATED: Term2D</deprecates>
-                   <termsource status="modified">
-                      <strong>SOURCE:</strong>
+                   <preferred id="_">
+                      <expression>
+                         <name>Term2</name>
+                      </expression>
+                   </preferred>
+                   <fmt-preferred>
+                      <p>
+                         <semx element="preferred" source="_">Term2</semx>
+                      </p>
+                   </fmt-preferred>
+                   <admitted id="_">
+                      <expression>
+                         <name>Term2A</name>
+                      </expression>
+                   </admitted>
+                   <admitted id="_">
+                      <expression>
+                         <name>Term2B</name>
+                      </expression>
+                   </admitted>
+                   <fmt-admitted>
+                      <p>
+                         <semx element="admitted" source="_">Term2A</semx>
+                      </p>
+                      <p>
+                         <semx element="admitted" source="_">Term2B</semx>
+                      </p>
+                   </fmt-admitted>
+                   <deprecates id="_">
+                      <expression>
+                         <name>Term2C</name>
+                      </expression>
+                   </deprecates>
+                   <deprecates id="_">
+                      <expression>
+                         <name>Term2D</name>
+                      </expression>
+                   </deprecates>
+                   <fmt-deprecates>
+                      <p>
+                         DEPRECATED:
+                         <semx element="deprecates" source="_">Term2C</semx>
+                      </p>
+                      <p>
+                         DEPRECATED:
+                         <semx element="deprecates" source="_">Term2D</semx>
+                      </p>
+                   </fmt-deprecates>
+                   <termsource status="modified" id="_">
                       <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
                          <locality type="clause">
                             <referenceFrom>3.1</referenceFrom>
                          </locality>
-                         ISO 7301:2011, Clause 3.1
                       </origin>
-                      , modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
+                      <modification>
+                         <p original-id="_e73a417d-ad39-417d-a4c8-20e4e2529489">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+                      </modification>
                    </termsource>
+                   <fmt-termsource status="modified">
+                      <strong>SOURCE</strong>
+                      :
+                      <semx element="termsource" source="_">
+                         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
+                            <locality type="clause">
+                               <referenceFrom>3.1</referenceFrom>
+                            </locality>
+                            ISO 7301:2011, Clause 3.1
+                         </origin>
+                         , modified —
+                         <semx element="modification" source="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</semx>
+                      </semx>
+                   </fmt-termsource>
                 </term>
              </terms>
           </sections>
@@ -994,7 +1060,7 @@ RSpec.describe IsoDoc::Ribose do
         <p class='AltTerms' style='text-align:left;'>Term2B</p>
         <p class='DeprecatedTerms' style='text-align:left;'>DEPRECATED: Term2C</p>
         <p class='DeprecatedTerms' style='text-align:left;'>DEPRECATED: Term2D</p>
-         <p><b>SOURCE:</b>
+         <p><b>SOURCE</b>:
         ISO&#xa0;7301:2011, Clause 3.1, modified &#x2014; The term "cargo rice" is shown as deprecated, and Note 1
         to entry is not included here
        </p>
