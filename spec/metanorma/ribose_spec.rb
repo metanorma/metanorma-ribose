@@ -15,17 +15,12 @@ RSpec.describe Metanorma::Ribose do
       subject(:config) { Metanorma::Ribose.configuration }
       let(:default_organization_name_short) { "Ribose" }
       let(:default_organization_name_long) { "Ribose Asia Limited" }
-      let(:default_document_namespace) do
-        "https://www.metanorma.org/ns/ribose"
-      end
 
       it "sets default atrributes" do
         expect(config.organization_name_short)
           .to(eq(default_organization_name_short))
         expect(config.organization_name_long)
           .to(eq(default_organization_name_long))
-        expect(config.document_namespace)
-          .to(eq(default_document_namespace))
       end
     end
 
@@ -33,17 +28,14 @@ RSpec.describe Metanorma::Ribose do
       subject(:config) { Metanorma::Ribose.configuration }
       let(:organization_name_short) { "Test" }
       let(:organization_name_long) { "Test Corp." }
-      let(:document_namespace) { "https://example.com/" }
 
       it "sets atrributes" do
         Metanorma::Ribose.configure do |config|
           config.organization_name_short = organization_name_short
           config.organization_name_long = organization_name_long
-          config.document_namespace = document_namespace
         end
         expect(config.organization_name_short).to eq(organization_name_short)
         expect(config.organization_name_long).to eq(organization_name_long)
-        expect(config.document_namespace).to eq(document_namespace)
       end
     end
   end

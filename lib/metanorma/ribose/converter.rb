@@ -7,8 +7,8 @@ module Metanorma
     # schema encapsulation of the document for validation
     #
     class Converter < Metanorma::Generic::Converter
-      XML_ROOT_TAG = "rsd-standard".freeze
-      XML_NAMESPACE = "https://www.metanorma.org/ns/ribose".freeze
+      #XML_ROOT_TAG = "rsd-standard".freeze
+      #XML_NAMESPACE = "https://www.metanorma.org/ns/ribose".freeze
 
       register_for "ribose"
 
