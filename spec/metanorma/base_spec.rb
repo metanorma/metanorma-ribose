@@ -20,7 +20,7 @@ RSpec.describe Metanorma::Ribose do
     output = Xml::C14n.format(<<~"OUTPUT")
       #{@blank_hdr}
       <sections/>
-      </rsd-standard>
+      </metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
@@ -38,7 +38,7 @@ RSpec.describe Metanorma::Ribose do
     output = Xml::C14n.format(<<~"OUTPUT")
       #{@blank_hdr}
       <sections/>
-      </rsd-standard>
+      </metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
@@ -84,7 +84,7 @@ RSpec.describe Metanorma::Ribose do
 
     output = Xml::C14n.format(<<~"OUTPUT")
       <?xml version="1.0" encoding="UTF-8"?>
-      <rsd-standard xmlns="https://www.metanorma.org/ns/ribose" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ribose::VERSION}">
               <bibdata type="standard">
            <title language="en" format="text/plain">Main Title</title>
            <docidentifier primary="true" type="Ribose">1000(wd)</docidentifier>
@@ -153,7 +153,7 @@ RSpec.describe Metanorma::Ribose do
            </presentation-metadata>
          </metanorma-extension>
          <sections/>
-       </rsd-standard>
+       </metanorma>
     OUTPUT
 
     output = output
@@ -180,7 +180,7 @@ RSpec.describe Metanorma::Ribose do
       :pub-uri: me.example.com
     INPUT
     output = Xml::C14n.format(<<~"OUTPUT")
-          <rsd-standard xmlns='https://www.metanorma.org/ns/ribose' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
+          <metanorma xmlns='https://www.metanorma.org/ns/standoc' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
           <bibdata type="standard">
            <title language="en" format="text/plain">Document title</title>
            <docidentifier primary="true" type="Ribose">Code 1000</docidentifier>
@@ -273,7 +273,7 @@ RSpec.describe Metanorma::Ribose do
            </feedback-statement>
          </boilerplate>
          <sections/>
-       </rsd-standard>
+       </metanorma>
     OUTPUT
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
@@ -502,7 +502,7 @@ RSpec.describe Metanorma::Ribose do
             <title>Section 1</title>
           </clause>
         </sections>
-      </rsd-standard>
+      </metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
@@ -621,7 +621,7 @@ RSpec.describe Metanorma::Ribose do
           </clause>
         </preface>
         <sections> </sections>
-      </rsd-standard>
+      </metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))

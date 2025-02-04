@@ -30,7 +30,7 @@ RSpec.describe Metanorma::Ribose::Processor do
     output = Xml::C14n.format(strip_guid(<<~"OUTPUT"))
         #{blank_hdr_gen}
         <sections/>
-      </rsd-standard>
+      </metanorma>
     OUTPUT
 
     expect(Xml::C14n.format(strip_guid(Nokogiri::XML(processor
@@ -40,7 +40,7 @@ RSpec.describe Metanorma::Ribose::Processor do
 
   it "generates HTML from IsoDoc XML" do
     input = <<~INPUT
-      <rsd-standard xmlns="http://riboseinc.com/isoxml">
+      <metanorma xmlns="http://riboseinc.com/isoxml">
         <sections>
           <terms id="H" obligation="normative" displayorder="1">
             <fmt-title>1<tab/>Terms, Definitions, Symbols and Abbreviated Terms</fmt-title>
@@ -50,7 +50,7 @@ RSpec.describe Metanorma::Ribose::Processor do
             </term>
           </terms>
         </sections>
-      </rsd-standard>
+      </metanorma>
     INPUT
 
     output = Xml::C14n.format(strip_guid(<<~OUTPUT))
