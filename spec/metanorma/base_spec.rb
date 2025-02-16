@@ -84,7 +84,7 @@ RSpec.describe Metanorma::Ribose do
 
     output = Xml::C14n.format(<<~"OUTPUT")
       <?xml version="1.0" encoding="UTF-8"?>
-      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+      <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ribose::VERSION}" flavor="ribose">
               <bibdata type="standard">
            <title language="en" format="text/plain">Main Title</title>
            <docidentifier primary="true" type="Ribose">1000(wd)</docidentifier>
@@ -180,7 +180,7 @@ RSpec.describe Metanorma::Ribose do
       :pub-uri: me.example.com
     INPUT
     output = Xml::C14n.format(<<~"OUTPUT")
-          <metanorma xmlns='https://www.metanorma.org/ns/standoc' type='semantic' version='#{Metanorma::Ribose::VERSION}'>
+          <metanorma xmlns='https://www.metanorma.org/ns/standoc' type='semantic' version='#{Metanorma::Ribose::VERSION}' flavor="ribose">
           <bibdata type="standard">
            <title language="en" format="text/plain">Document title</title>
            <docidentifier primary="true" type="Ribose">Code 1000</docidentifier>
