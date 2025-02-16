@@ -115,7 +115,7 @@ CONTENT
 
 BLANK_HDR = <<~"HDR".freeze
   <?xml version="1.0" encoding="UTF-8"?>
-  <rsd-standard xmlns="https://www.metanorma.org/ns/ribose" type="semantic" version="#{Metanorma::Ribose::VERSION}">
+  <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ribose::VERSION}" flavor="ribose">
     <bibdata type="standard">
      <title language="en" format="text/plain">Document title</title>
       <contributor>
