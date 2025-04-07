@@ -34,6 +34,8 @@ RSpec.configure do |config|
   end
 end
 
+OPTIONS = [backend: :ribose, header_footer: true].freeze
+
 def metadata(hash)
   hash.sort.to_h
     .delete_if { |_, v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
