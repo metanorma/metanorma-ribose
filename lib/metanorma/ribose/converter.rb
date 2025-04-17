@@ -7,9 +7,6 @@ module Metanorma
     # schema encapsulation of the document for validation
     #
     class Converter < Metanorma::Generic::Converter
-      #XML_ROOT_TAG = "rsd-standard".freeze
-      #XML_NAMESPACE = "https://www.metanorma.org/ns/ribose".freeze
-
       register_for "ribose"
 
       def sectiontype(node, level = true)
@@ -35,20 +32,6 @@ module Metanorma
           f = xml.at("//acknowledgements") and preface.add_child f.remove
         end
         make_abstract(xml, sect)
-      end
-
-      def clause_parse(attrs, xml, node)
-        sectiontype1(node) == "executive summary" and
-          return executivesummary_parse(attrs, xml, node)
-        super
-      end
-
-      def executivesummary_parse(attrs, xml, node)
-        xml.executivesummary **attr_code(attrs) do |xml_section|
-          xml_section.title { |t| t << (node.title || "Executive Summary") }
-          content = node.content
-          xml_section << content
-        end
       end
 
       def configuration
