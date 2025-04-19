@@ -605,8 +605,8 @@ RSpec.describe Metanorma::Ribose do
             <title>Foreword</title>
             <p id='_'>Foreword</p>
           </foreword>
-          <executivesummary id='_'>
-            <title>Executive Summary</title>
+          <executivesummary id='_' obligation="informative">
+            <title>Executive summary</title>
             <p id='_'>Executive Summary</p>
           </executivesummary>
           <introduction id='_' obligation='informative'>

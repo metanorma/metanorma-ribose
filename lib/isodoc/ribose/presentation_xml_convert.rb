@@ -32,7 +32,7 @@ module IsoDoc
 
       def clause(docxml)
         super
-        docxml.xpath(ns("//executivesummary | //appendix")).each do |x|
+        docxml.xpath(ns("//appendix")).each do |x|
           clause1(x)
         end
       end
