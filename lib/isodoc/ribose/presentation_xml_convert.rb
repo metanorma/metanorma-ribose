@@ -30,7 +30,8 @@ module IsoDoc
                      %w(), doc)
       end
 
-      def clause(docxml)
+      # KILL 
+      def clausex(docxml)
         super
         docxml.xpath(ns("//appendix")).each do |x|
           clause1(x)
