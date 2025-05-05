@@ -263,8 +263,8 @@ RSpec.describe Metanorma::Ribose do
            </legal-statement>
            <feedback-statement>
              <clause id="_" obligation="normative">
-               <p id="boilerplate-name" align="left">Fred</p>
-               <p id="boilerplate-address" align="left">10 Jack St<br/>Antarctica<br/><br/>
+               <p id="_" anchor="boilerplate-name" align="left">Fred</p>
+               <p id="_" anchor="boilerplate-address" align="left">10 Jack St<br/>Antarctica<br/><br/>
        me@me.com<br/>
        me.example.com</p>
              </clause>
@@ -496,7 +496,7 @@ RSpec.describe Metanorma::Ribose do
           </foreword>
         </preface>
         <sections>
-          <clause id="_" obligation="normative">
+          <clause id="_" anchor="_section_1" obligation="normative">
             <title>Section 1</title>
           </clause>
         </sections>
@@ -597,7 +597,7 @@ RSpec.describe Metanorma::Ribose do
     output = Xml::C14n.format(<<~"OUTPUT")
         #{@blank_hdr.sub(/<status>/, '<abstract> <p>Abstract</p> </abstract> <status>')}
         <preface>
-          <abstract id='_'>
+          <abstract id='_' anchor="_abstract">
           <title>Abstract</title>
             <p id='_'>Abstract</p>
           </abstract>
@@ -605,15 +605,15 @@ RSpec.describe Metanorma::Ribose do
             <title>Foreword</title>
             <p id='_'>Foreword</p>
           </foreword>
-          <executivesummary id='_' obligation="informative">
+          <executivesummary id='_' anchor="_executive_summary" obligation="informative">
             <title>Executive summary</title>
             <p id='_'>Executive Summary</p>
           </executivesummary>
-          <introduction id='_' obligation='informative'>
+          <introduction id='_' anchor="_introduction" obligation='informative'>
             <title>Introduction</title>
             <p id='_'>Introduction</p>
           </introduction>
-          <clause id='_' obligation='informative'>
+          <clause id='_' anchor="_prefatory" obligation='informative'>
             <title>Prefatory</title>
             <p id='_'>Prefatory</p>
           </clause>

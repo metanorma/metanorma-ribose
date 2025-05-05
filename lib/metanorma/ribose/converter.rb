@@ -3,9 +3,6 @@ require "metanorma/generic/converter"
 
 module Metanorma
   module Ribose
-    # A {Converter} implementation that generates RSD output, and a document
-    # schema encapsulation of the document for validation
-    #
     class Converter < Metanorma::Generic::Converter
       register_for "ribose"
 
@@ -49,8 +46,7 @@ module Metanorma
       end
 
       def pdf_converter(node)
-        return nil if node.attr("no-pdf")
-
+        node.attr("no-pdf") and return nil
         IsoDoc::Ribose::PdfConvert.new(pdf_extract_attributes(node))
       end
 
