@@ -47,6 +47,7 @@ end
 
 def strip_guid(str)
   str.gsub(%r{ id="_[^"]+"}, ' id="_"')
+    .gsub(%r{ semx-id="[^"]*"}, '')
     .gsub(%r{ target="_[^"]+"}, ' target="_"')
     .gsub(%r{ source="_[^"]+"}, ' source="_"')
     .gsub(%r{<fetched>[^<]+</fetched>}, "<fetched/>")
