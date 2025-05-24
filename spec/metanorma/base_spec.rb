@@ -496,7 +496,7 @@ RSpec.describe Metanorma::Ribose do
           </foreword>
         </preface>
         <sections>
-          <clause id="_" anchor="_section_1" obligation="normative">
+          <clause id="_" obligation="normative">
             <title>Section 1</title>
           </clause>
         </sections>
@@ -597,7 +597,7 @@ RSpec.describe Metanorma::Ribose do
     output = Xml::C14n.format(<<~"OUTPUT")
         #{@blank_hdr.sub(/<status>/, '<abstract> <p>Abstract</p> </abstract> <status>')}
         <preface>
-          <abstract id='_' anchor="_abstract">
+          <abstract id='_'>
           <title>Abstract</title>
             <p id='_'>Abstract</p>
           </abstract>
@@ -605,15 +605,15 @@ RSpec.describe Metanorma::Ribose do
             <title>Foreword</title>
             <p id='_'>Foreword</p>
           </foreword>
-          <executivesummary id='_' anchor="_executive_summary" obligation="informative">
+          <executivesummary id='_' obligation="informative">
             <title>Executive summary</title>
             <p id='_'>Executive Summary</p>
           </executivesummary>
-          <introduction id='_' anchor="_introduction" obligation='informative'>
+          <introduction id='_' obligation='informative'>
             <title>Introduction</title>
             <p id='_'>Introduction</p>
           </introduction>
-          <clause id='_' anchor="_prefatory" obligation='informative'>
+          <clause id='_' obligation='informative'>
             <title>Prefatory</title>
             <p id='_'>Prefatory</p>
           </clause>
