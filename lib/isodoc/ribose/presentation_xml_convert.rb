@@ -30,14 +30,6 @@ module IsoDoc
                      %w(), doc)
       end
 
-      # KILL 
-      def clausex(docxml)
-        super
-        docxml.xpath(ns("//appendix")).each do |x|
-          clause1(x)
-        end
-      end
-
       def ul_label_list(_elem)
         %w(&#x6f; &#x2014; &#x2022;)
       end

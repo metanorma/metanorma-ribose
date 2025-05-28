@@ -491,13 +491,13 @@ RSpec.describe Metanorma::Ribose do
         #{@blank_hdr}
         <preface>
           <foreword id="_" obligation="informative">
-            <title>Foreword</title>
+            <title id="_">Foreword</title>
             <p id="_">This is a preamble</p>
           </foreword>
         </preface>
         <sections>
           <clause id="_" obligation="normative">
-            <title>Section 1</title>
+            <title id="_">Section 1</title>
           </clause>
         </sections>
       </metanorma>
@@ -598,23 +598,23 @@ RSpec.describe Metanorma::Ribose do
         #{@blank_hdr.sub(/<status>/, '<abstract> <p>Abstract</p> </abstract> <status>')}
         <preface>
           <abstract id='_'>
-          <title>Abstract</title>
+          <title id="_">Abstract</title>
             <p id='_'>Abstract</p>
           </abstract>
           <foreword id='_' obligation='informative'>
-            <title>Foreword</title>
+            <title id="_">Foreword</title>
             <p id='_'>Foreword</p>
           </foreword>
           <executivesummary id='_' obligation="informative">
-            <title>Executive summary</title>
+            <title id="_">Executive summary</title>
             <p id='_'>Executive Summary</p>
           </executivesummary>
           <introduction id='_' obligation='informative'>
-            <title>Introduction</title>
+            <title id="_">Introduction</title>
             <p id='_'>Introduction</p>
           </introduction>
           <clause id='_' obligation='informative'>
-            <title>Prefatory</title>
+            <title id="_">Prefatory</title>
             <p id='_'>Prefatory</p>
           </clause>
         </preface>
