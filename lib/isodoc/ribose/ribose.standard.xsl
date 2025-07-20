@@ -379,12 +379,9 @@
 
 					<xsl:for-each select=".//mn:page_sequence[normalize-space() != '' or .//mn:image or .//*[local-name() = 'svg']]">
 
-						<fo:page-sequence master-reference="document" force-page-count="no-force">
+						<xsl:variable name="page_orientation"><xsl:call-template name="getPageSequenceOrientation"/></xsl:variable>
 
-							<xsl:attribute name="master-reference">
-								<xsl:text>document</xsl:text>
-								<xsl:call-template name="getPageSequenceOrientation"/>
-							</xsl:attribute>
+						<fo:page-sequence master-reference="document{$page_orientation}" force-page-count="no-force">
 
 							<xsl:call-template name="insertFootnoteSeparatorCommon"/>
 
@@ -577,13 +574,13 @@
 
 	<xsl:template name="insertListOf_Title">
 		<xsl:param name="title"/>
-		<fo:block font-size="13pt" font-weight="bold" color="black" margin-top="12pt" margin-bottom="12pt" keep-with-next="always">
+		<fo:block xsl:use-attribute-sets="toc-listof-title-style">
 			<xsl:value-of select="$title"/>
 		</fo:block>
 	</xsl:template>
 
 	<xsl:template name="insertListOf_Item">
-		<fo:block font-size="13pt" role="TOCI" margin-left="16.5mm" space-before="4pt" space-after="5pt">
+		<fo:block xsl:use-attribute-sets="toc-listof-item-style">
 			<fo:block text-align-last="justify">
 				<fo:basic-link internal-destination="{@id}">
 					<xsl:call-template name="setAltText">
@@ -592,8 +589,8 @@
 					<xsl:apply-templates select="." mode="contents"/>
 					<xsl:text>  </xsl:text>
 					<fo:inline>
-						<fo:leader leader-pattern="rule" rule-thickness="0.2mm"/>
-						<fo:inline padding-left="2mm"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
+						<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
+						<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
 					</fo:inline>
 				</fo:basic-link>
 			</fo:block>
@@ -604,7 +601,7 @@
 		<xsl:apply-templates/>
 	</xsl:template>
 
-	<xsl:template match="mn:preface/mn:clause[@type = 'toc']" priority="3">
+	<xsl:template match="mn:preface/mn:clause[@type = 'toc']" name="toc" priority="3">
 		<fo:block role="TOC">
 			<xsl:apply-templates/>
 
@@ -612,24 +609,13 @@
 
 				<xsl:if test="$contents//mnx:item[@display = 'true']">
 
-					<fo:block-container margin-left="32mm" margin-right="-17mm">
+					<fo:block-container xsl:use-attribute-sets="toc-style">
 						<fo:block-container margin-left="0mm" margin-right="0mm">
 							<xsl:for-each select="$contents//mnx:item[@display = 'true']">
-								<fo:block font-size="13pt" role="TOCI">
-									<xsl:if test="@level = 1">
-										<xsl:if test="preceding-sibling::mnx:item[@display = 'true' and @level = 1]">
-											<xsl:attribute name="space-before">16pt</xsl:attribute>
-										</xsl:if>
-										<xsl:attribute name="space-after">4pt</xsl:attribute>
-										<xsl:attribute name="font-weight">bold</xsl:attribute>
-										<xsl:attribute name="keep-with-next">always</xsl:attribute>
-										<xsl:attribute name="color">black</xsl:attribute>
-									</xsl:if>
-									<xsl:if test="@level &gt;= 2">
-										<xsl:attribute name="margin-left"><xsl:value-of select="(@level - 1) * 16.5"/>mm</xsl:attribute>
-										<xsl:attribute name="space-before">4pt</xsl:attribute>
-										<xsl:attribute name="space-after">5pt</xsl:attribute>
-									</xsl:if>
+								<fo:block xsl:use-attribute-sets="toc-item-style">
+
+									<xsl:call-template name="refine_toc-item-style"/>
+
 									<fo:block text-align-last="justify">
 										<fo:basic-link internal-destination="{@id}" fox:alt-text="{mnx:title}">
 											<xsl:value-of select="@section"/>
@@ -637,8 +623,8 @@
 											<xsl:apply-templates select="mnx:title"/>
 											<xsl:text>  </xsl:text>
 											<fo:inline>
-												<fo:leader leader-pattern="rule" rule-thickness="0.2mm"/>
-												<fo:inline padding-left="2mm"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
+												<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
+												<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
 											</fo:inline>
 										</fo:basic-link>
 									</fo:block>
@@ -676,7 +662,7 @@
 	</xsl:template>
 
 	<xsl:template match="mn:preface/mn:clause[@type = 'toc']/mn:fmt-title" priority="3">
-		<fo:block font-size="27pt" font-weight="bold" color="black" margin-left="-15mm" margin-bottom="13mm" role="H1">
+		<fo:block xsl:use-attribute-sets="toc-title-style">
 			<!-- <xsl:call-template name="getLocalizedString">
 				<xsl:with-param name="key">table_of_contents</xsl:with-param>
 			</xsl:call-template> -->
@@ -8372,7 +8358,10 @@
 
 		<xsl:call-template name="setNamedDestination"/>
 
-		<fo:block-container id="{@id}" xsl:use-attribute-sets="note-style" role="SKIP">
+		<fo:block-container xsl:use-attribute-sets="note-style" role="SKIP">
+			<xsl:if test="not(parent::mn:references)">
+				<xsl:copy-of select="@id"/>
+			</xsl:if>
 
 			<xsl:call-template name="setBlockSpanAll"/>
 
@@ -11090,6 +11079,7 @@
 							<xsl:with-param name="biblio_tag_part">last</xsl:with-param>
 						</xsl:apply-templates>
 						<xsl:apply-templates select="mn:formattedref"/>
+						<xsl:call-template name="processBibliographyNote"/>
 					</fo:block>
 				</fo:list-item-body>
 			</fo:list-item>
@@ -11118,16 +11108,6 @@
 							<xsl:call-template name="processBibitem">
 								<xsl:with-param name="biblio_tag_part">last</xsl:with-param>
 							</xsl:call-template>
-							<xsl:if test="self::mn:note">
-								<xsl:variable name="note_node">
-									<xsl:copy> <!-- skip @id -->
-										<xsl:copy-of select="node()"/>
-									</xsl:copy>
-								</xsl:variable>
-								<xsl:for-each select="xalan:nodeset($note_node)/*">
-									<xsl:call-template name="note"/>
-								</xsl:for-each>
-							</xsl:if>
 						</fo:block>
 					</fo:list-item-body>
 				</fo:list-item>
@@ -11150,7 +11130,25 @@
 		</xsl:apply-templates>
 		<xsl:apply-templates select="mn:formattedref"/>
 		<!-- end bibitem processing -->
+
+		<xsl:call-template name="processBibliographyNote"/>
 	</xsl:template> <!-- processBibitem (bibitem) -->
+
+	<xsl:template name="processBibliographyNote">
+		<xsl:if test="self::mn:note">
+			<xsl:variable name="note_node">
+				<xsl:element name="{local-name(..)}" namespace="{$namespace_full}"> <!-- save parent context node for determining styles -->
+					<xsl:copy> <!-- skip @id -->
+						<xsl:copy-of select="node()"/>
+					</xsl:copy>
+				</xsl:element>
+			</xsl:variable>
+			<!-- <xsl:for-each select="xalan:nodeset($note_node)//mn:note">
+				<xsl:call-template name="note"/>
+			</xsl:for-each> -->
+			<xsl:call-template name="note"/>
+		</xsl:if>
+	</xsl:template>
 
 	<xsl:template match="mn:title" mode="title">
 		<fo:inline><xsl:apply-templates/></fo:inline>
@@ -11696,6 +11694,83 @@
 	<!-- =================== -->
 	<!-- End Form's elements processing -->
 	<!-- =================== -->
+
+	<xsl:attribute-set name="toc-style">
+		<xsl:attribute name="margin-left">32mm</xsl:attribute>
+		<xsl:attribute name="margin-right">-17mm</xsl:attribute>
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_toc-style">
+	</xsl:template>
+
+	<xsl:attribute-set name="toc-title-style">
+		<xsl:attribute name="role">H1</xsl:attribute>
+		<xsl:attribute name="font-size">27pt</xsl:attribute>
+		<xsl:attribute name="font-weight">bold</xsl:attribute>
+		<xsl:attribute name="color">black</xsl:attribute>
+		<xsl:attribute name="margin-left">-15mm</xsl:attribute>
+		<xsl:attribute name="margin-bottom">13mm</xsl:attribute>
+	</xsl:attribute-set>
+
+	<xsl:attribute-set name="toc-title-page-style">
+	</xsl:attribute-set> <!-- toc-title-page-style -->
+
+	<xsl:attribute-set name="toc-item-block-style">
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_toc-item-block-style">
+	</xsl:template>
+
+	<xsl:attribute-set name="toc-item-style">
+		<xsl:attribute name="role">TOCI</xsl:attribute>
+		<xsl:attribute name="font-size">13pt</xsl:attribute>
+	</xsl:attribute-set> <!-- END: toc-item-style -->
+
+	<xsl:template name="refine_toc-item-style">
+		<xsl:if test="@level = 1">
+			<xsl:if test="preceding-sibling::mnx:item[@display = 'true' and @level = 1]">
+				<xsl:attribute name="space-before">16pt</xsl:attribute>
+			</xsl:if>
+			<xsl:attribute name="space-after">4pt</xsl:attribute>
+			<xsl:attribute name="font-weight">bold</xsl:attribute>
+			<xsl:attribute name="keep-with-next">always</xsl:attribute>
+			<xsl:attribute name="color">black</xsl:attribute>
+		</xsl:if>
+		<xsl:if test="@level &gt;= 2">
+			<xsl:attribute name="margin-left"><xsl:value-of select="(@level - 1) * 16.5"/>mm</xsl:attribute>
+			<xsl:attribute name="space-before">4pt</xsl:attribute>
+			<xsl:attribute name="space-after">5pt</xsl:attribute>
+		</xsl:if>
+	</xsl:template> <!-- END: refine_toc-item-style -->
+
+	<xsl:attribute-set name="toc-leader-style">
+		<xsl:attribute name="leader-pattern">rule</xsl:attribute>
+		<xsl:attribute name="rule-thickness">0.2mm</xsl:attribute>
+	</xsl:attribute-set> <!-- END: toc-leader-style -->
+
+	<xsl:attribute-set name="toc-pagenumber-style">
+		<xsl:attribute name="padding-left">2mm</xsl:attribute>
+	</xsl:attribute-set>
+
+	<!-- List of Figures, Tables -->
+	<xsl:attribute-set name="toc-listof-title-style">
+		<xsl:attribute name="font-size">13pt</xsl:attribute>
+		<xsl:attribute name="font-weight">bold</xsl:attribute>
+		<xsl:attribute name="color">black</xsl:attribute>
+		<xsl:attribute name="margin-top">12pt</xsl:attribute>
+		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
+	</xsl:attribute-set>
+
+	<xsl:attribute-set name="toc-listof-item-block-style">
+	</xsl:attribute-set>
+
+	<xsl:attribute-set name="toc-listof-item-style">
+		<xsl:attribute name="role">TOCI</xsl:attribute>
+		<xsl:attribute name="font-size">13pt</xsl:attribute>
+		<xsl:attribute name="margin-left">16.5mm</xsl:attribute>
+		<xsl:attribute name="space-before">4pt</xsl:attribute>
+	</xsl:attribute-set>
 
 	<xsl:template name="processPrefaceSectionsDefault_Contents">
 		<xsl:variable name="nodes_preface_">
