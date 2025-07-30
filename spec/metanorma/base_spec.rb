@@ -15,13 +15,13 @@ RSpec.describe Metanorma::Ribose do
       #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
       #{@blank_hdr}
       <sections/>
       </metanorma>
     OUTPUT
 
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
   end
 
@@ -33,13 +33,13 @@ RSpec.describe Metanorma::Ribose do
       :novalid:
     INPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
       #{@blank_hdr}
       <sections/>
       </metanorma>
     OUTPUT
 
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
     expect(File.exist?("test.doc")).to be true
@@ -80,7 +80,7 @@ RSpec.describe Metanorma::Ribose do
       :recipient: tbd@example.com
     INPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
       <?xml version="1.0" encoding="UTF-8"?>
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ribose::VERSION}" flavor="ribose">
               <bibdata type="standard">
@@ -158,8 +158,8 @@ RSpec.describe Metanorma::Ribose do
       .sub(%r{</metanorma-extension>},
            "</metanorma-extension>\n#{boilerplate(Nokogiri::XML(output))}")
 
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes custom publisher" do
@@ -177,7 +177,7 @@ RSpec.describe Metanorma::Ribose do
       :pub-email: me@me.com
       :pub-uri: me.example.com
     INPUT
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
           <metanorma xmlns='https://www.metanorma.org/ns/standoc' type='semantic' version='#{Metanorma::Ribose::VERSION}' flavor="ribose">
           <bibdata type="standard">
            <title language="en" format="text/plain">Document title</title>
@@ -273,7 +273,7 @@ RSpec.describe Metanorma::Ribose do
          <sections/>
        </metanorma>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
   end
 
@@ -295,8 +295,8 @@ RSpec.describe Metanorma::Ribose do
       :title: Main Title
     INPUT
     expect(out).to include("<license-statement>")
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(<<~"OUTPUT")
+    expect(Canon.format_xml(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
+      .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
         <bibdata type="standard">
           <title language="en" format="text/plain">Main Title</title>
           <docidentifier primary="true" type="Ribose">1000(cd)</docidentifier>
@@ -361,8 +361,8 @@ RSpec.describe Metanorma::Ribose do
       :title: Main Title
     INPUT
     expect(out).to include("<license-statement>")
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(<<~"OUTPUT")
+    expect(Canon.format_xml(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
+      .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
         <bibdata type="standard">
           <title language="en" format="text/plain">Main Title</title>
           <docidentifier primary="true" type="Ribose">1000(d)</docidentifier>
@@ -475,8 +475,8 @@ RSpec.describe Metanorma::Ribose do
     OUTPUT
 
     out = Asciidoctor.convert(input, *OPTIONS)
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+    expect(Canon.format_xml(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "strips inline header" do
@@ -487,7 +487,7 @@ RSpec.describe Metanorma::Ribose do
       == Section 1
     INPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
         #{@blank_hdr}
         <preface>
           <foreword id="_" obligation="informative">
@@ -503,7 +503,7 @@ RSpec.describe Metanorma::Ribose do
       </metanorma>
     OUTPUT
 
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
   end
 
@@ -594,7 +594,7 @@ RSpec.describe Metanorma::Ribose do
       Prefatory
     INPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
         #{@blank_hdr.sub(/<status>/, '<abstract> <p>Abstract</p> </abstract> <status>')}
         <preface>
           <abstract id='_'>
@@ -622,7 +622,7 @@ RSpec.describe Metanorma::Ribose do
       </metanorma>
     OUTPUT
 
-    expect(Xml::C14n.format(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
+    expect(Canon.format_xml(strip_guid(Asciidoctor.convert(input, *OPTIONS))))
       .to be_equivalent_to output
   end
 end

@@ -530,7 +530,7 @@ RSpec.describe IsoDoc::Ribose do
        </rsd-standard>
     OUTPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
        #{HTML_HDR}
           <br/>
           <div id="_" class="TOC">
@@ -621,9 +621,9 @@ RSpec.describe IsoDoc::Ribose do
 
     pres_output = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ribose::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ribose::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to output
@@ -696,9 +696,9 @@ RSpec.describe IsoDoc::Ribose do
     OUTPUT
     pres_output = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output)))
-      .to be_equivalent_to Xml::C14n.format(presxml)
-    expect(Xml::C14n.format(strip_guid(IsoDoc::Ribose::HtmlConvert.new({})
+    expect(Canon.format_xml(strip_guid(pres_output)))
+      .to be_equivalent_to Canon.format_xml(presxml)
+    expect(Canon.format_xml(strip_guid(IsoDoc::Ribose::HtmlConvert.new({})
       .convert("test", pres_output, true)
       .gsub(%r{^.*<body}m, "<body")
       .gsub(%r{</body>.*}m, "</body>")))).to be_equivalent_to output
@@ -714,13 +714,13 @@ RSpec.describe IsoDoc::Ribose do
       :no-pdf:
     INPUT
 
-    output = Xml::C14n.format(<<~"OUTPUT")
+    output = Canon.format_xml(<<~"OUTPUT")
         #{blank_hdr_gen}
         <sections/>
       </rsd-standard>
     OUTPUT
 
-    expect(Xml::C14n.format(strip_guid(Asciidoctor
+    expect(Canon.format_xml(strip_guid(Asciidoctor
       .convert(input, backend: :ribose, header_footer: true))))
       .to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
@@ -966,10 +966,10 @@ RSpec.describe IsoDoc::Ribose do
          </p>
       </foreword>
     OUTPUT
-    expect(Xml::C14n.format(strip_guid(Nokogiri::XML(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
+    expect(Canon.format_xml(strip_guid(Nokogiri::XML(IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
     .convert("test", input, true))
       .at("//xmlns:foreword").to_xml)))
-      .to be_equivalent_to Xml::C14n.format(output)
+      .to be_equivalent_to Canon.format_xml(output)
   end
 
   it "processes simple terms & definitions" do
@@ -1118,7 +1118,7 @@ RSpec.describe IsoDoc::Ribose do
        </ogc-standard>
     INPUT
 
-    output = Xml::C14n.format(strip_guid(<<~OUTPUT))
+    output = Canon.format_xml(strip_guid(<<~OUTPUT))
       <div id='H'>
         <h1 id='_'><a class="anchor" href="#H"/><a class="header" href="#H">1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
         <p class='Terms' style='text-align:left;' id='J'><strong>1.1.</strong>&#xa0;Term2</p>
@@ -1135,12 +1135,12 @@ RSpec.describe IsoDoc::Ribose do
 
     pres_output = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(Canon.format_xml(strip_guid(pres_output
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
     IsoDoc::Ribose::HtmlConvert.new({ filename: "test" })
       .convert("test", pres_output, false)
-    expect(Xml::C14n.format(strip_guid(
+    expect(Canon.format_xml(strip_guid(
                               File.read("test.html")
                            .gsub(%r{^.*<div id="H">}m, '<div id="H">')
                            .gsub(%r{</div>.*}m, "</div>"),
@@ -1237,9 +1237,9 @@ RSpec.describe IsoDoc::Ribose do
     INPUT
     pres_output = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(Canon.format_xml(strip_guid(pres_output
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 
   it "processes ordered lists" do
@@ -1354,8 +1354,8 @@ RSpec.describe IsoDoc::Ribose do
     INPUT
     pres_output = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
-    expect(Xml::C14n.format(strip_guid(pres_output
+    expect(Canon.format_xml(strip_guid(pres_output
      .sub(%r{<localized-strings>.*</localized-strings>}m, ""))))
-      .to be_equivalent_to Xml::C14n.format(presxml)
+      .to be_equivalent_to Canon.format_xml(presxml)
   end
 end
