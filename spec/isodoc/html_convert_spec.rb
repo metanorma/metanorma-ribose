@@ -56,6 +56,9 @@ RSpec.describe IsoDoc::Ribose do
               <recipient>Fred</recipient>
               </ext>
             </bibdata>
+            <semantic-metadata>
+         <stage-published>false</stage-published>
+      </semantic-metadata>
             <sections/>
             </rsd-standard>
     INPUT
