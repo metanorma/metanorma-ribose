@@ -94,6 +94,32 @@ RSpec.describe Metanorma::Ribose do
                <abbreviation>Ribose</abbreviation>
              </organization>
            </contributor>
+      <contributor>
+         <role type="author">
+            <description>committee</description>
+         </role>
+         <organization>
+            <name>Ribose Asia Limited</name>
+            <subdivision type="Committee" subtype="A">
+               <name>TC</name>
+               <identifier>A 1</identifier>
+               <identifier type="full">A 1</identifier>
+            </subdivision>
+         </organization>
+      </contributor>
+      <contributor>
+         <role type="author">
+            <description>committee</description>
+         </role>
+         <organization>
+            <name>Ribose Asia Limited</name>
+            <subdivision type="Committee" subtype="A1">
+               <name>TC1</name>
+               <identifier>A1 11</identifier>
+               <identifier type="full">A1 11</identifier>
+            </subdivision>
+         </organization>
+      </contributor>
            <contributor>
              <role type="publisher"/>
              <organization>
