@@ -150,10 +150,6 @@ RSpec.describe Metanorma::Ribose do
            <ext>
              <doctype>standard</doctype>
       <flavor>ribose</flavor>
-             <editorialgroup>
-               <committee type="A">TC</committee>
-               <committee type="A1">TC1</committee>
-             </editorialgroup>
              <security>Client Confidential</security>
              <recipient>tbd@example.com</recipient>
            </ext>
