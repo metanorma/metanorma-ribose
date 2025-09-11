@@ -392,9 +392,9 @@
 							<xsl:call-template name="insertHeaderFooter">
 								<xsl:with-param name="section">main</xsl:with-param>
 							</xsl:call-template>
-							<fo:flow flow-name="xsl-region-body">
+							<fo:flow flow-name="xsl-region-body" role="SKIP">
 
-								<fo:block line-height="130%">
+								<fo:block line-height="130%" role="SKIP">
 
 									<!-- <xsl:apply-templates select="/mn:metanorma/mn:preface/mn:abstract" />
 									<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:foreword" />
@@ -612,7 +612,7 @@
 	</xsl:template>
 
 	<xsl:template match="mn:preface/mn:clause[@type = 'toc']" name="toc" priority="3">
-		<fo:block role="TOC">
+		<fo:block role="SKIP">
 			<xsl:apply-templates/>
 
 			<xsl:if test="count(*) = 1 and mn:fmt-title"> <!-- if there isn't user ToC -->
@@ -620,7 +620,7 @@
 				<xsl:if test="$contents//mnx:item[@display = 'true']">
 
 					<fo:block-container xsl:use-attribute-sets="toc-style">
-						<fo:block-container margin-left="0mm" margin-right="0mm">
+						<fo:block-container margin-left="0mm" margin-right="0mm" role="SKIP">
 							<xsl:for-each select="$contents//mnx:item[@display = 'true']">
 								<fo:block xsl:use-attribute-sets="toc-item-style">
 
@@ -854,20 +854,21 @@
 
 			<xsl:choose>
 				<xsl:when test="$level = 1">
-					<fo:block-container margin-left="-15mm">
-						<fo:block-container margin-left="0mm">
-							<fo:table width="100%" table-layout="fixed">
+					<fo:block-container margin-left="-15mm" role="SKIP">
+						<fo:block-container margin-left="0mm" role="SKIP">
+							<fo:table width="100%" table-layout="fixed" role="SKIP">
 								<fo:table-column column-width="15mm"/>
 								<fo:table-column column-width="150mm"/>
-								<fo:table-body>
-									<fo:table-row>
-										<fo:table-cell text-align="left">
-											<fo:block>
+								<fo:table-body role="SKIP">
+									<fo:table-row role="SKIP">
+										<fo:table-cell text-align="left" role="SKIP">
+											<fo:block role="SKIP">
+												<xsl:call-template name="setIDforNamedDestinationInline"/>
 												<xsl:call-template name="extractSection"/><!-- section number 1 2 3  ... -->
 											</fo:block>
 										</fo:table-cell>
-										<fo:table-cell>
-											<fo:block>
+										<fo:table-cell role="SKIP">
+											<fo:block role="SKIP">
 													<xsl:call-template name="extractTitle"/> <!-- section title -->
 													<xsl:apply-templates select="following-sibling::*[1][self::mn:variant-title][@type = 'sub']" mode="subtitle"/>
 												</fo:block>
@@ -879,6 +880,7 @@
 					</fo:block-container>
 				</xsl:when>
 				<xsl:otherwise>
+						<xsl:call-template name="setIDforNamedDestinationInline"/>
 						<xsl:apply-templates/>
 						<xsl:apply-templates select="following-sibling::*[1][self::mn:variant-title][@type = 'sub']" mode="subtitle"/>
 				</xsl:otherwise>
@@ -918,6 +920,8 @@
 				<xsl:otherwise>fo:block</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+
+		<xsl:call-template name="setNamedDestination"/>
 		<xsl:element name="{$element-name}">
 			<xsl:attribute name="id">
 				<xsl:value-of select="@id"/>
@@ -955,11 +959,11 @@
 	</xsl:template>
 
 	<xsl:template match="mn:ul | mn:ol" mode="list" priority="2">
-		<fo:block-container>
-			<fo:block-container margin-left="0mm">
+		<fo:block-container role="SKIP">
+			<fo:block-container margin-left="0mm" role="SKIP">
 				<xsl:choose>
 					<xsl:when test="not(ancestor::mn:ul) and not(ancestor::mn:ol)">
-						<fo:block padding-bottom="12pt" padding-top="4pt">
+						<fo:block padding-bottom="12pt" padding-top="4pt" role="SKIP">
 							<xsl:call-template name="listProcessing"/>
 						</fo:block>
 					</xsl:when>
@@ -1035,23 +1039,23 @@
 
 	<xsl:template match="mn:references[not(@normative='true')]" priority="3">
 		<fo:block break-after="page"/>
-		<fo:block id="{@id}">
-			<fo:table width="100%" table-layout="fixed">
+		<fo:block id="{@id}" role="SKIP">
+			<fo:table width="100%" table-layout="fixed" role="Sect">
 				<fo:table-column column-width="100%"/>
-				<fo:table-header>
+				<fo:table-header role="SKIP">
 					<!-- repeat table header on each page -->
-					<fo:table-row>
-						<fo:table-cell text-align="left">
+					<fo:table-row role="SKIP">
+						<fo:table-cell text-align="left" role="SKIP">
 							<fo:block xsl:use-attribute-sets="references-non-normative-title-style"> <!-- Bibliography section title -->
 								<xsl:apply-templates select="mn:fmt-title/node()"/>
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
 				</fo:table-header>
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell text-align="left">
-							<fo:block>
+				<fo:table-body role="SKIP">
+					<fo:table-row role="SKIP">
+						<fo:table-cell text-align="left" role="SKIP">
+							<fo:block role="L">
 								<xsl:apply-templates select="node()[not(self::mn:fmt-title)]"/>
 							</fo:block>
 						</fo:table-cell>
@@ -1089,8 +1093,9 @@
 		<fo:block-container xsl:use-attribute-sets="clause-style">
 			<xsl:call-template name="refine_clause-style"/>
 
-			<fo:block-container margin-left="0mm">
-				<fo:block>
+			<fo:block-container margin-left="0mm" role="SKIP">
+				<xsl:call-template name="setNamedDestination"/>
+				<fo:block role="SKIP">
 					<xsl:call-template name="setId"/>
 					<xsl:call-template name="addReviewHelper"/>
 					<xsl:apply-templates/>
@@ -11418,6 +11423,7 @@
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">4pt</xsl:attribute>
 		<xsl:attribute name="provisional-distance-between-starts">8mm</xsl:attribute>
+		<xsl:attribute name="role">SKIP</xsl:attribute>
 	</xsl:attribute-set> <!-- bibitem-non-normative-list-style -->
 
 	<xsl:template name="refine_bibitem-non-normative-list-style">
@@ -11541,11 +11547,12 @@
 	<xsl:template match="mn:references[not(@normative='true')]/mn:bibitem" name="bibitem_non_normative" priority="2">
 		<xsl:param name="skip" select="normalize-space(preceding-sibling::*[not(self::mn:note)][1][self::mn:bibitem] and 1 = 1)"/> <!-- current bibiitem is non-first -->
 		<xsl:call-template name="setNamedDestination"/>
+		<!-- continue from <xsl:template match="mn:references[not(@normative='true')]" priority="3"> -->
 		<fo:list-block id="{@id}" xsl:use-attribute-sets="bibitem-non-normative-list-style">
 			<xsl:call-template name="refine_bibitem-non-normative-list-style"/>
 			<fo:list-item>
 				<fo:list-item-label end-indent="label-end()">
-					<fo:block>
+					<fo:block role="SKIP">
 						<xsl:apply-templates select="mn:biblio-tag">
 							<xsl:with-param name="biblio_tag_part">first</xsl:with-param>
 						</xsl:apply-templates>
@@ -12200,6 +12207,7 @@
 	<xsl:attribute-set name="toc-style">
 		<xsl:attribute name="margin-left">32mm</xsl:attribute>
 		<xsl:attribute name="margin-right">-17mm</xsl:attribute>
+		<xsl:attribute name="role">TOC</xsl:attribute>
 	</xsl:attribute-set>
 
 	<xsl:template name="refine_toc-style">
@@ -13841,7 +13849,7 @@
 	<xsl:template name="refine_clause-style">
 		<xsl:variable name="level">
 			<xsl:call-template name="getLevel">
-				<xsl:with-param name="depth" select="mn:title/@depth"/>
+				<xsl:with-param name="depth" select="mn:fmt-title/@depth"/>
 			</xsl:call-template>
 		</xsl:variable>
 		<xsl:if test="$level &gt;= 4">
@@ -13852,10 +13860,11 @@
 	<!-- main sections -->
 	<xsl:template match="/*/mn:sections/*" name="sections_node" priority="2">
 		<xsl:call-template name="setNamedDestination"/>
-		<fo:block>
+		<fo:block role="Sect">
 			<xsl:call-template name="setId"/>
 
 			<xsl:call-template name="sections_element_style"/>
+			<xsl:call-template name="addTagElementT"/>
 
 			<xsl:call-template name="addReviewHelper"/>
 
