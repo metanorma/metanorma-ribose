@@ -1646,7 +1646,7 @@
 	<xsl:variable name="font_noto_sans_mono">Noto Sans Mono, Noto Sans Mono CJK HK, Noto Sans Mono CJK JP, Noto Sans Mono CJK KR, Noto Sans Mono CJK SC, Noto Sans Mono CJK TC</xsl:variable>
 	<xsl:variable name="font_noto_serif">Noto Serif, Noto Serif HK, Noto Serif JP, Noto Serif KR, Noto Serif SC, Noto Serif TC</xsl:variable>
 	<xsl:attribute-set name="root-style">
-		<xsl:attribute name="font-family">OpenSans, STIX Two Math, <xsl:value-of select="$font_noto_sans"/></xsl:attribute>
+		<xsl:attribute name="font-family">Open Sans, STIX Two Math, <xsl:value-of select="$font_noto_sans"/></xsl:attribute>
 		<xsl:attribute name="font-family-generic">Sans</xsl:attribute>
 		<xsl:attribute name="font-weight">300</xsl:attribute>
 		<xsl:attribute name="font-size">11pt</xsl:attribute>
@@ -11427,6 +11427,25 @@
 	</xsl:attribute-set> <!-- bibitem-non-normative-list-style -->
 
 	<xsl:template name="refine_bibitem-non-normative-list-style">
+		<xsl:variable name="last_bibitem_bibliotag">
+			<xsl:apply-templates select="following-sibling::mn:bibitem[not(@hidden='true')][last()]/mn:biblio-tag">
+				<xsl:with-param name="biblio_tag_part">first</xsl:with-param>
+			</xsl:apply-templates>
+			<xsl:if test="not(following-sibling::mn:bibitem[not(@hidden='true')][last()]/mn:biblio-tag)">
+				<xsl:apply-templates select="mn:biblio-tag">
+					<xsl:with-param name="biblio_tag_part">first</xsl:with-param>
+				</xsl:apply-templates>
+			</xsl:if>
+		</xsl:variable>
+		<xsl:variable name="last_bibitem_bibliotag_number_length" select="string-length(translate($last_bibitem_bibliotag, '[] ', ''))"/>
+		<xsl:if test="$last_bibitem_bibliotag_number_length &gt; 1">
+			<xsl:attribute name="provisional-distance-between-starts">
+				<xsl:choose>
+					<xsl:when test="$last_bibitem_bibliotag_number_length = 2">9.2mm</xsl:when>
+					<xsl:when test="$last_bibitem_bibliotag_number_length &gt;= 3">11mm</xsl:when>
+				</xsl:choose>
+			</xsl:attribute>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:attribute-set name="bibitem-non-normative-list-item-style">
