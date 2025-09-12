@@ -84,7 +84,7 @@ RSpec.describe Metanorma::Ribose do
       <?xml version="1.0" encoding="UTF-8"?>
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ribose::VERSION}" flavor="ribose">
               <bibdata type="standard">
-           <title language="en" format="text/plain">Main Title</title>
+           <title language="en" type="main">Main Title</title>
            <docidentifier primary="true" type="Ribose">1000(wd)</docidentifier>
            <docnumber>1000</docnumber>
            <contributor>
@@ -205,7 +205,7 @@ RSpec.describe Metanorma::Ribose do
     output = Canon.format_xml(<<~"OUTPUT")
           <metanorma xmlns='https://www.metanorma.org/ns/standoc' type='semantic' version='#{Metanorma::Ribose::VERSION}' flavor="ribose">
           <bibdata type="standard">
-           <title language="en" format="text/plain">Document title</title>
+           <title language="en" type="main">Document title</title>
            <docidentifier primary="true" type="Ribose">Code 1000</docidentifier>
            <docnumber>1000</docnumber>
            <contributor>
@@ -326,7 +326,7 @@ RSpec.describe Metanorma::Ribose do
     expect(Canon.format_xml(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
       .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
         <bibdata type="standard">
-          <title language="en" format="text/plain">Main Title</title>
+          <title language="en" type="main">Main Title</title>
           <docidentifier primary="true" type="Ribose">1000(cd)</docidentifier>
           <docnumber>1000</docnumber>
           <contributor>
@@ -392,7 +392,7 @@ RSpec.describe Metanorma::Ribose do
     expect(Canon.format_xml(strip_guid(Nokogiri::XML(out).at("//xmlns:bibdata").to_xml)))
       .to be_equivalent_to Canon.format_xml(<<~"OUTPUT")
         <bibdata type="standard">
-          <title language="en" format="text/plain">Main Title</title>
+          <title language="en" type="main">Main Title</title>
           <docidentifier primary="true" type="Ribose">1000(d)</docidentifier>
           <docnumber>1000</docnumber>
           <contributor>
@@ -458,7 +458,7 @@ RSpec.describe Metanorma::Ribose do
 
     output = <<~OUTPUT
       <bibdata type='standard'>
-        <title language='en' format='text/plain'>Main Title</title>
+        <title language='en' type='main'>Main Title</title>
         <docidentifier primary="true" type="Ribose">1000</docidentifier>
         <docnumber>1000</docnumber>
         <contributor>
