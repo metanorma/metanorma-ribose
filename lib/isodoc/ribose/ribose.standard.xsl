@@ -506,9 +506,10 @@
 					<xsl:if test="string-length($title) &gt; 80">
 						<xsl:attribute name="margin-right">-30mm</xsl:attribute>
 					</xsl:if>
-					<fo:block font-size="27pt" font-weight="bold" role="H1">
-							<xsl:apply-templates select="/mn:metanorma/mn:bibdata/mn:title[@language = $lang]" mode="cover_page"/>
-					</fo:block>
+
+					<xsl:apply-templates select="/mn:metanorma/mn:bibdata/mn:title[@language = $lang and (@type = 'intro' or not(@type))]" mode="cover_page"/>
+					<xsl:apply-templates select="/mn:metanorma/mn:bibdata/mn:title[@language = $lang and @type = 'main'][last()]" mode="cover_page"/>
+
 					<fo:block space-before="9pt" font-size="16.8pt" font-weight="600">
 						<xsl:value-of select="$docnumber_version"/>
 					</fo:block>
@@ -608,7 +609,9 @@
 	</xsl:template>
 
 	<xsl:template match="mn:title" mode="cover_page">
-		<xsl:apply-templates/>
+		<fo:block font-size="27pt" font-weight="bold" role="H1">
+			<xsl:apply-templates/>
+		</fo:block>
 	</xsl:template>
 
 	<xsl:template match="mn:preface/mn:clause[@type = 'toc']" name="toc" priority="3">
@@ -1646,11 +1649,12 @@
 	<xsl:variable name="font_noto_sans_mono">Noto Sans Mono, Noto Sans Mono CJK HK, Noto Sans Mono CJK JP, Noto Sans Mono CJK KR, Noto Sans Mono CJK SC, Noto Sans Mono CJK TC</xsl:variable>
 	<xsl:variable name="font_noto_serif">Noto Serif, Noto Serif HK, Noto Serif JP, Noto Serif KR, Noto Serif SC, Noto Serif TC</xsl:variable>
 	<xsl:attribute-set name="root-style">
-		<xsl:attribute name="font-family">Open Sans, STIX Two Math, <xsl:value-of select="$font_noto_sans"/></xsl:attribute>
+		<xsl:attribute name="font-family">Open Sans, Source Sans 3, STIX Two Math, <xsl:value-of select="$font_noto_sans"/></xsl:attribute>
 		<xsl:attribute name="font-family-generic">Sans</xsl:attribute>
 		<xsl:attribute name="font-weight">300</xsl:attribute>
 		<xsl:attribute name="font-size">11pt</xsl:attribute>
 		<xsl:attribute name="color">rgb(88, 88, 90)</xsl:attribute>
+		<xsl:attribute name="font-selection-strategy">character-by-character</xsl:attribute>
 	</xsl:attribute-set> <!-- root-style -->
 
 	<xsl:template name="insertRootStyle">
