@@ -615,6 +615,8 @@
 		</fo:block>
 	</xsl:template>
 
+	<xsl:variable name="toc_item_indent">7</xsl:variable>
+
 	<xsl:template match="mn:preface/mn:clause[@type = 'toc']" name="toc" priority="3">
 		<fo:block role="SKIP">
 			<xsl:apply-templates/>
@@ -801,9 +803,11 @@
 				<!-- <xsl:when test="ancestor::mn:preface and $level &gt;= 2">12pt</xsl:when>
 				<xsl:when test="ancestor::mn:preface">13pt</xsl:when> -->
 				<xsl:when test="$level = 1">22pt</xsl:when>
-				<xsl:when test="$level = 2">13pt</xsl:when>
+				<!-- <xsl:when test="$level = 2">13pt</xsl:when>
 				<xsl:when test="$level &gt;= 3">11pt</xsl:when>
-				<xsl:otherwise>16pt</xsl:otherwise>
+				<xsl:otherwise>16pt</xsl:otherwise> -->
+				<xsl:when test="$level &gt;= 2">13pt</xsl:when>
+				<xsl:otherwise>13pt</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 
@@ -3274,7 +3278,7 @@
 		<xsl:attribute name="text-align">center</xsl:attribute>
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 		<xsl:attribute name="keep-with-previous">always</xsl:attribute>
-		<xsl:attribute name="font-size">13pt</xsl:attribute>
+		<!-- <xsl:attribute name="font-size">13pt</xsl:attribute> -->
 		<xsl:attribute name="font-weight">300</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="text-align">left</xsl:attribute>
@@ -5361,7 +5365,7 @@
 	<xsl:attribute-set name="table-name-style">
 		<xsl:attribute name="role">Caption</xsl:attribute>
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
-		<xsl:attribute name="font-size">13pt</xsl:attribute>
+		<!-- <xsl:attribute name="font-size">13pt</xsl:attribute> -->
 		<xsl:attribute name="font-weight">300</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="text-align">left</xsl:attribute>
@@ -8979,7 +8983,7 @@
 
 	<xsl:attribute-set name="figure-name-style">
 		<xsl:attribute name="role">Caption</xsl:attribute>
-		<xsl:attribute name="font-size">13pt</xsl:attribute>
+		<!-- <xsl:attribute name="font-size">13pt</xsl:attribute> -->
 		<xsl:attribute name="font-weight">300</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="text-align">left</xsl:attribute>
@@ -12232,7 +12236,7 @@
 	<!-- =================== -->
 
 	<xsl:attribute-set name="toc-style">
-		<xsl:attribute name="margin-left">32mm</xsl:attribute>
+		<xsl:attribute name="margin-left">10mm</xsl:attribute> <!-- 32mm -->
 		<xsl:attribute name="margin-right">-17mm</xsl:attribute>
 		<xsl:attribute name="role">TOC</xsl:attribute>
 	</xsl:attribute-set>
@@ -12242,7 +12246,7 @@
 
 	<xsl:attribute-set name="toc-title-style">
 		<xsl:attribute name="role">H1</xsl:attribute>
-		<xsl:attribute name="font-size">27pt</xsl:attribute>
+		<xsl:attribute name="font-size">22pt</xsl:attribute> <!-- 27pt -->
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="margin-left">-15mm</xsl:attribute>
@@ -12266,7 +12270,7 @@
 
 	<xsl:attribute-set name="toc-item-style">
 		<xsl:attribute name="role">TOCI</xsl:attribute>
-		<xsl:attribute name="font-size">13pt</xsl:attribute>
+		<!-- <xsl:attribute name="font-size">13pt</xsl:attribute> -->
 	</xsl:attribute-set> <!-- END: toc-item-style -->
 
 	<xsl:template name="refine_toc-item-style">
@@ -12280,7 +12284,7 @@
 			<xsl:attribute name="color">black</xsl:attribute>
 		</xsl:if>
 		<xsl:if test="@level &gt;= 2">
-			<xsl:attribute name="margin-left"><xsl:value-of select="(@level - 1) * 16.5"/>mm</xsl:attribute>
+			<xsl:attribute name="margin-left"><xsl:value-of select="(@level - 1) * $toc_item_indent"/>mm</xsl:attribute> <!-- 16.5 -->
 			<xsl:attribute name="space-before">4pt</xsl:attribute>
 			<xsl:attribute name="space-after">5pt</xsl:attribute>
 		</xsl:if>
@@ -12303,7 +12307,7 @@
 
 	<!-- List of Figures, Tables -->
 	<xsl:attribute-set name="toc-listof-title-style">
-		<xsl:attribute name="font-size">13pt</xsl:attribute>
+		<!-- <xsl:attribute name="font-size">13pt</xsl:attribute> -->
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="margin-top">12pt</xsl:attribute>
@@ -12322,8 +12326,8 @@
 
 	<xsl:attribute-set name="toc-listof-item-style">
 		<xsl:attribute name="role">TOCI</xsl:attribute>
-		<xsl:attribute name="font-size">13pt</xsl:attribute>
-		<xsl:attribute name="margin-left">16.5mm</xsl:attribute>
+		<!-- <xsl:attribute name="font-size">13pt</xsl:attribute> -->
+		<xsl:attribute name="margin-left"><xsl:value-of select="$toc_item_indent"/>mm</xsl:attribute> <!-- 16.5mm -->
 		<xsl:attribute name="space-before">4pt</xsl:attribute>
 	</xsl:attribute-set>
 
