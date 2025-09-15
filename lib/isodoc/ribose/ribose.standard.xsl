@@ -2305,10 +2305,18 @@
 
 	<xsl:template match="mn:annotation-container" mode="update_xml_step1"/>
 
-	<xsl:template match="mn:fmt-identifier[not(ancestor::*[local-name() = 'bibdata'])]//text()" mode="update_xml_step1">
-		<xsl:element name="{$element_name_keep-together_within-line}" namespace="{$namespace_full}">
-			<xsl:value-of select="."/>
-		</xsl:element>
+	<xsl:template match="mn:fmt-identifier[not(ancestor::*[local-name() = 'bibdata'])]//text()" mode="update_xml_step1"> <!-- https://github.com/metanorma/metanorma-ribose/issues/421 -->
+		<xsl:choose>
+			<xsl:when test="(ancestor::mn:td or ancestor::mn:th) and       normalize-space(java:matches(java:java.lang.String.new(.), '^(http://|https://|www\.)?(.*)')) = 'true'">
+				<xsl:value-of select="."/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="{$element_name_keep-together_within-line}" namespace="{$namespace_full}">
+					<xsl:value-of select="."/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+
 	</xsl:template>
 
 	<xsl:template match="@semx-id | @anchor" mode="update_xml_step1"/>
@@ -3770,7 +3778,7 @@
 	<xsl:template name="refine_tt-style">
 		<xsl:variable name="_font-size"> <!-- inherit -->
 			<xsl:choose>
-				<xsl:when test="ancestor::mn:table">inherit</xsl:when>
+				<xsl:when test="ancestor::mn:table">95%</xsl:when> <!-- 95% in https://github.com/metanorma/metanorma-ribose/issues/421, was inherit -->
 				<xsl:otherwise>95%</xsl:otherwise> <!-- 110% -->
 			</xsl:choose>
 		</xsl:variable>
@@ -13878,14 +13886,17 @@
 	</xsl:attribute-set>
 
 	<xsl:template name="refine_clause-style">
-		<xsl:variable name="level">
-			<xsl:call-template name="getLevel">
-				<xsl:with-param name="depth" select="mn:fmt-title/@depth"/>
-			</xsl:call-template>
-		</xsl:variable>
-		<xsl:if test="$level &gt;= 4">
-			<xsl:attribute name="margin-left">13mm</xsl:attribute>
-		</xsl:if>
+		<!-- commented for https://github.com/metanorma/metanorma-ribose/issues/421 -->
+		<!-- <xsl:if test="$namespace = 'rsd'">
+			<xsl:variable name="level">
+				<xsl:call-template name="getLevel">
+					<xsl:with-param name="depth" select="mn:fmt-title/@depth"/>
+				</xsl:call-template>
+			</xsl:variable>
+			<xsl:if test="$level &gt;= 4">
+				<xsl:attribute name="margin-left">13mm</xsl:attribute>
+			</xsl:if>
+		</xsl:if> -->
 	</xsl:template>
 
 	<!-- main sections -->
