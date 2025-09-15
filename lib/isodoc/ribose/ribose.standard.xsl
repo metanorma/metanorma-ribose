@@ -507,8 +507,15 @@
 						<xsl:attribute name="margin-right">-30mm</xsl:attribute>
 					</xsl:if>
 
-					<xsl:apply-templates select="/mn:metanorma/mn:bibdata/mn:title[@language = $lang and (@type = 'intro' or not(@type))]" mode="cover_page"/>
-					<xsl:apply-templates select="/mn:metanorma/mn:bibdata/mn:title[@language = $lang and @type = 'main'][last()]" mode="cover_page"/>
+					<xsl:variable name="titles">
+						<xsl:copy-of select="/mn:metanorma/mn:bibdata/mn:title[@language = $lang and (@type = 'intro' or not(@type))]"/>
+						<xsl:copy-of select="/mn:metanorma/mn:bibdata/mn:title[@language = $lang and @type = 'main'][last()]"/>
+					</xsl:variable>
+					<xsl:for-each select="xalan:nodeset($titles)/mn:title">
+						<fo:block font-size="27pt" font-weight="bold" role="H1">
+							<xsl:apply-templates/><xsl:if test="position() != last()"><xsl:value-of select="$nonbreak_space_em_dash"/></xsl:if>
+						</fo:block>
+					</xsl:for-each>
 
 					<fo:block space-before="9pt" font-size="16.8pt" font-weight="600">
 						<xsl:value-of select="$docnumber_version"/>
@@ -605,12 +612,6 @@
 					</fo:inline>
 				</fo:basic-link>
 			</fo:block>
-		</fo:block>
-	</xsl:template>
-
-	<xsl:template match="mn:title" mode="cover_page">
-		<fo:block font-size="27pt" font-weight="bold" role="H1">
-			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
 
@@ -905,7 +906,9 @@
 	</xsl:template> -->
 
 	<xsl:template match="mn:terms" priority="3">
-		<fo:block break-after="page"/>
+		<xsl:if test="not(ancestor::*[@type = 'terms'])">
+			<fo:block break-after="page"/>
+		</xsl:if>
 		<fo:block id="{@id}">
 			<xsl:apply-templates/>
 		</fo:block>
@@ -1564,6 +1567,7 @@
 	<xsl:variable name="en_dash">–</xsl:variable>
 	<xsl:variable name="em_dash">—</xsl:variable>
 	<xsl:variable name="nonbreak_space_em_dash_space"> — </xsl:variable>
+	<xsl:variable name="nonbreak_space_em_dash"> —</xsl:variable>
 	<xsl:variable name="cr">&#13;</xsl:variable>
 	<xsl:variable name="lf">
 </xsl:variable>
@@ -3236,7 +3240,6 @@
 		<xsl:attribute name="role">Code</xsl:attribute>
 		<xsl:attribute name="font-family"><xsl:value-of select="$font_noto_sans_mono"/></xsl:attribute>
 		<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
-		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		<xsl:attribute name="line-height">113%</xsl:attribute>
 	</xsl:attribute-set> <!-- sourcecode-style -->
 
@@ -5057,6 +5060,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="example-name-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
 		<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
@@ -13882,6 +13886,9 @@
 
 	<!-- main sections -->
 	<xsl:template match="/*/mn:sections/*" name="sections_node" priority="2">
+		<xsl:if test="@type = 'terms'">
+			<fo:block break-after="page"/>
+		</xsl:if>
 		<xsl:call-template name="setNamedDestination"/>
 		<fo:block role="Sect">
 			<xsl:call-template name="setId"/>
