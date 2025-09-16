@@ -55,6 +55,7 @@ RSpec.describe IsoDoc::Ribose do
                 <role type="publisher"/>
                 <organization>
               <name>Fred</name>
+              <abbreviation>Fr</abbreviation>
               <address>
         <formattedAddress>10 Jack St<br/>Antarctica</formattedAddress>
       </address>
@@ -92,7 +93,7 @@ RSpec.describe IsoDoc::Ribose do
     output =
       { accesseddate: "XXX",
         adapteddate: "XXX",
-        agency: "Fred",
+        agency: "Fr",
         announceddate: "XXX",
         circulateddate: "XXX",
         confirmeddate: "XXX",
