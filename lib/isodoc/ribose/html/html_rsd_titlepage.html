@@ -3,7 +3,7 @@
 </div>
 
 <div class="document-type-band" id="{{ doctype | downcase | replace: ' ', '-' }}-band">
-  <p class="document-type">Ribose {{ doctype }}</p>
+  <p class="document-type">{{ agency }} {{ doctype }}</p>
 </div>
 
 
@@ -28,7 +28,7 @@
       </div>
 
       <div class="coverpage-logo">
-        <span>Ribose Group Inc. {{ docyear }}</span>
+        <span>{{ publisher }} {{ docyear }}</span>
       </div>
 
       <div class="coverpage-tc-name">
@@ -40,7 +40,7 @@
 
     <div class="WordSection11">
       <div class="coverpage-stage-block" >
-        <span class="coverpage-stage" id="{{ doctype | replace: ' ', '-' | downcase }}">Ribose {{ doctype }}</span>
+        <span class="coverpage-stage" id="{{ doctype | replace: ' ', '-' | downcase }}">{{ agency }} {{ doctype }}</span>
       </div>
 
       <div class="coverpage-stage-block" >

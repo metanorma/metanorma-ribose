@@ -2,7 +2,7 @@
 
 {% if tc %}
 <p class="MsoNormal" align="right" style='text-align:right'><span
-style='mso-no-proof:yes'>Ribose&#xA0;{{ tc | join: "/" }}</span></p>
+                     style='mso-no-proof:yes'>{{ agency }}&#xA0;{{ tc | join: "/" }}</span></p>
 {% endif %}
 
 <p class="MsoNormal" align="center" style='text-align:center;line-height:18.0pt;margin-bottom:0.0pt'><b
@@ -27,7 +27,7 @@ mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0
 
 <p class="MsoNormal" align="center" style='text-align:center;border:none;
 mso-border-alt:solid windowtext .5pt;padding:0cm;mso-padding-alt:1.0pt 4.0pt 1.0pt 4.0pt'><span
-                     lang="EN-GB" style='font-size:16.0pt'>Ribose {{ doctype }}</span></p>
+                                                                                              lang="EN-GB" style='font-size:16.0pt'>{{ agency }} {{ doctype }}</span></p>
 
 
 {% if doctype == "Policy And Procedures" or doctype == "Proposal" %}
