@@ -2307,7 +2307,9 @@
 
 	<xsl:template match="mn:fmt-identifier[not(ancestor::*[local-name() = 'bibdata'])]//text()" mode="update_xml_step1"> <!-- https://github.com/metanorma/metanorma-ribose/issues/421 -->
 		<xsl:choose>
-			<xsl:when test="(ancestor::mn:td or ancestor::mn:th) and       normalize-space(java:matches(java:java.lang.String.new(.), '^(http://|https://|www\.)?(.*)')) = 'true'">
+			<!-- commented (ancestor::mn:td or ancestor::mn:th) and
+						for https://github.com/metanorma/metanorma-taste/issues/24#issuecomment-3302963697 -->
+			<xsl:when test="normalize-space(java:matches(java:java.lang.String.new(.), '^(http://|https://|www\.)?(.*)')) = 'true'">
 				<xsl:value-of select="."/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -3348,7 +3350,8 @@
 		<xsl:element name="sourcecode_attributes" use-attribute-sets="sourcecode-style">
 			<xsl:variable name="_font-size"><!-- inherit -->
 				<xsl:choose>
-					<xsl:when test="ancestor::mn:table[not(parent::mn:sourcecode[@linenums = 'true'])]">inherit</xsl:when>
+					<!-- <xsl:when test="ancestor::mn:table[not(parent::mn:sourcecode[@linenums = 'true'])]">inherit</xsl:when> -->
+					<xsl:when test="ancestor::mn:table">95%</xsl:when>
 					<xsl:otherwise>95%</xsl:otherwise><!-- 110% -->
 				</xsl:choose>
 			</xsl:variable>
