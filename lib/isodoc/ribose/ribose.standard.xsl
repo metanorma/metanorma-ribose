@@ -333,6 +333,8 @@
 
 			<xsl:call-template name="cover-page"/>
 
+			<xsl:call-template name="inner-cover-page"/>
+
 			<xsl:variable name="updated_xml">
 				<xsl:call-template name="updateXML"/>
 				<!-- <xsl:copy-of select="."/> -->
@@ -524,6 +526,9 @@
 			</fo:flow>
 		</fo:page-sequence>
 	</xsl:template> <!-- END: cover-page -->
+
+	<xsl:template name="inner-cover-page">
+	</xsl:template>
 
 	<xsl:template name="back-page">
 	</xsl:template>
