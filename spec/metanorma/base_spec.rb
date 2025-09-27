@@ -206,7 +206,7 @@ RSpec.describe Metanorma::Ribose do
           <metanorma xmlns='https://www.metanorma.org/ns/standoc' type='semantic' version='#{Metanorma::Ribose::VERSION}' flavor="ribose">
           <bibdata type="standard">
            <title language="en" type="main">Document title</title>
-           <docidentifier primary="true" type="Ribose">Code 1000</docidentifier>
+           <docidentifier primary="true" type="Fred">Code 1000</docidentifier>
            <docnumber>1000</docnumber>
            <contributor>
              <role type="author"/>
