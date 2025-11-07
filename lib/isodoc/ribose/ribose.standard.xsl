@@ -1009,7 +1009,8 @@
 					<!-- repeat table header on each page -->
 					<fo:table-row role="SKIP">
 						<fo:table-cell text-align="left" role="SKIP">
-							<fo:block xsl:use-attribute-sets="references-non-normative-title-style"> <!-- Bibliography section title -->
+							<fo:block xsl:use-attribute-sets="title-style"> <!-- Bibliography section title -->
+								<xsl:call-template name="refine_title-style"/>
 								<xsl:apply-templates select="mn:fmt-title/node()"/>
 							</fo:block>
 						</fo:table-cell>
@@ -11411,17 +11412,18 @@
 	<!-- END Admonition -->
 	<!-- ================ -->
 
-	<xsl:attribute-set name="references-non-normative-title-style">
+	<xsl:attribute-set name="bibliography-title-style">
 		<xsl:attribute name="margin-left">-15mm</xsl:attribute>
 		<xsl:attribute name="role">H1</xsl:attribute>
 		<xsl:attribute name="font-size">22pt</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
+		<xsl:attribute name="space-before">0pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">16pt</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="line-height">125%</xsl:attribute>
 	</xsl:attribute-set>
 
-	<xsl:template name="refine_references-non-normative-title-style">
+	<xsl:template name="refine_bibliography-title-style">
 	</xsl:template>
 
 	<!-- bibitem in Normative References (references/@normative="true") -->
@@ -13551,6 +13553,7 @@
 	<!-- ===================================== -->
 
 	<xsl:attribute-set name="annex-title-style">
+		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 	</xsl:attribute-set> <!-- annex-title-style -->
 
 	<xsl:template name="refine_annex-title-style">
@@ -13616,6 +13619,18 @@
 			<xsl:attribute name="font-weight">normal</xsl:attribute>
 			<xsl:attribute name="space-before">8pt</xsl:attribute>
 			<xsl:attribute name="margin-bottom">4pt</xsl:attribute>
+		</xsl:if>
+		<xsl:if test="parent::mn:annex"><!-- Annex title -->
+			<xsl:variable name="annex_title_styles">
+				<styles xsl:use-attribute-sets="annex-title-style"><xsl:call-template name="refine_annex-title-style"/></styles>
+			</xsl:variable>
+			<xsl:copy-of select="xalan:nodeset($annex_title_styles)/styles/@*"/>
+		</xsl:if>
+		<xsl:if test="self::mn:references[not(@normative='true')]">
+			<xsl:variable name="bibliography_title_styles">
+				<styles xsl:use-attribute-sets="bibliography-title-style"><xsl:call-template name="refine_bibliography-title-style"/></styles>
+			</xsl:variable>
+			<xsl:copy-of select="xalan:nodeset($bibliography_title_styles)/styles/@*"/>
 		</xsl:if>
 		<!-- $namespace = 'rsd' -->
 		<xsl:attribute name="role">H<xsl:value-of select="$level"/></xsl:attribute>
