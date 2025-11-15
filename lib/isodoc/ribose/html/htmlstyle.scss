@@ -9,6 +9,10 @@
 
 @use 'base_style/all' as *;
 
+:root {
+  --ribose-primary-color: #1661AD;
+}
+
 body {
   @include bodyStyle1($normalfontsize, 1.4em, #1d1d1d, #ffffff, 300);
   // @include sidebarNavContainer(323px);
@@ -19,7 +23,7 @@ main {
 }
 
 #toc, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) {
-  @include toc(#485094, #1661AD, #485094);
+  @include toc(#485094, var(--ribose-primary-color), #485094);
   @include sidebarToc();
 
   .toc-active a {
@@ -49,7 +53,7 @@ nav {
 }
 
 #toggle {
-  @include sidebarNavToggle(white, #1661AD)
+  @include sidebarNavToggle(white, var(--ribose-primary-color))
 }
 
 #myBtn {
@@ -217,7 +221,7 @@ h5,
 h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: $headerfont;
-  color: #1661AD;
+  color: var(--ribose-primary-color);
   font-weight: 300;
   margin-top: 1.6em;
   margin-bottom: 0.3em;
@@ -250,7 +254,7 @@ h3, .h3 {
 }
 
 .TermNum, .Terms, .AltTerms {
-  color: #1661AD;
+  color: var(--ribose-primary-color);
 }
 
 h2.TermNum {
@@ -281,7 +285,7 @@ p.AltTerms {
 /*
   3.2 Links
 */
-@include elementStyles(#485094, #1661AD, white);
+@include elementStyles(#485094, var(--ribose-primary-color), white);
 
 /*
     3.3 Lists
@@ -468,15 +472,15 @@ a.footnote-number {
   width: 250px;
 
   text-align: left;
-  border: #1661AD solid 2px;
-  color: #1661AD !important;
+  border: var(--ribose-primary-color) solid 2px;
+  color: var(--ribose-primary-color) !important;
   border-radius: 25px;
 
 }
 
 .contact-info a,
 .contact-info a:hover {
-  color: #1661AD;
+  color: var(--ribose-primary-color);
 }
 
 .contact-info p,
@@ -533,7 +537,7 @@ h2 p, .h2 p {
 }
 
 .wrapper-top {
-  background: linear-gradient(200deg, #0f365e, #1661AD);
+  background: linear-gradient(200deg, #0f365e, var(--ribose-primary-color));
   color: #ffffff;
   padding: 2em 0;
   width: 100%;
@@ -542,7 +546,7 @@ h2 p, .h2 p {
 .wrapper-top-bottom {
   width: 0;
   height: 0;
-  border-top: 100px solid #1661AD;
+  border-top: 100px solid var(--ribose-primary-color);
   border-right: 100px solid transparent;
   position: absolute;
 }
