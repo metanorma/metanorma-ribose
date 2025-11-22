@@ -943,15 +943,13 @@
 	</xsl:template>
 
 	<xsl:template match="mn:ul/mn:note | mn:ol/mn:note" priority="2">
-		<fo:list-item font-size="10pt">
-			<xsl:if test="ancestor::mn:table">
-				<xsl:attribute name="font-size">8pt</xsl:attribute>
-			</xsl:if>
+		<fo:list-item xsl:use-attribute-sets="note-style">
+			<xsl:call-template name="refine_note-style"/>
+
 			<fo:list-item-label><fo:block/></fo:list-item-label>
 			<fo:list-item-body>
 				<fo:block>
-					<xsl:apply-templates select="mn:fmt-name"/>
-					<xsl:apply-templates select="node()[not(parent::mn:fmt-name)]"/>
+					<xsl:call-template name="note"/>
 				</fo:block>
 			</fo:list-item-body>
 		</fo:list-item>
@@ -8634,9 +8632,15 @@
 	</xsl:attribute-set> <!-- note-style -->
 
 	<xsl:template name="refine_note-style">
-		<xsl:if test="ancestor::mn:ul or ancestor::mn:ol and not(ancestor::mn:note[1]/following-sibling::*)">
-			<xsl:attribute name="margin-top">6pt</xsl:attribute>
-			<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
+		<xsl:if test="ancestor::mn:ul or ancestor::mn:ol">
+			<xsl:attribute name="font-size">10pt</xsl:attribute>
+			<xsl:if test="ancestor::mn:table">
+				<xsl:attribute name="font-size">8pt</xsl:attribute>
+			</xsl:if>
+			<xsl:if test="not(ancestor::mn:note[1]/following-sibling::*)">
+				<xsl:attribute name="margin-top">6pt</xsl:attribute>
+				<xsl:attribute name="margin-bottom">6pt</xsl:attribute>
+			</xsl:if>
 		</xsl:if>
 	</xsl:template> <!-- refine_note-style -->
 
@@ -8646,7 +8650,7 @@
 	<xsl:attribute-set name="note-name-style">
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="color"><xsl:value-of select="$color_blue"/></xsl:attribute>
-		<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
+		<xsl:attribute name="padding-right">1mm</xsl:attribute>
 	</xsl:attribute-set> <!-- note-name-style -->
 
 	<xsl:template name="refine_note-name-style">
@@ -13283,7 +13287,7 @@
 	<xsl:template match="mn:termnote/mn:fmt-name/mn:tab" priority="2"/>
 
 	<xsl:template match="mn:note/mn:fmt-name/mn:tab" mode="tab">
-		<xsl:attribute name="padding-right">0.5mm</xsl:attribute>
+		<xsl:attribute name="padding-right">1mm</xsl:attribute>
 	</xsl:template>
 
 	<xsl:template name="insertNonBreakSpaces">
