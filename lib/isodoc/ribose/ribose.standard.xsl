@@ -503,7 +503,7 @@
 
 	<xsl:template name="insertListOf_Item">
 		<fo:block xsl:use-attribute-sets="toc-listof-item-style">
-			<fo:block text-align-last="justify">
+			<fo:block text-align-last="justify" role="Reference">
 				<fo:basic-link internal-destination="{@id}">
 					<xsl:call-template name="setAltText">
 						<xsl:with-param name="value" select="@alt-text"/>
@@ -512,7 +512,7 @@
 					<xsl:text>  </xsl:text>
 					<fo:inline>
 						<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
-						<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
+						<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:wrapper role="artifact"><fo:page-number-citation ref-id="{@id}"/></fo:wrapper></fo:inline>
 					</fo:inline>
 				</fo:basic-link>
 			</fo:block>
@@ -536,17 +536,21 @@
 
 									<xsl:call-template name="refine_toc-item-style"/>
 
-									<fo:block text-align-last="justify">
-										<fo:basic-link internal-destination="{@id}" fox:alt-text="{mnx:title}">
-											<xsl:value-of select="@section"/>
-											<xsl:text> </xsl:text>
-											<xsl:apply-templates select="mnx:title"/>
-											<xsl:text>  </xsl:text>
-											<fo:inline>
-												<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
-												<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}"/></fo:inline>
-											</fo:inline>
-										</fo:basic-link>
+									<fo:block text-align-last="justify" role="SKIP">
+										<fo:inline role="Lbl"><xsl:value-of select="@section"/></fo:inline>
+										<fo:wrapper role="Reference">
+											<fo:basic-link internal-destination="{@id}" fox:alt-text="{mnx:title}">
+												<xsl:if test="@section != ''">
+													<xsl:text> </xsl:text>
+												</xsl:if>
+												<xsl:apply-templates select="mnx:title"/>
+												<xsl:text>  </xsl:text>
+												<fo:inline role="SKIP">
+													<fo:leader xsl:use-attribute-sets="toc-leader-style"/>
+													<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:wrapper role="artifact"><fo:page-number-citation ref-id="{@id}"/></fo:wrapper></fo:inline>
+												</fo:inline>
+											</fo:basic-link>
+										</fo:wrapper>
 									</fo:block>
 								</fo:block>
 							</xsl:for-each>
@@ -12507,6 +12511,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="toc-pagenumber-style">
+		<xsl:attribute name="role">SKIP</xsl:attribute>
 		<xsl:attribute name="padding-left">2mm</xsl:attribute>
 	</xsl:attribute-set>
 
@@ -12516,6 +12521,7 @@
 	<!-- List of Figures, Tables -->
 	<xsl:attribute-set name="toc-listof-title-style">
 		<!-- <xsl:attribute name="font-size">13pt</xsl:attribute> -->
+		<xsl:attribute name="role">TOCI</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="margin-top">12pt</xsl:attribute>
@@ -14355,7 +14361,12 @@
 		<xsl:variable name="external-destination" select="normalize-space(count($element_node/fo:basic-link/@external-destination[. != '']) = 1)"/>
 		<xsl:variable name="internal-destination" select="normalize-space(count($element_node/fo:basic-link/@internal-destination[. != '']) = 1)"/>
 		<xsl:choose>
-			<xsl:when test="$external-destination = 'true' or $internal-destination = 'true'">
+			<xsl:when test="$internal-destination = 'true'">
+				<fo:wrapper role="Reference">
+					<xsl:copy-of select="$element_node"/>
+				</fo:wrapper>
+			</xsl:when>
+			<xsl:when test="$external-destination = 'true'">
 				<xsl:copy-of select="$element_node"/>
 			</xsl:when>
 			<xsl:otherwise>
