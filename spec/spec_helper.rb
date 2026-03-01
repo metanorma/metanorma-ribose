@@ -8,7 +8,7 @@ require "asciidoctor"
 require "metanorma-ribose"
 require "isodoc/ribose/html_convert"
 require "isodoc/ribose/word_convert"
-require "metanorma/standoc/converter"
+require "metanorma-standoc"
 require "rspec/matchers"
 require "equivalent-xml"
 require "htmlentities"
@@ -84,8 +84,9 @@ BOILERPLATE_XML = File.join(File.dirname(__FILE__), "..",
 def boilerplate_read(file, xmldoc)
   conv = Metanorma::Ribose::Converter.new(:ribose, {})
   conv.init(Asciidoctor::Document.new([]))
-  x = conv.boilerplate_isodoc(xmldoc).populate_template(file, nil)
-  ret = conv.boilerplate_file_restructure(x)
+  cl = Metanorma::Ribose::Cleanup.new(conv)
+  x = cl.boilerplate_isodoc(xmldoc).populate_template(file, nil)
+  ret = cl.boilerplate_file_restructure(x)
   ret.to_xml(encoding: "UTF-8", indent: 2,
              save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
     .gsub(/<(\/)?sections>/, "<\\1boilerplate>")

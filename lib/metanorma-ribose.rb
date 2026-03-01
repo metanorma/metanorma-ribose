@@ -1,5 +1,7 @@
 require "asciidoctor" unless defined? Asciidoctor::Converter
 require_relative "metanorma/ribose/converter"
+require_relative "metanorma/ribose/cleanup"
+require_relative "metanorma/ribose/validate"
 require_relative "isodoc/ribose/base_convert"
 require_relative "isodoc/ribose/html_convert"
 require_relative "isodoc/ribose/word_convert"
