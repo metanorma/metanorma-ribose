@@ -15,7 +15,7 @@ module IsoDoc
         elem.replace(l10n("<strong>#{@i18n.source}</strong>: #{sources}"))
       end
 
-      def designation_boldface(desgn); end
+      def designation_expression_boldface(desgn, name); end
 
       def preface_rearrange(doc)
         preface_move(doc.xpath(ns("//preface/abstract")),
