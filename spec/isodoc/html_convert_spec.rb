@@ -221,32 +221,32 @@ RSpec.describe IsoDoc::Ribose do
     INPUT
 
     presxml = <<~OUTPUT
-      <rsd-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+       <rsd-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Contents</fmt-title>
+                <fmt-title depth="1" id="_">Contents</fmt-title>
              </clause>
-             <foreword obligation="informative" displayorder="2" id="_">
+             <foreword obligation="informative" id="_" displayorder="2">
                 <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <semx element="title" source="_">Foreword</semx>
                 </fmt-title>
                 <p id="A">This is a preamble</p>
              </foreword>
              <executivesummary id="A1" obligation="informative" displayorder="3">
                 <title id="_">Executive Summary</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <semx element="title" source="_">Executive Summary</semx>
                 </fmt-title>
              </executivesummary>
              <introduction id="B" obligation="informative" displayorder="4">
                 <title id="_">Introduction</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <semx element="title" source="_">Introduction</semx>
                 </fmt-title>
                 <clause id="C" inline-header="false" obligation="informative">
                    <title id="_">Introduction Subsection</title>
-                   <fmt-title id="_" depth="2">
+                   <fmt-title depth="2" id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="B">0</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -269,7 +269,7 @@ RSpec.describe IsoDoc::Ribose do
           <sections>
              <clause id="D" obligation="normative" type="scope" displayorder="5">
                 <title id="_">Scope</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="D">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -287,7 +287,7 @@ RSpec.describe IsoDoc::Ribose do
              </clause>
              <clause id="H" obligation="normative" displayorder="7">
                 <title id="_">Terms, definitions, symbols and abbreviated terms</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="H">3</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -303,7 +303,7 @@ RSpec.describe IsoDoc::Ribose do
                 </fmt-xref-label>
                 <terms id="I" obligation="normative">
                    <title id="_">Normal Terms</title>
-                   <fmt-title id="_" depth="2">
+                   <fmt-title depth="2" id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="H">3</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -338,21 +338,23 @@ RSpec.describe IsoDoc::Ribose do
                          <span class="fmt-autonum-delim">.</span>
                          <semx element="autonum" source="J">1</semx>
                       </fmt-xref-label>
-                                     <preferred id="_">
-                  <expression>
-                     <name>Term2</name>
-                  </expression>
-               </preferred>
-               <fmt-preferred>
-                  <p>
-                     <semx element="preferred" source="_">Term2</semx>
-                  </p>
-               </fmt-preferred>
+                      <preferred id="_">
+                         <expression>
+                            <name id="_">Term2</name>
+                         </expression>
+                      </preferred>
+                      <fmt-preferred>
+                         <p>
+                            <semx element="preferred" source="_">
+                               <semx element="expression/name" source="_">Term2</semx>
+                            </semx>
+                         </p>
+                      </fmt-preferred>
                    </term>
                 </terms>
                 <definitions id="K">
                    <title id="_">Symbols</title>
-                   <fmt-title id="_" depth="2">
+                   <fmt-title depth="2" id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="H">3</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -377,7 +379,7 @@ RSpec.describe IsoDoc::Ribose do
              </clause>
              <definitions id="L" displayorder="8">
                 <title id="_">Symbols</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="L">4</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -398,7 +400,7 @@ RSpec.describe IsoDoc::Ribose do
              </definitions>
              <clause id="M" inline-header="false" obligation="normative" displayorder="9">
                 <title id="_">Clause 4</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="M">5</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -414,7 +416,7 @@ RSpec.describe IsoDoc::Ribose do
                 </fmt-xref-label>
                 <clause id="N" inline-header="false" obligation="normative">
                    <title id="_">Introduction</title>
-                   <fmt-title id="_" depth="2">
+                   <fmt-title depth="2" id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="M">5</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -434,7 +436,7 @@ RSpec.describe IsoDoc::Ribose do
                 </clause>
                 <clause id="O" inline-header="false" obligation="normative">
                    <title id="_">Clause 4.2</title>
-                   <fmt-title id="_" depth="2">
+                   <fmt-title depth="2" id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="M">5</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -455,7 +457,7 @@ RSpec.describe IsoDoc::Ribose do
              </clause>
              <references id="R" normative="true" obligation="informative" displayorder="6">
                 <title id="_">Normative References</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="R">2</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -498,7 +500,7 @@ RSpec.describe IsoDoc::Ribose do
              </fmt-xref-label>
              <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                 <title id="_">Annex A.1</title>
-                <fmt-title id="_" depth="2">
+                <fmt-title depth="2" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="P">A</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -518,7 +520,7 @@ RSpec.describe IsoDoc::Ribose do
                 </fmt-xref-label>
                 <clause id="Q1" inline-header="false" obligation="normative" autonum="A.1.1">
                    <title id="_">Annex A.1a</title>
-                   <fmt-title id="_" depth="3">
+                   <fmt-title depth="3" id="_">
                       <span class="fmt-caption-label">
                          <semx element="autonum" source="P">A</semx>
                          <span class="fmt-autonum-delim">.</span>
@@ -546,12 +548,12 @@ RSpec.describe IsoDoc::Ribose do
           <bibliography>
              <clause id="S" obligation="informative" displayorder="11">
                 <title id="_">Bibliography</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <semx element="title" source="_">Bibliography</semx>
                 </fmt-title>
                 <references id="T" normative="false" obligation="informative">
                    <title id="_">Bibliography Subsection</title>
-                   <fmt-title id="_" depth="2">
+                   <fmt-title depth="2" id="_">
                       <semx element="title" source="_">Bibliography Subsection</semx>
                    </fmt-title>
                 </references>
@@ -594,7 +596,7 @@ RSpec.describe IsoDoc::Ribose do
             <div id="I">
               <h2>3.1.  Normal Terms</h2>
               <p class="TermNum" id="J">3.1.1.</p>
-              <p class="Terms" style="text-align:left;">Term2</p>
+              <p class="Terms" style="text-align:left;"><dfn>Term2</dfn></p>
             </div>
             <div id="K">
             <h2>3.2.  Symbols</h2>
@@ -1026,16 +1028,16 @@ RSpec.describe IsoDoc::Ribose do
     INPUT
 
     presxml = <<~INPUT
-     <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
           <preface>
              <clause type="toc" id="_" displayorder="1">
-                <fmt-title id="_" depth="1">Contents</fmt-title>
+                <fmt-title depth="1" id="_">Contents</fmt-title>
              </clause>
           </preface>
           <sections>
              <terms id="H" obligation="normative" displayorder="2">
                 <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
-                <fmt-title id="_" depth="1">
+                <fmt-title depth="1" id="_">
                    <span class="fmt-caption-label">
                       <semx element="autonum" source="H">1</semx>
                       <span class="fmt-autonum-delim">.</span>
@@ -1065,50 +1067,60 @@ RSpec.describe IsoDoc::Ribose do
                    </fmt-xref-label>
                    <preferred id="_">
                       <expression>
-                         <name>Term2</name>
+                         <name id="_">Term2</name>
                       </expression>
                    </preferred>
                    <fmt-preferred>
                       <p>
-                         <semx element="preferred" source="_">Term2</semx>
+                         <semx element="preferred" source="_">
+                            <semx element="expression/name" source="_">Term2</semx>
+                         </semx>
                       </p>
                    </fmt-preferred>
                    <admitted id="_">
                       <expression>
-                         <name>Term2A</name>
+                         <name id="_">Term2A</name>
                       </expression>
                    </admitted>
                    <admitted id="_">
                       <expression>
-                         <name>Term2B</name>
+                         <name id="_">Term2B</name>
                       </expression>
                    </admitted>
                    <fmt-admitted>
                       <p>
-                         <semx element="admitted" source="_">Term2A</semx>
+                         <semx element="admitted" source="_">
+                            <semx element="expression/name" source="_">Term2A</semx>
+                         </semx>
                       </p>
                       <p>
-                         <semx element="admitted" source="_">Term2B</semx>
+                         <semx element="admitted" source="_">
+                            <semx element="expression/name" source="_">Term2B</semx>
+                         </semx>
                       </p>
                    </fmt-admitted>
                    <deprecates id="_">
                       <expression>
-                         <name>Term2C</name>
+                         <name id="_">Term2C</name>
                       </expression>
                    </deprecates>
                    <deprecates id="_">
                       <expression>
-                         <name>Term2D</name>
+                         <name id="_">Term2D</name>
                       </expression>
                    </deprecates>
                    <fmt-deprecates>
                       <p>
                          DEPRECATED:
-                         <semx element="deprecates" source="_">Term2C</semx>
+                         <semx element="deprecates" source="_">
+                            <semx element="expression/name" source="_">Term2C</semx>
+                         </semx>
                       </p>
                       <p>
                          DEPRECATED:
-                         <semx element="deprecates" source="_">Term2D</semx>
+                         <semx element="deprecates" source="_">
+                            <semx element="expression/name" source="_">Term2D</semx>
+                         </semx>
                       </p>
                    </fmt-deprecates>
                    <source status="modified" id="_">
@@ -1149,18 +1161,35 @@ RSpec.describe IsoDoc::Ribose do
     INPUT
 
     output = Canon.format_xml(strip_guid(<<~OUTPUT))
-      <div id='H'>
-        <h1 id='_'><a class="anchor" href="#H"/><a class="header" href="#H">1.&#xA0; Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
-        <p class='Terms' style='text-align:left;' id='J'><strong>1.1.</strong>&#xa0;Term2</p>
-        <p class='AltTerms' style='text-align:left;'>Term2A</p>
-        <p class='AltTerms' style='text-align:left;'>Term2B</p>
-        <p class='DeprecatedTerms' style='text-align:left;'>DEPRECATED: Term2C</p>
-        <p class='DeprecatedTerms' style='text-align:left;'>DEPRECATED: Term2D</p>
-         <p><b>SOURCE</b>:
-        ISO&#xa0;7301:2011, Clause 3.1, modified &#x2014; The term "cargo rice" is shown as deprecated, and Note 1
-        to entry is not included here
-       </p>
-      </div>
+       <div id="H">
+          <h1 id="_">
+             <a class="anchor" href="#H"/>
+             <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
+          </h1>
+          <p class="Terms" style="text-align:left;" id="J">
+             <strong>1.1.</strong>
+              
+             <dfn>Term2</dfn>
+          </p>
+          <p class="AltTerms" style="text-align:left;">
+             <dfn>Term2A</dfn>
+          </p>
+          <p class="AltTerms" style="text-align:left;">
+             <dfn>Term2B</dfn>
+          </p>
+          <p class="DeprecatedTerms" style="text-align:left;">
+             DEPRECATED:
+             <dfn>Term2C</dfn>
+          </p>
+          <p class="DeprecatedTerms" style="text-align:left;">
+             DEPRECATED:
+             <dfn>Term2D</dfn>
+          </p>
+          <p>
+             <b>SOURCE</b>
+             : ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
+          </p>
+       </div>
     OUTPUT
 
     pres_output = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
