@@ -19,12 +19,12 @@
 
 	<xsl:variable name="contents_">
 		<mnx:contents>
-
+			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[@type = 'toc']" mode="contents"/>
 			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:abstract" mode="contents"/>
 			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:foreword" mode="contents"/>
 			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:executivesummary" mode="contents"/>
 			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:introduction" mode="contents"/>
-			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause" mode="contents"/>
+			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[not(@type = 'toc')]" mode="contents"/>
 			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:acknowledgements" mode="contents"/>
 
 			<xsl:call-template name="processMainSectionsDefault_Contents"/>
@@ -509,9 +509,9 @@
 					</xsl:call-template>
 					<xsl:apply-templates select="." mode="contents"/>
 					<xsl:text>  </xsl:text>
-					<fo:inline>
+					<fo:inline role="SKIP">
 						<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
-						<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:wrapper role="artifact"><fo:page-number-citation ref-id="{@id}"/></fo:wrapper></fo:inline>
+						<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}" role="SKIP"/></fo:inline> <!-- <fo:wrapper role="artifact"> </fo:wrapper> -->
 					</fo:inline>
 				</fo:basic-link>
 			</fo:block>
@@ -522,6 +522,7 @@
 
 	<xsl:template match="mn:preface/mn:clause[@type = 'toc']" name="toc" priority="3">
 		<fo:block role="SKIP">
+			<xsl:copy-of select="@id"/>
 			<xsl:apply-templates/>
 
 			<xsl:if test="count(*) = 1 and mn:fmt-title"> <!-- if there isn't user ToC -->
@@ -530,38 +531,42 @@
 
 					<fo:block-container xsl:use-attribute-sets="toc-style">
 						<fo:block-container xsl:use-attribute-sets="reset-margins-style">
-							<xsl:for-each select="$contents//mnx:item[@display = 'true']">
-								<fo:block xsl:use-attribute-sets="toc-item-style">
+							<fo:block role="TOC">
+								<xsl:for-each select="$contents//mnx:item[@display = 'true']">
+									<fo:block xsl:use-attribute-sets="toc-item-style">
 
-									<xsl:call-template name="refine_toc-item-style"/>
+										<xsl:call-template name="refine_toc-item-style"/>
 
-									<fo:block text-align-last="justify" role="SKIP">
-										<fo:inline role="Lbl"><xsl:value-of select="@section"/></fo:inline>
-										<fo:wrapper role="Reference">
-											<fo:basic-link internal-destination="{@id}" fox:alt-text="{mnx:title}">
-												<xsl:if test="@section != ''">
-													<xsl:text> </xsl:text>
-												</xsl:if>
-												<xsl:apply-templates select="mnx:title"/>
-												<xsl:text>  </xsl:text>
-												<fo:inline role="SKIP">
-													<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
-													<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:wrapper role="artifact"><fo:page-number-citation ref-id="{@id}"/></fo:wrapper></fo:inline>
-												</fo:inline>
-											</fo:basic-link>
-										</fo:wrapper>
+										<fo:block text-align-last="justify" role="SKIP">
+											<fo:inline role="Lbl"><xsl:value-of select="@section"/></fo:inline>
+											<fo:wrapper role="Reference">
+												<fo:basic-link internal-destination="{@id}" fox:alt-text="{mnx:title}">
+													<xsl:if test="@section != ''">
+														<xsl:text> </xsl:text>
+													</xsl:if>
+													<xsl:apply-templates select="mnx:title"/>
+													<xsl:text>  </xsl:text>
+													<fo:inline role="SKIP">
+														<fo:leader xsl:use-attribute-sets="toc-leader-style"><xsl:call-template name="refine_toc-leader-style"/></fo:leader>
+														<fo:inline xsl:use-attribute-sets="toc-pagenumber-style"><fo:page-number-citation ref-id="{@id}" role="SKIP"/></fo:inline> <!-- <fo:wrapper role="artifact"> </fo:wrapper> -->
+													</fo:inline>
+												</fo:basic-link>
+											</fo:wrapper>
+										</fo:block>
 									</fo:block>
-								</fo:block>
-							</xsl:for-each>
+								</xsl:for-each>
+							</fo:block>
 
 							<!-- List of Tables -->
 							<xsl:if test="$contents//mnx:tables/mnx:table">
 								<xsl:call-template name="insertListOf_Title">
 									<xsl:with-param name="title" select="$title-list-tables"/>
 								</xsl:call-template>
-								<xsl:for-each select="$contents//mnx:tables/mnx:table">
-									<xsl:call-template name="insertListOf_Item"/>
-								</xsl:for-each>
+								<fo:block role="TOC">
+									<xsl:for-each select="$contents//mnx:tables/mnx:table">
+										<xsl:call-template name="insertListOf_Item"/>
+									</xsl:for-each>
+								</fo:block>
 							</xsl:if>
 
 							<!-- List of Figures -->
@@ -569,9 +574,11 @@
 								<xsl:call-template name="insertListOf_Title">
 									<xsl:with-param name="title" select="$title-list-figures"/>
 								</xsl:call-template>
-								<xsl:for-each select="$contents//mnx:figures/mnx:figure">
-									<xsl:call-template name="insertListOf_Item"/>
-								</xsl:for-each>
+								<fo:block role="TOC">
+									<xsl:for-each select="$contents//mnx:figures/mnx:figure">
+										<xsl:call-template name="insertListOf_Item"/>
+									</xsl:for-each>
+								</fo:block>
 							</xsl:if>
 
 						</fo:block-container>
@@ -580,7 +587,7 @@
 					<fo:block break-after="page"/>
 				</xsl:if>
 			</xsl:if>
-			<fo:block margin-bottom="12pt"> </fo:block>
+			<fo:block margin-bottom="12pt" role="SKIP"><fo:wrapper role="artifact"> </fo:wrapper></fo:block>
 		</fo:block>
 	</xsl:template>
 
@@ -12528,10 +12535,11 @@
 	<xsl:attribute-set name="toc-style">
 		<xsl:attribute name="margin-left">10mm</xsl:attribute> <!-- 32mm -->
 		<xsl:attribute name="margin-right">-17mm</xsl:attribute>
-		<xsl:attribute name="role">TOC</xsl:attribute>
+		<xsl:attribute name="role">SKIP</xsl:attribute> <!-- TOC -->
 	</xsl:attribute-set>
 
 	<xsl:template name="refine_toc-style">
+		<xsl:copy-of select="@id"/>
 	</xsl:template>
 
 	<xsl:attribute-set name="toc-title-style">
@@ -12599,7 +12607,7 @@
 	<!-- List of Figures, Tables -->
 	<xsl:attribute-set name="toc-listof-title-style">
 		<!-- <xsl:attribute name="font-size">13pt</xsl:attribute> -->
-		<xsl:attribute name="role">TOCI</xsl:attribute>
+		<xsl:attribute name="role">H2</xsl:attribute> <!-- TOCI -->
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="margin-top">12pt</xsl:attribute>
@@ -12628,13 +12636,13 @@
 
 	<xsl:template name="processPrefaceSectionsDefault_Contents">
 		<xsl:variable name="nodes_preface_">
-			<xsl:for-each select="/*/mn:preface/*[not(self::mn:note or self::mn:admonition or @type = 'toc')]">
+			<xsl:for-each select="/*/mn:preface/*[not(self::mn:note or self::mn:admonition)]"> <!--  or @type = 'toc' -->
 				<node id="{@id}"/>
 			</xsl:for-each>
 		</xsl:variable>
 		<xsl:variable name="nodes_preface" select="xalan:nodeset($nodes_preface_)"/>
 
-		<xsl:for-each select="/*/mn:preface/*[not(self::mn:note or self::mn:admonition or @type = 'toc')]">
+		<xsl:for-each select="/*/mn:preface/*[not(self::mn:note or self::mn:admonition)]"> <!--  or @type = 'toc' -->
 			<xsl:sort select="@displayorder" data-type="number"/>
 
 			<!-- process Section's title -->
@@ -12645,6 +12653,23 @@
 
 			<xsl:apply-templates select="." mode="contents"/>
 		</xsl:for-each>
+	</xsl:template>
+
+	<xsl:template match="*[@type = 'toc'][mn:title or mn:fmt-title]" mode="contents" priority="2">
+		<xsl:variable name="title">
+			<xsl:call-template name="getName"/>
+		</xsl:variable>
+		<xsl:variable name="root">
+			<xsl:if test="ancestor-or-self::mn:preface">preface</xsl:if>
+			<xsl:if test="ancestor-or-self::mn:annex">annex</xsl:if>
+		</xsl:variable>
+		<mnx:item id="{@id}" level="1" section="" type="toc" root="{$root}" display="false">
+			<mnx:title>
+				<xsl:apply-templates select="xalan:nodeset($title)" mode="contents_item">
+					<xsl:with-param name="element" select="$root"/>
+				</xsl:apply-templates>
+			</mnx:title>
+		</mnx:item>
 	</xsl:template>
 
 	<xsl:template name="processMainSectionsDefault_Contents">
