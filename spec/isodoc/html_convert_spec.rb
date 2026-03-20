@@ -140,7 +140,7 @@ RSpec.describe IsoDoc::Ribose do
 
     docxml, = csdc.convert_init(input, "test", true)
     expect(htmlencode(metadata(csdc.info(docxml, nil)).to_s)
-      .gsub(/, :/, ",\n:")).to be_equivalent_to output
+      .gsub(", :", ",\n:")).to be_equivalent_to output
   end
 
   it "processes section names" do
@@ -474,9 +474,7 @@ RSpec.describe IsoDoc::Ribose do
              </references>
           </sections>
           <annex id="P" inline-header="false" obligation="normative" autonum="A" displayorder="10">
-             <title id="_">
-                <strong>Annex</strong>
-             </title>
+             <title id="_">Annex</title>
              <fmt-title id="_">
                 <strong>
                    <span class="fmt-caption-label">
@@ -498,6 +496,16 @@ RSpec.describe IsoDoc::Ribose do
                 <span class="fmt-element-name">Annex</span>
                 <semx element="autonum" source="P">A</semx>
              </fmt-xref-label>
+             <variant-title type="toc">
+                <span class="fmt-caption-label">
+                   <span class="fmt-element-name">Annex</span>
+                   <semx element="autonum" source="P">A</semx>
+                </span>
+                <span class="fmt-caption-delim">
+                   <tab/>
+                </span>
+                <semx element="title" source="_">Annex</semx>
+             </variant-title>
              <clause id="Q" inline-header="false" obligation="normative" autonum="A.1">
                 <title id="_">Annex A.1</title>
                 <fmt-title depth="2" id="_">
@@ -633,6 +641,7 @@ RSpec.describe IsoDoc::Ribose do
           <br/>
           <div id="P" class="Section3">
             <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
+            <p style="display:none;" class="variant-title-toc">Annex A  Annex</p>
             <div id="Q">
               <h2>A.1.  Annex A.1</h2>
               <div id="Q1">
@@ -1028,168 +1037,168 @@ RSpec.describe IsoDoc::Ribose do
     INPUT
 
     presxml = <<~INPUT
-       <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
-          <preface>
-             <clause type="toc" id="_" displayorder="1">
-                <fmt-title depth="1" id="_">Contents</fmt-title>
-             </clause>
-          </preface>
-          <sections>
-             <terms id="H" obligation="normative" displayorder="2">
-                <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
-                <fmt-title depth="1" id="_">
-                   <span class="fmt-caption-label">
-                      <semx element="autonum" source="H">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                   </span>
-                   <span class="fmt-caption-delim">
-                      <tab/>
-                   </span>
-                   <semx element="title" source="_">Terms, Definitions, Symbols and Abbreviated Terms</semx>
-                </fmt-title>
-                <fmt-xref-label>
-                   <span class="fmt-element-name">Clause</span>
-                   <semx element="autonum" source="H">1</semx>
-                </fmt-xref-label>
-                <term id="J">
-                   <fmt-name id="_">
-                      <span class="fmt-caption-label">
-                         <semx element="autonum" source="H">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
-                         <semx element="autonum" source="J">1</semx>
-                         <span class="fmt-autonum-delim">.</span>
-                      </span>
-                   </fmt-name>
-                   <fmt-xref-label>
-                      <semx element="autonum" source="H">1</semx>
-                      <span class="fmt-autonum-delim">.</span>
-                      <semx element="autonum" source="J">1</semx>
-                   </fmt-xref-label>
-                   <preferred id="_">
-                      <expression>
-                         <name id="_">Term2</name>
-                      </expression>
-                   </preferred>
-                   <fmt-preferred>
-                      <p>
-                         <semx element="preferred" source="_">
-                            <semx element="expression/name" source="_">Term2</semx>
-                         </semx>
-                      </p>
-                   </fmt-preferred>
-                   <admitted id="_">
-                      <expression>
-                         <name id="_">Term2A</name>
-                      </expression>
-                   </admitted>
-                   <admitted id="_">
-                      <expression>
-                         <name id="_">Term2B</name>
-                      </expression>
-                   </admitted>
-                   <fmt-admitted>
-                      <p>
-                         <semx element="admitted" source="_">
-                            <semx element="expression/name" source="_">Term2A</semx>
-                         </semx>
-                      </p>
-                      <p>
-                         <semx element="admitted" source="_">
-                            <semx element="expression/name" source="_">Term2B</semx>
-                         </semx>
-                      </p>
-                   </fmt-admitted>
-                   <deprecates id="_">
-                      <expression>
-                         <name id="_">Term2C</name>
-                      </expression>
-                   </deprecates>
-                   <deprecates id="_">
-                      <expression>
-                         <name id="_">Term2D</name>
-                      </expression>
-                   </deprecates>
-                   <fmt-deprecates>
-                      <p>
-                         DEPRECATED:
-                         <semx element="deprecates" source="_">
-                            <semx element="expression/name" source="_">Term2C</semx>
-                         </semx>
-                      </p>
-                      <p>
-                         DEPRECATED:
-                         <semx element="deprecates" source="_">
-                            <semx element="expression/name" source="_">Term2D</semx>
-                         </semx>
-                      </p>
-                   </fmt-deprecates>
-                   <source status="modified" id="_">
-                      <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
-                         <locality type="clause">
-                            <referenceFrom>3.1</referenceFrom>
-                         </locality>
-                      </origin>
-                      <modification id="_">
-                         <p id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
-                      </modification>
-                   </source>
-                   <fmt-termsource status="modified">
-                      <strong>SOURCE</strong>
-                      :
-                      <semx element="source" source="_">
-                         <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011" id="_">
-                            <locality type="clause">
-                               <referenceFrom>3.1</referenceFrom>
-                            </locality>
-                         </origin>
-                         <semx element="origin" source="_">
-                            <fmt-origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
-                               <locality type="clause">
-                                  <referenceFrom>3.1</referenceFrom>
-                               </locality>
-                               ISO 7301:2011, Clause 3.1
-                            </fmt-origin>
-                         </semx>
-                         , modified —
-                         <semx element="modification" source="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</semx>
-                      </semx>
-                   </fmt-termsource>
-                </term>
-             </terms>
-          </sections>
-       </ogc-standard>
+      <ogc-standard xmlns="https://standards.opengeospatial.org/document" type="presentation">
+         <preface>
+            <clause type="toc" id="_" displayorder="1">
+               <fmt-title depth="1" id="_">Contents</fmt-title>
+            </clause>
+         </preface>
+         <sections>
+            <terms id="H" obligation="normative" displayorder="2">
+               <title id="_">Terms, Definitions, Symbols and Abbreviated Terms</title>
+               <fmt-title depth="1" id="_">
+                  <span class="fmt-caption-label">
+                     <semx element="autonum" source="H">1</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                  </span>
+                  <span class="fmt-caption-delim">
+                     <tab/>
+                  </span>
+                  <semx element="title" source="_">Terms, Definitions, Symbols and Abbreviated Terms</semx>
+               </fmt-title>
+               <fmt-xref-label>
+                  <span class="fmt-element-name">Clause</span>
+                  <semx element="autonum" source="H">1</semx>
+               </fmt-xref-label>
+               <term id="J">
+                  <fmt-name id="_">
+                     <span class="fmt-caption-label">
+                        <semx element="autonum" source="H">1</semx>
+                        <span class="fmt-autonum-delim">.</span>
+                        <semx element="autonum" source="J">1</semx>
+                        <span class="fmt-autonum-delim">.</span>
+                     </span>
+                  </fmt-name>
+                  <fmt-xref-label>
+                     <semx element="autonum" source="H">1</semx>
+                     <span class="fmt-autonum-delim">.</span>
+                     <semx element="autonum" source="J">1</semx>
+                  </fmt-xref-label>
+                  <preferred id="_">
+                     <expression>
+                        <name id="_">Term2</name>
+                     </expression>
+                  </preferred>
+                  <fmt-preferred>
+                     <p>
+                        <semx element="preferred" source="_">
+                           <semx element="expression/name" source="_">Term2</semx>
+                        </semx>
+                     </p>
+                  </fmt-preferred>
+                  <admitted id="_">
+                     <expression>
+                        <name id="_">Term2A</name>
+                     </expression>
+                  </admitted>
+                  <admitted id="_">
+                     <expression>
+                        <name id="_">Term2B</name>
+                     </expression>
+                  </admitted>
+                  <fmt-admitted>
+                     <p>
+                        <semx element="admitted" source="_">
+                           <semx element="expression/name" source="_">Term2A</semx>
+                        </semx>
+                     </p>
+                     <p>
+                        <semx element="admitted" source="_">
+                           <semx element="expression/name" source="_">Term2B</semx>
+                        </semx>
+                     </p>
+                  </fmt-admitted>
+                  <deprecates id="_">
+                     <expression>
+                        <name id="_">Term2C</name>
+                     </expression>
+                  </deprecates>
+                  <deprecates id="_">
+                     <expression>
+                        <name id="_">Term2D</name>
+                     </expression>
+                  </deprecates>
+                  <fmt-deprecates>
+                     <p>
+                        DEPRECATED:
+                        <semx element="deprecates" source="_">
+                           <semx element="expression/name" source="_">Term2C</semx>
+                        </semx>
+                     </p>
+                     <p>
+                        DEPRECATED:
+                        <semx element="deprecates" source="_">
+                           <semx element="expression/name" source="_">Term2D</semx>
+                        </semx>
+                     </p>
+                  </fmt-deprecates>
+                  <source status="modified" id="_">
+                     <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
+                        <locality type="clause">
+                           <referenceFrom>3.1</referenceFrom>
+                        </locality>
+                     </origin>
+                     <modification id="_">
+                        <p id="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
+                     </modification>
+                  </source>
+                  <fmt-termsource status="modified">
+                     <strong>SOURCE</strong>
+                     :
+                     <semx element="source" source="_">
+                        <origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011" id="_">
+                           <locality type="clause">
+                              <referenceFrom>3.1</referenceFrom>
+                           </locality>
+                        </origin>
+                        <semx element="origin" source="_">
+                           <fmt-origin bibitemid="ISO7301" type="inline" citeas="ISO 7301:2011">
+                              <locality type="clause">
+                                 <referenceFrom>3.1</referenceFrom>
+                              </locality>
+                              ISO 7301:2011, Clause 3.1
+                           </fmt-origin>
+                        </semx>
+                        , modified —
+                        <semx element="modification" source="_">The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</semx>
+                     </semx>
+                  </fmt-termsource>
+               </term>
+            </terms>
+         </sections>
+      </ogc-standard>
     INPUT
 
     output = Canon.format_xml(strip_guid(<<~OUTPUT))
-       <div id="H">
-          <h1 id="_">
-             <a class="anchor" href="#H"/>
-             <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
-          </h1>
-          <p class="Terms" style="text-align:left;" id="J">
-             <strong>1.1.</strong>
-              
-             <dfn>Term2</dfn>
-          </p>
-          <p class="AltTerms" style="text-align:left;">
-             <dfn>Term2A</dfn>
-          </p>
-          <p class="AltTerms" style="text-align:left;">
-             <dfn>Term2B</dfn>
-          </p>
-          <p class="DeprecatedTerms" style="text-align:left;">
-             DEPRECATED:
-             <dfn>Term2C</dfn>
-          </p>
-          <p class="DeprecatedTerms" style="text-align:left;">
-             DEPRECATED:
-             <dfn>Term2D</dfn>
-          </p>
-          <p>
-             <b>SOURCE</b>
-             : ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
-          </p>
-       </div>
+      <div id="H">
+         <h1 id="_">
+            <a class="anchor" href="#H"/>
+            <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
+         </h1>
+         <p class="Terms" style="text-align:left;" id="J">
+            <strong>1.1.</strong>
+      #{'       '}
+            <dfn>Term2</dfn>
+         </p>
+         <p class="AltTerms" style="text-align:left;">
+            <dfn>Term2A</dfn>
+         </p>
+         <p class="AltTerms" style="text-align:left;">
+            <dfn>Term2B</dfn>
+         </p>
+         <p class="DeprecatedTerms" style="text-align:left;">
+            DEPRECATED:
+            <dfn>Term2C</dfn>
+         </p>
+         <p class="DeprecatedTerms" style="text-align:left;">
+            DEPRECATED:
+            <dfn>Term2D</dfn>
+         </p>
+         <p>
+            <b>SOURCE</b>
+            : ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
+         </p>
+      </div>
     OUTPUT
 
     pres_output = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
@@ -1240,59 +1249,59 @@ RSpec.describe IsoDoc::Ribose do
       </iso-standard>
     INPUT
     presxml = <<~INPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-             <foreword displayorder="1" id="fwd">
-                <title id="_">Foreword</title>
-                <fmt-title id="_" depth="1">Foreword</fmt-title>
-                <ul id="_" keep-with-next="true" keep-lines-together="true">
-                   <name id="_">Caption</name>
-                   <fmt-name id="_">
-                      <semx element="name" source="_">Caption</semx>
-                   </fmt-name>
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">o</semx>
-                      </fmt-name>
-                      <p id="_">Level 1</p>
-                   </li>
-                   <li id="_">
-                      <fmt-name id="_">
-                         <semx element="autonum" source="_">o</semx>
-                      </fmt-name>
-                      <p id="_">deletion of 4.3.</p>
-                      <ul id="_" keep-with-next="true" keep-lines-together="true">
-                         <li id="_">
-                            <fmt-name id="_">
-                               <semx element="autonum" source="_">—</semx>
-                            </fmt-name>
-                            <p id="_">Level 2</p>
-                            <ul id="_" keep-with-next="true" keep-lines-together="true">
-                               <li id="_">
-                                  <fmt-name id="_">
-                                     <semx element="autonum" source="_">•</semx>
-                                  </fmt-name>
-                                  <p id="_">Level 3</p>
-                                  <ul id="_" keep-with-next="true" keep-lines-together="true">
-                                     <li id="_">
-                                        <fmt-name id="_">
-                                           <semx element="autonum" source="_">o</semx>
-                                        </fmt-name>
-                                        <p id="_">Level 4</p>
-                                     </li>
-                                  </ul>
-                               </li>
-                            </ul>
-                         </li>
-                      </ul>
-                   </li>
-                </ul>
-             </foreword>
-             <clause type="toc" id="_" displayorder="2">
-                <fmt-title id="_" depth="1">Table of contents</fmt-title>
-             </clause>
-          </preface>
-       </iso-standard>
+       <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+         <preface>
+            <foreword displayorder="1" id="fwd">
+               <title id="_">Foreword</title>
+               <fmt-title id="_" depth="1">Foreword</fmt-title>
+               <ul id="_" keep-with-next="true" keep-lines-together="true">
+                  <name id="_">Caption</name>
+                  <fmt-name id="_">
+                     <semx element="name" source="_">Caption</semx>
+                  </fmt-name>
+                  <li id="_">
+                     <fmt-name id="_">
+                        <semx element="autonum" source="_">o</semx>
+                     </fmt-name>
+                     <p id="_">Level 1</p>
+                  </li>
+                  <li id="_">
+                     <fmt-name id="_">
+                        <semx element="autonum" source="_">o</semx>
+                     </fmt-name>
+                     <p id="_">deletion of 4.3.</p>
+                     <ul id="_" keep-with-next="true" keep-lines-together="true">
+                        <li id="_">
+                           <fmt-name id="_">
+                              <semx element="autonum" source="_">—</semx>
+                           </fmt-name>
+                           <p id="_">Level 2</p>
+                           <ul id="_" keep-with-next="true" keep-lines-together="true">
+                              <li id="_">
+                                 <fmt-name id="_">
+                                    <semx element="autonum" source="_">•</semx>
+                                 </fmt-name>
+                                 <p id="_">Level 3</p>
+                                 <ul id="_" keep-with-next="true" keep-lines-together="true">
+                                    <li id="_">
+                                       <fmt-name id="_">
+                                          <semx element="autonum" source="_">o</semx>
+                                       </fmt-name>
+                                       <p id="_">Level 4</p>
+                                    </li>
+                                 </ul>
+                              </li>
+                           </ul>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+            </foreword>
+            <clause type="toc" id="_" displayorder="2">
+               <fmt-title id="_" depth="1">Table of contents</fmt-title>
+            </clause>
+         </preface>
+      </iso-standard>
     INPUT
     pres_output = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
       .convert("test", input, true)
