@@ -2096,6 +2096,15 @@
 		</xsl:choose>
 	</xsl:template>
 
+	<!-- https://github.com/metanorma/metanorma-iso/issues/1535 -->
+	<xsl:template match="mn:ol[mn:fmt-ol]" mode="update_xml_step1">
+		<xsl:apply-templates select="mn:fmt-ol" mode="update_xml_step1"/>
+	</xsl:template>
+
+	<xsl:template match="mn:ul[mn:fmt-ul]" mode="update_xml_step1">
+		<xsl:apply-templates select="mn:fmt-ul" mode="update_xml_step1"/>
+	</xsl:template>
+
 	<!-- li/fmt-name -->
 	<xsl:template match="mn:li/mn:fmt-name" priority="2" mode="update_xml_step1">
 		<xsl:attribute name="label"><xsl:value-of select="."/></xsl:attribute>
@@ -5447,6 +5456,8 @@
 		<xsl:param name="margin-side"/>
 
 		<xsl:call-template name="setBordersTableArray"/>
+
+		<xsl:call-template name="setNoBordersForTableList"/>
 	</xsl:template> <!-- refine_table-style -->
 
 	<xsl:attribute-set name="table-number-style">
@@ -5492,12 +5503,16 @@
 	<xsl:template name="refine_table-header-row-style">
 
 		<xsl:call-template name="setBordersTableArray"/>
+
+		<xsl:call-template name="setNoBordersForTableList"/>
 	</xsl:template> <!-- refine_table-header-row-style -->
 
 	<xsl:attribute-set name="table-footer-row-style" use-attribute-sets="table-row-style">
 	</xsl:attribute-set>
 
 	<xsl:template name="refine_table-footer-row-style">
+
+		<xsl:call-template name="setNoBordersForTableList"/>
 	</xsl:template> <!-- refine_table-footer-row-style -->
 
 	<xsl:attribute-set name="table-body-row-style" use-attribute-sets="table-row-style">
@@ -5511,6 +5526,8 @@
 		<xsl:if test="$number mod 2 = 0">
 			<xsl:attribute name="background-color">rgb(254, 247, 228)</xsl:attribute>
 		</xsl:if>
+
+		<xsl:call-template name="setNoBordersForTableList"/>
 	</xsl:template> <!-- refine_table-body-row-style -->
 
 	<xsl:attribute-set name="table-header-cell-style">
@@ -5531,6 +5548,16 @@
 		</xsl:if>
 
 		<xsl:call-template name="setTableCellAttributes"/>
+
+		<xsl:if test="ancestor::mn:fmt-ol or ancestor::mn:fmt-ul">
+			<xsl:attribute name="display-align">before</xsl:attribute>
+			<xsl:attribute name="text-align">left</xsl:attribute>
+			<xsl:if test="following-sibling::*">
+				<xsl:attribute name="padding-right">4mm</xsl:attribute>
+			</xsl:if>
+			<xsl:call-template name="setNoBordersForTableList"/>
+		</xsl:if>
+
 	</xsl:template> <!-- refine_table-header-cell-style -->
 
 	<xsl:attribute-set name="table-cell-style">
@@ -5549,6 +5576,15 @@
 
 		<xsl:call-template name="setBordersTableArray"/>
 
+		<xsl:if test="ancestor::mn:fmt-ol or ancestor::mn:fmt-ul">
+			<xsl:attribute name="display-align">before</xsl:attribute>
+			<xsl:attribute name="text-align">left</xsl:attribute>
+			<xsl:if test="following-sibling::*">
+				<xsl:attribute name="padding-right">4mm</xsl:attribute>
+			</xsl:if>
+			<xsl:call-template name="setNoBordersForTableList"/>
+		</xsl:if>
+
 	</xsl:template> <!-- refine_table-cell-style -->
 
 	<xsl:attribute-set name="table-footer-cell-style">
@@ -5560,6 +5596,8 @@
 	</xsl:attribute-set> <!-- table-footer-cell-style -->
 
 	<xsl:template name="refine_table-footer-cell-style">
+
+		<xsl:call-template name="setNoBordersForTableList"/>
 	</xsl:template> <!-- refine_table-footer-cell-style -->
 
 	<xsl:attribute-set name="table-note-style">
@@ -5596,6 +5634,16 @@
 	</xsl:attribute-set>
 
 	<xsl:template name="refine_table-fn-body-style">
+	</xsl:template>
+
+	<xsl:template name="setNoBordersForTableList">
+		<xsl:if test="ancestor::mn:fmt-ol or ancestor::mn:fmt-ul">
+			<xsl:attribute name="border">none</xsl:attribute>
+			<xsl:attribute name="border-top">none</xsl:attribute>
+			<xsl:attribute name="border-bottom">none</xsl:attribute>
+			<xsl:attribute name="border-left">none</xsl:attribute>
+			<xsl:attribute name="border-right">none</xsl:attribute>
+		</xsl:if>
 	</xsl:template>
 
 	<!-- ========================== -->
@@ -11189,6 +11237,10 @@
 				</fo:block>
 			</fo:list-item-body>
 		</fo:list-item>
+	</xsl:template>
+
+	<xsl:template match="mn:fmt-ol | mn:fmt-ul">
+		<xsl:apply-templates/>
 	</xsl:template>
 
 	<!-- ===================================== -->
