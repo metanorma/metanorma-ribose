@@ -8,50 +8,61 @@
 
 	<xsl:variable name="color_blue">rgb(22, 97, 173)</xsl:variable>
 
-	<xsl:variable name="copyright_year" select="/mn:metanorma/mn:bibdata/mn:copyright/mn:from"/>
+	<xsl:variable name="variables_">
+		<xsl:for-each select="//mn:metanorma">
+			<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
 
-	<xsl:variable name="copyright">
-		<xsl:text>© </xsl:text>
-		<xsl:value-of select="$copyright_year"/>
-		<xsl:text> </xsl:text>
-		<xsl:value-of select="/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization/mn:name"/>
+			<xsl:variable name="current_document">
+				<xsl:copy-of select="."/>
+			</xsl:variable>
+
+			<xsl:for-each select="xalan:nodeset($current_document)">
+				<mnx:doc num="{$num}">
+					<xsl:variable name="copyright_year" select="/mn:metanorma/mn:bibdata/mn:copyright/mn:from"/>
+					<xsl:variable name="copyright">
+						<xsl:text>© </xsl:text>
+						<xsl:value-of select="$copyright_year"/>
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="/mn:metanorma/mn:bibdata/mn:copyright/mn:owner/mn:organization/mn:name"/>
+					</xsl:variable>
+					<copyright><xsl:value-of select="$copyright"/></copyright>
+				</mnx:doc>
+			</xsl:for-each>
+		</xsl:for-each>
 	</xsl:variable>
+	<xsl:variable name="variables" select="xalan:nodeset($variables_)"/>
 
 	<xsl:variable name="contents_">
-		<mnx:contents>
-			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[@type = 'toc']" mode="contents"/>
-			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:abstract" mode="contents"/>
-			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:foreword" mode="contents"/>
-			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:executivesummary" mode="contents"/>
-			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:introduction" mode="contents"/>
-			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[not(@type = 'toc')]" mode="contents"/>
-			<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:acknowledgements" mode="contents"/>
+		<xsl:variable name="bundle" select="count(//mn:metanorma) &gt; 1"/>
+		<xsl:for-each select="//mn:metanorma">
+			<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
+			<xsl:variable name="docnumber"><xsl:value-of select="mn:bibdata/mn:docidentifier[@primary = 'true']"/></xsl:variable>
 
-			<xsl:call-template name="processMainSectionsDefault_Contents"/>
+			<xsl:variable name="current_document">
+				<xsl:copy-of select="."/>
+			</xsl:variable>
+			<xsl:for-each select="xalan:nodeset($current_document)">
+				<mnx:doc num="{$num}" firstpage_id="firstpage_id_{$num}" title-part="{$docnumber}" bundle="{$bundle}">
+					<mnx:contents>
+						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[@type = 'toc']" mode="contents"/>
+						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:abstract" mode="contents"/>
+						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:foreword" mode="contents"/>
+						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:executivesummary" mode="contents"/>
+						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:introduction" mode="contents"/>
+						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[not(@type = 'toc')]" mode="contents"/>
+						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:acknowledgements" mode="contents"/>
 
-			<xsl:apply-templates select="//mn:indexsect" mode="contents"/>
+						<xsl:call-template name="processMainSectionsDefault_Contents"/>
 
-			<xsl:call-template name="processTablesFigures_Contents"/>
-		</mnx:contents>
+						<xsl:apply-templates select="//mn:indexsect" mode="contents"/>
+
+						<xsl:call-template name="processTablesFigures_Contents"/>
+					</mnx:contents>
+				</mnx:doc>
+			</xsl:for-each>
+		</xsl:for-each>
 	</xsl:variable>
 	<xsl:variable name="contents" select="xalan:nodeset($contents_)"/>
-
-	<xsl:variable name="docnumber_version">
-		<xsl:value-of select="concat(/mn:metanorma/mn:bibdata/mn:docidentifier[@type = 'rsd' or @type = 'Ribose' or @primary = 'true'], ':', $copyright_year)"/>
-		<xsl:variable name="edition" select="normalize-space(/mn:metanorma/mn:bibdata/mn:edition[normalize-space(@language) = ''])"/>
-		<xsl:if test="$edition != ''">
-			<xsl:variable name="title-version">
-				<xsl:call-template name="capitalize">
-					<xsl:with-param name="str">
-						<xsl:call-template name="getLocalizedString">
-							<xsl:with-param name="key">version</xsl:with-param>
-						</xsl:call-template>
-					</xsl:with-param>
-				</xsl:call-template>
-			</xsl:variable>
-			<xsl:value-of select="concat(', ', $title-version, ' ', $edition)"/>
-		</xsl:if>
-	</xsl:variable>
 
 	<xsl:template name="layout-master-set">
 		<fo:layout-master-set>
@@ -219,10 +230,6 @@
 				<xsl:with-param name="contents" select="$contents"/>
 			</xsl:call-template>
 
-			<xsl:call-template name="cover-page"/>
-
-			<xsl:call-template name="inner-cover-page"/>
-
 			<xsl:variable name="updated_xml">
 				<xsl:call-template name="updateXML"/>
 				<!-- <xsl:copy-of select="."/> -->
@@ -234,77 +241,98 @@
 				</redirect:write>
 			</xsl:if>
 
-			<xsl:for-each select="xalan:nodeset($updated_xml)/*">
+			<!-- <xsl:for-each select="xalan:nodeset($updated_xml)/*"> -->
+			<xsl:for-each select="xalan:nodeset($updated_xml)//mn:metanorma">
+				<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
 
-				<!-- ToC pages -->
-				<xsl:variable name="toc_and_boilerplate">
-					<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[@type = 'toc']"/>
-
-					<!-- <xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:copyright-statement"/>
-					
-					<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:legal-statement"/>
-					
-					<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:feedback-statement"/> -->
-
-					<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/*"/>
+				<xsl:variable name="current_document">
+					<xsl:copy-of select="."/>
 				</xsl:variable>
 
-				<xsl:if test="normalize-space($toc_and_boilerplate) != ''">
-					<fo:page-sequence xsl:use-attribute-sets="page-sequence-main"> <!-- master-reference="toc" -->
-						<xsl:call-template name="insertHeaderFooter">
-							<xsl:with-param name="section">toc</xsl:with-param>
-						</xsl:call-template>
-						<fo:flow flow-name="xsl-region-body">
+				<xsl:for-each select="xalan:nodeset($current_document)">
 
-							<xsl:copy-of select="$toc_and_boilerplate"/>
+					<xsl:call-template name="cover-page">
+						<xsl:with-param name="num" select="$num"/>
+					</xsl:call-template>
 
-						</fo:flow>
-					</fo:page-sequence>
-				</xsl:if>
-				<!-- ============== -->
-				<!-- END ToC  pages -->
-				<!-- ============== -->
+					<xsl:call-template name="inner-cover-page"/>
 
-				<xsl:variable name="updated_xml_with_pages">
-					<xsl:call-template name="processPrefaceAndMainSectionsRibose_items"/>
-				</xsl:variable>
+					<!-- ToC pages -->
+					<xsl:variable name="toc_and_boilerplate">
+						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[@type = 'toc']">
+							<xsl:with-param name="num" select="$num"/>
+						</xsl:apply-templates>
 
-				<xsl:for-each select="xalan:nodeset($updated_xml_with_pages)"> <!-- set context to preface -->
+						<!-- <xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:copyright-statement"/>
+						
+						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:legal-statement"/>
+						
+						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:feedback-statement"/> -->
 
-					<xsl:for-each select=".//mn:page_sequence[normalize-space() != '' or .//mn:image or .//*[local-name() = 'svg']]">
+						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/*"/>
+					</xsl:variable>
 
-						<fo:page-sequence xsl:use-attribute-sets="page-sequence-main">
-							<xsl:call-template name="refine_page-sequence-main"/>
-
-							<xsl:call-template name="insertFootnoteSeparatorCommon"/>
-
+					<xsl:if test="normalize-space($toc_and_boilerplate) != ''">
+						<fo:page-sequence xsl:use-attribute-sets="page-sequence-main"> <!-- master-reference="toc" -->
 							<xsl:call-template name="insertHeaderFooter">
-								<xsl:with-param name="section">main</xsl:with-param>
+								<xsl:with-param name="num" select="$num"/>
+								<xsl:with-param name="section">toc</xsl:with-param>
 							</xsl:call-template>
-							<fo:flow flow-name="xsl-region-body" role="SKIP">
+							<fo:flow flow-name="xsl-region-body">
 
-								<fo:block line-height="130%" role="SKIP">
+								<xsl:copy-of select="$toc_and_boilerplate"/>
 
-									<!-- <xsl:apply-templates select="/mn:metanorma/mn:preface/mn:abstract" />
-									<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:foreword" />
-									<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:executivesummary" />
-									<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:introduction" />
-									<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[not(@type = 'toc')]" />
-									<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:acknowledgements" />
-								
-									<xsl:call-template name="processMainSectionsDefault"/> -->
-
-									<xsl:apply-templates/>
-
-								</fo:block>
 							</fo:flow>
 						</fo:page-sequence>
+					</xsl:if>
+					<!-- ============== -->
+					<!-- END ToC  pages -->
+					<!-- ============== -->
+
+					<xsl:variable name="updated_xml_with_pages">
+						<xsl:call-template name="processPrefaceAndMainSectionsRibose_items"/>
+					</xsl:variable>
+
+					<xsl:for-each select="xalan:nodeset($updated_xml_with_pages)"> <!-- set context to preface -->
+
+						<xsl:for-each select=".//mn:page_sequence[normalize-space() != '' or .//mn:image or .//*[local-name() = 'svg']]">
+
+							<fo:page-sequence xsl:use-attribute-sets="page-sequence-main">
+								<xsl:call-template name="refine_page-sequence-main"/>
+
+								<xsl:call-template name="insertFootnoteSeparatorCommon"/>
+
+								<xsl:call-template name="insertHeaderFooter">
+									<xsl:with-param name="num" select="$num"/>
+									<xsl:with-param name="section">main</xsl:with-param>
+								</xsl:call-template>
+								<fo:flow flow-name="xsl-region-body" role="SKIP">
+
+									<fo:block line-height="130%" role="SKIP">
+
+										<!-- <xsl:apply-templates select="/mn:metanorma/mn:preface/mn:abstract" />
+										<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:foreword" />
+										<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:executivesummary" />
+										<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:introduction" />
+										<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[not(@type = 'toc')]" />
+										<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:acknowledgements" />
+									
+										<xsl:call-template name="processMainSectionsDefault"/> -->
+
+										<xsl:apply-templates/>
+
+									</fo:block>
+								</fo:flow>
+							</fo:page-sequence>
+						</xsl:for-each>
 					</xsl:for-each>
+
+					<!-- Index -->
+					<xsl:call-template name="index-pages">
+						<xsl:with-param name="num" select="$num"/>
+					</xsl:call-template>
+
 				</xsl:for-each>
-
-				<!-- Index -->
-				<xsl:call-template name="index-pages"/>
-
 			</xsl:for-each> <!-- xalan:nodeset($updated_xml)/* -->
 
 			<xsl:call-template name="back-page"/>
@@ -313,15 +341,36 @@
 	</xsl:template>
 
 	<xsl:template name="cover-page">
+		<xsl:param name="num"/>
 		<!-- Cover Page -->
 		<xsl:choose>
 			<xsl:when test="/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:coverpage-image/mn:image and         normalize-space(/mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/mn:full-coverpage-replacement) = 'true'">
 				<xsl:call-template name="insertCoverPageFullImage"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<fo:page-sequence master-reference="cover-page" force-page-count="no-force">
+
+				<xsl:variable name="copyright_year" select="/mn:metanorma/mn:bibdata/mn:copyright/mn:from"/>
+				<xsl:variable name="docnumber_version">
+					<xsl:value-of select="concat(/mn:metanorma/mn:bibdata/mn:docidentifier[@type = 'rsd' or @type = 'Ribose' or @primary = 'true'], ':', $copyright_year)"/>
+					<xsl:variable name="edition" select="normalize-space(/mn:metanorma/mn:bibdata/mn:edition[normalize-space(@language) = ''])"/>
+					<xsl:if test="$edition != ''">
+						<xsl:variable name="title-version">
+							<xsl:call-template name="capitalize">
+								<xsl:with-param name="str">
+									<xsl:call-template name="getLocalizedString">
+										<xsl:with-param name="key">version</xsl:with-param>
+									</xsl:call-template>
+								</xsl:with-param>
+							</xsl:call-template>
+						</xsl:variable>
+						<xsl:value-of select="concat(', ', $title-version, ' ', $edition)"/>
+					</xsl:if>
+				</xsl:variable>
+
+				<fo:page-sequence master-reference="cover-page" force-page-count="no-force" initial-page-number="1">
 
 					<fo:flow flow-name="xsl-region-body" color="black">
+						<xsl:call-template name="insert_firstpage_id"><xsl:with-param name="num" select="$num"/></xsl:call-template>
 						<!-- background image -->
 						<fo:block-container absolute-position="fixed" left="0mm" top="0mm" font-size="0">
 							<fo:block>
@@ -521,18 +570,19 @@
 	<xsl:variable name="toc_item_indent">7</xsl:variable>
 
 	<xsl:template match="mn:preface/mn:clause[@type = 'toc']" name="toc" priority="3">
+		<xsl:param name="num"/>
 		<fo:block role="SKIP">
 			<xsl:copy-of select="@id"/>
 			<xsl:apply-templates/>
 
 			<xsl:if test="count(*) = 1 and mn:fmt-title"> <!-- if there isn't user ToC -->
 
-				<xsl:if test="$contents//mnx:item[@display = 'true']">
+				<xsl:if test="$contents/mnx:doc[@num = $num]//mnx:item[@display = 'true']">
 
 					<fo:block-container xsl:use-attribute-sets="toc-style">
 						<fo:block-container xsl:use-attribute-sets="reset-margins-style">
 							<fo:block role="TOC">
-								<xsl:for-each select="$contents//mnx:item[@display = 'true']">
+								<xsl:for-each select="$contents/mnx:doc[@num = $num]//mnx:item[@display = 'true']">
 									<fo:block xsl:use-attribute-sets="toc-item-style">
 
 										<xsl:call-template name="refine_toc-item-style"/>
@@ -558,24 +608,24 @@
 							</fo:block>
 
 							<!-- List of Tables -->
-							<xsl:if test="$contents//mnx:tables/mnx:table">
+							<xsl:if test="$contents/mnx:doc[@num = $num]//mnx:tables/mnx:table">
 								<xsl:call-template name="insertListOf_Title">
 									<xsl:with-param name="title" select="$title-list-tables"/>
 								</xsl:call-template>
 								<fo:block role="TOC">
-									<xsl:for-each select="$contents//mnx:tables/mnx:table">
+									<xsl:for-each select="$contents/mnx:doc[@num = $num]//mnx:tables/mnx:table">
 										<xsl:call-template name="insertListOf_Item"/>
 									</xsl:for-each>
 								</fo:block>
 							</xsl:if>
 
 							<!-- List of Figures -->
-							<xsl:if test="$contents//mnx:figures/mnx:figure">
+							<xsl:if test="$contents/mnx:doc[@num = $num]//mnx:figures/mnx:figure">
 								<xsl:call-template name="insertListOf_Title">
 									<xsl:with-param name="title" select="$title-list-figures"/>
 								</xsl:call-template>
 								<fo:block role="TOC">
-									<xsl:for-each select="$contents//mnx:figures/mnx:figure">
+									<xsl:for-each select="$contents/mnx:doc[@num = $num]//mnx:figures/mnx:figure">
 										<xsl:call-template name="insertListOf_Item"/>
 									</xsl:for-each>
 								</fo:block>
@@ -1012,13 +1062,16 @@
 	</xsl:template>
 
 	<xsl:template name="insertHeaderFooter">
+		<xsl:param name="num"/>
 		<xsl:param name="section"/>
 
 		<xsl:call-template name="insertHeader">
 			<xsl:with-param name="section" select="$section"/>
 		</xsl:call-template>
 
-		<xsl:call-template name="insertFooter"/>
+		<xsl:call-template name="insertFooter">
+			<xsl:with-param name="num" select="$num"/>
+		</xsl:call-template>
 	</xsl:template>
 
 	<xsl:template name="insertHeader">
@@ -1129,6 +1182,7 @@
 	</xsl:template>
 
 	<xsl:template name="insertFooter">
+		<xsl:param name="num"/>
 		<!-- <xsl:param name="invert"/> -->
 		<xsl:variable name="footerText">
 			<!-- Ribose -->
@@ -1141,14 +1195,17 @@
 			</xsl:call-template>
 		</xsl:variable>
 		<xsl:call-template name="insertFooterOdd">
+			<xsl:with-param name="num" select="$num"/>
 			<xsl:with-param name="footerText" select="$footerText"/>
 		</xsl:call-template>
 		<xsl:call-template name="insertFooterEven">
+			<xsl:with-param name="num" select="$num"/>
 			<xsl:with-param name="footerText" select="$footerText"/>
 		</xsl:call-template>
 	</xsl:template>
 
 	<xsl:template name="insertFooterOdd">
+		<xsl:param name="num"/>
 		<xsl:param name="footerText"/>
 		<fo:static-content flow-name="footer-odd" role="artifact">
 			<fo:block-container font-size="8pt" height="100%" color="black">
@@ -1157,7 +1214,7 @@
 					<xsl:value-of select="$footerText"/>
 					<fo:inline keep-together.within-line="always">
 						<fo:leader leader-pattern="space"/>
-						<xsl:value-of select="$copyright"/>
+						<xsl:value-of select="$variables/mnx:doc[@num = $num]/copyright"/>
 					</fo:inline>
 				</fo:block>
 			</fo:block-container>
@@ -1165,6 +1222,7 @@
 	</xsl:template>
 
 	<xsl:template name="insertFooterEven">
+		<xsl:param name="num"/>
 		<xsl:param name="footerText"/>
 		<fo:static-content flow-name="footer-even" role="artifact">
 			<fo:block-container font-size="8pt" height="100%" color="black">
@@ -1178,7 +1236,7 @@
 					</fo:inline>
 					<fo:inline keep-together.within-line="always">
 						<fo:leader leader-pattern="space"/>
-						<xsl:value-of select="$copyright"/>
+						<xsl:value-of select="$variables/mnx:doc[@num = $num]/copyright"/>
 					</fo:inline>
 				</fo:block>
 			</fo:block-container>
@@ -12152,7 +12210,7 @@
 	</xsl:variable>
 
 	<xsl:template name="index-pages">
-		<xsl:variable name="num"><xsl:number level="any" count="mn:metanorma"/></xsl:variable>
+		<xsl:param name="num"/>
 
 		<xsl:variable name="docid">
 			<xsl:call-template name="getDocumentId"/>
@@ -12172,10 +12230,17 @@
 		</xsl:apply-templates>
 	</xsl:template>
 <xsl:template match="mn:indexsect"/>
+<xsl:template match="/" mode="index">
+	<xsl:param name="num"/>
+	<xsl:apply-templates mode="index">
+		<xsl:with-param name="num" select="$num"/>
+	</xsl:apply-templates>
+</xsl:template>
 <xsl:template match="mn:indexsect" mode="index">
 	<xsl:param name="num"/>
 	<fo:page-sequence master-reference="index" force-page-count="no-force">
 		<xsl:call-template name="insertHeaderFooter">
+			<xsl:with-param name="num" select="$num"/>
 			<xsl:with-param name="section">main</xsl:with-param>
 		</xsl:call-template>
 		<fo:flow flow-name="xsl-region-body">
@@ -14032,6 +14097,15 @@
 		</xsl:if>
 	</xsl:template>
 
+	<!-- debug templates -->
+	<xsl:template name="debug_contents">
+		<xsl:if test="$debug = 'true'">
+			<redirect:write file="contents_.xml"> <!-- {java:getTime(java:java.util.Date.new())} -->
+				<xsl:copy-of select="$contents"/>
+			</redirect:write>
+		</xsl:if>
+	</xsl:template>
+
 	<xsl:template name="processPrefaceSectionsDefault">
 		<xsl:param name="num"/>
 		<xsl:for-each select="/*/mn:preface/*[not(self::mn:note or self::mn:admonition)]">
@@ -15495,7 +15569,7 @@
 	<xsl:template name="insertCoverPageFullImage">
 		<xsl:param name="name">coverpage-image</xsl:param>
 		<xsl:for-each select="//mn:metanorma/mn:metanorma-extension/mn:presentation-metadata/*[local-name() = $name][1]/mn:image">
-			<fo:page-sequence master-reference="cover-page" force-page-count="no-force">
+			<fo:page-sequence master-reference="cover-page" force-page-count="no-force" initial-page-number="1">
 				<fo:flow flow-name="xsl-region-body">
 					<xsl:call-template name="insertBackgroundPageImage">
 						<xsl:with-param name="number" select="position()"/>
@@ -15957,6 +16031,18 @@
 				<xsl:otherwise>_</xsl:otherwise>
 			</xsl:choose>
 		</xsl:attribute>
+	</xsl:template>
+
+	<xsl:template name="insert_firstpage_id">
+		<xsl:param name="num"/>
+		<fo:wrapper role="artifact">
+			<fo:block-container absolute-position="fixed" top="1mm">
+				<xsl:if test="$num = 1">
+					<xsl:attribute name="id">firstpage_id_0</xsl:attribute>
+				</xsl:if>
+				<fo:block id="firstpage_id_{$num}" role="SKIP"> </fo:block>
+			</fo:block-container>
+		</fo:wrapper>
 	</xsl:template>
 
 	<xsl:template name="getCharByCodePoint">
