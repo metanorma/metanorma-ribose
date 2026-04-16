@@ -16,6 +16,8 @@ require "metanorma"
 require "metanorma/ribose"
 require "canon"
 
+Canon::Config.instance.profile = :metanorma
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -118,7 +120,6 @@ LICENSE_BOILERPLATE = <<~CONTENT.freeze
 CONTENT
 
 BLANK_HDR = <<~"HDR".freeze
-  <?xml version="1.0" encoding="UTF-8"?>
   <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ribose::VERSION}" flavor="ribose">
     <bibdata type="standard">
      <title language="en" type="main">Document title</title>
