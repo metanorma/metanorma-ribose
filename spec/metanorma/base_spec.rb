@@ -81,7 +81,6 @@ RSpec.describe Metanorma::Ribose do
     INPUT
 
     output = <<~"OUTPUT"
-      <?xml version="1.0" encoding="UTF-8"?>
       <metanorma xmlns="https://www.metanorma.org/ns/standoc" type="semantic" version="#{Metanorma::Ribose::VERSION}" flavor="ribose">
               <bibdata type="standard">
            <title language="en" type="main">Main Title</title>
