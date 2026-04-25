@@ -12,7 +12,7 @@ require "metanorma-standoc"
 require "rspec/matchers"
 require "equivalent-xml"
 require "htmlentities"
-require "metanorma"
+require "metanorma-core"
 require "metanorma/ribose"
 require "canon"
 

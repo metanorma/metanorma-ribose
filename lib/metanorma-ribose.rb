@@ -9,7 +9,7 @@ require_relative "isodoc/ribose/pdf_convert"
 require_relative "isodoc/ribose/presentation_xml_convert"
 require_relative "isodoc/ribose/xref"
 require_relative "metanorma/ribose/version"
-require "metanorma"
+require "metanorma-core"
 
 if defined? Metanorma::Registry
   require_relative "metanorma/ribose"
