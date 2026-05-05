@@ -1170,33 +1170,13 @@ RSpec.describe IsoDoc::Ribose do
 
     output = strip_guid(<<~OUTPUT)
       <div id="H">
-         <h1 id="_">
-            <a class="anchor" href="#H"/>
-            <a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a>
-         </h1>
-         <p class="Terms" style="text-align:left;" id="J">
-            <strong>1.1.</strong>
-      #{'       '}
-            <dfn>Term2</dfn>
-         </p>
-         <p class="AltTerms" style="text-align:left;">
-            <dfn>Term2A</dfn>
-         </p>
-         <p class="AltTerms" style="text-align:left;">
-            <dfn>Term2B</dfn>
-         </p>
-         <p class="DeprecatedTerms" style="text-align:left;">
-            DEPRECATED:
-            <dfn>Term2C</dfn>
-         </p>
-         <p class="DeprecatedTerms" style="text-align:left;">
-            DEPRECATED:
-            <dfn>Term2D</dfn>
-         </p>
-         <p>
-            <b>SOURCE</b>
-            : ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here
-         </p>
+         <h1 id="_"><a class="anchor" href="#H"></a><a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
+         <p class="Terms" style="text-align:left;" id="J"><strong>1.1.</strong>#{'       '}<dfn>Term2</dfn></p>
+         <p class="AltTerms" style="text-align:left;"><dfn>Term2A</dfn></p>
+         <p class="AltTerms" style="text-align:left;"><dfn>Term2B</dfn></p>
+         <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: <dfn>Term2C</dfn></p>
+         <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: <dfn>Term2D</dfn></p>
+         <p><b>SOURCE</b>: ISO 7301:2011, Clause 3.1, modified — The term "cargo rice" is shown as deprecated, and Note 1 to entry is not included here</p>
       </div>
     OUTPUT
 
