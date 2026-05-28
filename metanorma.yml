@@ -14,7 +14,7 @@ html_headerfont: '"Source Sans Pro",sans-serif'
 html_monospacefont: '"Source Code Pro",monospace'
 html_normalfontsize: "15px"
 html_footnotefontsize: "0.9em"
-html_monospacefontsize: "12px"
+html_monospacefontsize: "0.8em"
 boilerplate: lib/metanorma/ribose/boilerplate.adoc
 standardstylesheet: lib/isodoc/ribose/html/rsd.scss
 header: lib/isodoc/ribose/html/header.html
