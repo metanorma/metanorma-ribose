@@ -255,19 +255,11 @@
 
 					<xsl:call-template name="inner-cover-page"/>
 
-					<!-- ToC pages -->
+					<!-- ToC and boilerplate pages -->
 					<xsl:variable name="toc_and_boilerplate">
-						<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[@type = 'toc']">
+						<xsl:call-template name="toc_and_boilerplate">
 							<xsl:with-param name="num" select="$num"/>
-						</xsl:apply-templates>
-
-						<!-- <xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:copyright-statement"/>
-						
-						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:legal-statement"/>
-						
-						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:feedback-statement"/> -->
-
-						<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/*"/>
+						</xsl:call-template>
 					</xsl:variable>
 
 					<xsl:if test="normalize-space($toc_and_boilerplate) != ''">
@@ -476,6 +468,21 @@
 	<xsl:template name="inner-cover-page">
 	</xsl:template>
 
+	<xsl:template name="toc_and_boilerplate">
+		<xsl:param name="num"/>
+		<xsl:apply-templates select="/mn:metanorma/mn:preface/mn:clause[@type = 'toc']">
+			<xsl:with-param name="num" select="$num"/>
+		</xsl:apply-templates>
+		<fo:block break-after="page"/>
+
+		<!-- <xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:copyright-statement"/>
+		<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:legal-statement"/>
+		<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/mn:feedback-statement"/> -->
+
+		<fo:block margin-bottom="12pt" role="SKIP"><fo:wrapper role="artifact"> </fo:wrapper></fo:block>
+		<xsl:apply-templates select="/mn:metanorma/mn:boilerplate/*"/>
+	</xsl:template>
+
 	<xsl:template name="back-page">
 	</xsl:template>
 
@@ -633,10 +640,8 @@
 						</fo:block-container>
 					</fo:block-container>
 
-					<fo:block break-after="page"/>
 				</xsl:if>
 			</xsl:if>
-			<fo:block margin-bottom="12pt" role="SKIP"><fo:wrapper role="artifact"> </fo:wrapper></fo:block>
 		</fo:block>
 	</xsl:template>
 
@@ -941,34 +946,43 @@
 
 			<fo:inline xsl:use-attribute-sets="term-preferred-style"><xsl:call-template name="refine_term-preferred-style"/><xsl:apply-templates/></fo:inline>
 
-			<xsl:variable name="term_kind">
-				<xsl:choose>
-					<xsl:when test="self::mn:fmt-deprecates">
-						<xsl:call-template name="getLocalizedString">
-							<xsl:with-param name="key">deprecated</xsl:with-param>
-						</xsl:call-template>
-					</xsl:when>
-					<xsl:otherwise><xsl:value-of select="substring-after(local-name(), 'fmt-')"/></xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
-			<xsl:variable name="kind" select="local-name()"/>
+			<xsl:call-template name="display_term_kind"/>
 
-			<fo:inline-container text-align="center" width="29mm">
-				<xsl:attribute name="background-color">
-					<xsl:choose>
-						<xsl:when test="$kind = 'fmt-preferred'">rgb(255, 240, 198)</xsl:when>
-						<xsl:when test="$kind = 'fmt-deprecates'">rgb(252, 221, 194)</xsl:when>
-						<xsl:when test="$kind = 'fmt-admitted'">rgb(208, 223, 239)</xsl:when>
-					</xsl:choose>
-				</xsl:attribute>
-				<fo:block padding-top="1mm" padding-bottom="0.5mm">
-					<fo:inline xsl:use-attribute-sets="term-kind-style">
-						<xsl:call-template name="refine_term-kind-style"/>
-						<xsl:value-of select="java:toUpperCase(java:java.lang.String.new($term_kind))"/>
-					</fo:inline>
-				</fo:block>
-			</fo:inline-container>
 		</fo:block>
+	</xsl:template>
+
+	<xsl:template name="display_term_kind">
+		<xsl:call-template name="term_kind"/>
+	</xsl:template>
+
+	<xsl:template name="term_kind">
+		<xsl:variable name="kind" select="substring-after(local-name(), 'fmt-')"/>
+
+		<fo:inline-container text-align="center" width="29mm">
+			<xsl:attribute name="background-color">
+				<xsl:choose>
+					<xsl:when test="$kind = 'preferred'">rgb(255, 240, 198)</xsl:when>
+					<xsl:when test="$kind = 'deprecates'">rgb(252, 221, 194)</xsl:when>
+					<xsl:when test="$kind = 'admitted'">rgb(208, 223, 239)</xsl:when>
+				</xsl:choose>
+			</xsl:attribute>
+			<fo:block padding-top="1mm" padding-bottom="0.5mm">
+				<fo:inline xsl:use-attribute-sets="term-kind-style">
+					<xsl:call-template name="refine_term-kind-style"/>
+					<xsl:variable name="term_kind_display">
+					<xsl:choose>
+						<xsl:when test="self::mn:fmt-deprecates">
+							<xsl:call-template name="getLocalizedString">
+								<xsl:with-param name="key">deprecated</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:otherwise><xsl:value-of select="substring-after(local-name(), 'fmt-')"/></xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+					<xsl:value-of select="java:toUpperCase(java:java.lang.String.new($term_kind_display))"/>
+				</fo:inline>
+			</fo:block>
+		</fo:inline-container>
 	</xsl:template>
 
 	<xsl:template match="mn:references[not(@normative='true')]" priority="3">
@@ -5348,6 +5362,7 @@
 	     text line 1
 			 text line 2
 	-->
+	<xsl:variable name="example_display_in"><!-- don't change here, only for override xsl --></xsl:variable> <!-- block or inline -->
 	<xsl:template match="mn:example" name="example">
 		<xsl:call-template name="setNamedDestination"/>
 		<fo:block-container id="{@id}" xsl:use-attribute-sets="example-style" role="SKIP">
@@ -5357,7 +5372,8 @@
 			<xsl:call-template name="refine_example-style"/>
 
 			<xsl:variable name="fo_element">
-				<xsl:if test=".//mn:table or .//mn:dl or *[not(self::mn:fmt-name)][1][self::mn:sourcecode]">block</xsl:if>inline
+				<xsl:if test=".//mn:table or .//mn:dl or *[not(self::mn:fmt-name)][1][self::mn:sourcecode]">block</xsl:if>
+				<xsl:if test="normalize-space($example_display_in) != ''"><xsl:value-of select="$example_display_in"/></xsl:if>inline
 			</xsl:variable>
 
 			<fo:block-container margin-left="0mm" role="SKIP">
