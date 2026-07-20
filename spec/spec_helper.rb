@@ -40,7 +40,7 @@ OPTIONS = [backend: :ribose, header_footer: true].freeze
 
 def metadata(hash)
   hash.sort.to_h
-    .delete_if { |_, v| v.nil? || (v.respond_to?(:empty?) && v.empty?) }
+    .delete_if { |k, v| k.to_s == "bibdata" || v.nil? || (v.respond_to?(:empty?) && v.empty?) }
 end
 
 def presxml_options
