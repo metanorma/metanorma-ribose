@@ -268,7 +268,7 @@
 								<xsl:with-param name="num" select="$num"/>
 								<xsl:with-param name="section">toc</xsl:with-param>
 							</xsl:call-template>
-							<fo:flow flow-name="xsl-region-body">
+							<fo:flow flow-name="xsl-region-body" role="SKIP">
 
 								<xsl:copy-of select="$toc_and_boilerplate"/>
 
@@ -581,7 +581,10 @@
 
 	<xsl:template match="mn:preface/mn:clause[@type = 'toc']" name="toc" priority="3">
 		<xsl:param name="num"/>
-		<fo:block role="SKIP">
+		<fo:block xsl:use-attribute-sets="toc-container-style">
+			<xsl:call-template name="refine_toc-container-style"/>
+			<xsl:call-template name="addTagElementT"/>
+
 			<xsl:copy-of select="@id"/>
 			<xsl:apply-templates/>
 
@@ -947,27 +950,38 @@
 		</fo:list-item>
 	</xsl:template>
 
+	<!-- https://github.com/metanorma/mn-native-pdf/issues/1068:
+		single H3 covering the term, the preferred term, and the admitted term -->
 	<xsl:template match="mn:fmt-preferred | mn:fmt-deprecates | mn:fmt-admitted" priority="2">
+		<!-- only for first item fmt-preferred, fmt-deprecates or fmt-admitted -->
+		<xsl:if test="not(preceding-sibling::mn:fmt-preferred) and          not(preceding-sibling::mn:fmt-deprecates) and          not(preceding-sibling::mn:fmt-admitted)">
+			<xsl:variable name="levelTerm">
+				<xsl:call-template name="getLevelTermName"/>
+			</xsl:variable>
+			<fo:block role="H{$levelTerm}">
+				<xsl:for-each select=". | following-sibling::*[self::mn:fmt-preferred or self::mn:fmt-deprecates or self::mn:fmt-admitted]">
+					<fo:block xsl:use-attribute-sets="term-preferred-block-style">
+						<xsl:call-template name="refine_term-preferred-block-style"/>
+						<xsl:if test="preceding-sibling::*[1][self::mn:fmt-name]">
+							<fo:inline xsl:use-attribute-sets="term-number-style">
+								<xsl:call-template name="refine_term-number-style"/>
 
-		<fo:block xsl:use-attribute-sets="term-preferred-block-style">
-			<xsl:call-template name="refine_term-preferred-block-style"/>
-			<xsl:if test="preceding-sibling::*[1][self::mn:fmt-name]">
-				<fo:inline xsl:use-attribute-sets="term-number-style" role="SKIP">
-					<xsl:call-template name="refine_term-number-style"/>
+								<xsl:for-each select="ancestor::mn:term[1]/mn:fmt-name"><!-- change context -->
+									<xsl:call-template name="setIDforNamedDestination"/>
+								</xsl:for-each>
 
-					<xsl:for-each select="ancestor::mn:term[1]/mn:fmt-name"><!-- change context -->
-						<xsl:call-template name="setIDforNamedDestination"/>
-					</xsl:for-each>
+								<xsl:apply-templates select="ancestor::mn:term[1]/mn:fmt-name"/>
+							</fo:inline>
+						</xsl:if>
 
-					<xsl:apply-templates select="ancestor::mn:term[1]/mn:fmt-name"/>
-				</fo:inline>
-			</xsl:if>
+						<fo:inline xsl:use-attribute-sets="term-preferred-style"><xsl:call-template name="refine_term-preferred-style"/><xsl:apply-templates/></fo:inline>
 
-			<fo:inline xsl:use-attribute-sets="term-preferred-style"><xsl:call-template name="refine_term-preferred-style"/><xsl:apply-templates/></fo:inline>
+						<xsl:call-template name="display_term_kind"/>
 
-			<xsl:call-template name="display_term_kind"/>
-
-		</fo:block>
+					</fo:block>
+				</xsl:for-each>
+			</fo:block>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template name="display_term_kind">
@@ -4978,6 +4992,7 @@
 	<xsl:attribute-set name="term-number-style">
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
+		<xsl:attribute name="role">SKIP</xsl:attribute>
 		<xsl:attribute name="padding-right">1mm</xsl:attribute>
 	</xsl:attribute-set> <!-- term-name-style -->
 
@@ -4985,6 +5000,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="term-preferred-block-style">
+		<xsl:attribute name="role">SKIP</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
 		<xsl:attribute name="color">black</xsl:attribute>
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
@@ -5000,11 +5016,7 @@
 				<xsl:otherwise>12pt</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:variable name="levelTerm">
-			<xsl:call-template name="getLevelTermName"/>
-		</xsl:variable>
 		<xsl:attribute name="font-size"><xsl:value-of select="$font-size"/></xsl:attribute>
-		<xsl:attribute name="role">H<xsl:value-of select="$levelTerm"/></xsl:attribute>
 		<xsl:if test="preceding-sibling::*[1][self::mn:fmt-name]">
 			<xsl:attribute name="space-before">11mm</xsl:attribute>
 		</xsl:if>
@@ -5013,6 +5025,7 @@
 	<xsl:attribute-set name="term-preferred-style">
 		<xsl:attribute name="keep-with-next">always</xsl:attribute>
 		<xsl:attribute name="font-weight">bold</xsl:attribute>
+		<xsl:attribute name="role">SKIP</xsl:attribute>
 		<xsl:attribute name="padding-right">4mm</xsl:attribute>
 	</xsl:attribute-set> <!-- preferred-term-style -->
 
@@ -12883,6 +12896,13 @@
 	<!-- =================== -->
 	<!-- End Form's elements processing -->
 	<!-- =================== -->
+
+	<xsl:attribute-set name="toc-container-style">
+		<xsl:attribute name="role">Sect</xsl:attribute>
+	</xsl:attribute-set>
+
+	<xsl:template name="refine_toc-container-style">
+	</xsl:template>
 
 	<xsl:attribute-set name="toc-style">
 		<xsl:attribute name="margin-left">10mm</xsl:attribute> <!-- 32mm -->
