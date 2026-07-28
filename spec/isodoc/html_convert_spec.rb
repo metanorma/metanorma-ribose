@@ -1403,4 +1403,27 @@ RSpec.describe IsoDoc::Ribose do
      .sub(%r{<localized-strings>.*</localized-strings>}m, "")))
       .to be_xml_equivalent_to presxml
   end
+
+  it "retains the subclause title for full-style cross-references" do
+    input = <<~INPUT
+      <rsd-standard xmlns="http://riboseinc.com/isoxml" type="semantic">
+        <preface>
+          <foreword id="F"><title>Foreword</title>
+            <p id="P">Bare <xref target="O"/>; full <xref target="O" style="full"/>.</p>
+          </foreword>
+        </preface>
+        <sections>
+          <clause id="M"><title>Parent Clause</title>
+            <clause id="O"><title>My Subclause</title><p id="x">x</p></clause>
+          </clause>
+        </sections>
+      </rsd-standard>
+    INPUT
+    pres = IsoDoc::Ribose::PresentationXMLConvert.new(presxml_options)
+      .convert("test", input, true)
+    para = Nokogiri::XML(pres).tap(&:remove_namespaces!).at("//p[@id='P']")
+    # subclause prefix stays blank (bare number) by default, but xrefstyle=full
+    # now surfaces the subclause title, which the old anchor dropped entirely
+    expect(para.to_xml).to include("My Subclause")
+  end
 end

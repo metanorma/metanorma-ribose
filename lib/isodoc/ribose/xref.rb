@@ -21,8 +21,10 @@ module IsoDoc
         end
       end
 
-      # subclauses are not prefixed with "Clause"
-      # retaining subtype for the semantics
+      # subclauses are not prefixed with "Clause" but @labels["subclause"],
+      # which in ribose is "" (but in inheriting flavors/tastes may be
+      # "Subclause"/"Clause"). Retaining subtype for the semantics, and the
+      # title so that xrefstyle=full can render it.
       def section_name_anchors(clause, num, level)
         if clause["type"] == "section"
           xref = labelled_autonum(@labels["section"], num)
@@ -31,9 +33,10 @@ module IsoDoc
             { label:, xref:, elem: @labels["section"],
               title: clause_title(clause), level: level, type: "clause" }
         elsif level > 1
-          #num = semx(clause, num)
+          xref = labelled_autonum(@labels["subclause"], num)
           @anchors[clause["id"]] =
-            { label: num, level: level, xref: num, subtype: "clause" }
+            { label: num, level: level, xref:, subtype: "clause",
+              title: clause_title(clause), elem: @labels["subclause"] }
         else super end
       end
 
