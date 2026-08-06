@@ -1423,7 +1423,9 @@ RSpec.describe IsoDoc::Ribose do
       .convert("test", input, true)
     para = Nokogiri::XML(pres).tap(&:remove_namespaces!).at("//p[@id='P']")
     # subclause prefix stays blank (bare number) by default, but xrefstyle=full
-    # now surfaces the subclause title, which the old anchor dropped entirely
-    expect(para.to_xml).to include("My Subclause")
+    # now surfaces the subclause title semx-wrapped (metanorma-pdfa#68) — the old
+    # anchor first dropped the title entirely, then emitted it as bare text
+    expect(para.to_xml)
+      .to include('<semx element="title" source="O">My Subclause</semx>')
   end
 end
