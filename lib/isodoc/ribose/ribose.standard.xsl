@@ -10707,6 +10707,7 @@
 
 	<!-- Formula's styles -->
 	<xsl:attribute-set name="formula-style">
+		<xsl:attribute name="role">P</xsl:attribute>
 		<xsl:attribute name="margin-top">6pt</xsl:attribute>
 		<xsl:attribute name="margin-bottom">12pt</xsl:attribute>
 	</xsl:attribute-set> <!-- formula-style -->
@@ -10715,6 +10716,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="formula-stem-block-style">
+		<xsl:attribute name="role">SKIP</xsl:attribute>
 		<xsl:attribute name="text-align">center</xsl:attribute>
 		<xsl:attribute name="text-align">left</xsl:attribute>
 		<xsl:attribute name="margin-left">5mm</xsl:attribute>
@@ -10724,6 +10726,7 @@
 	</xsl:template> <!-- refine_formula-stem-block-style -->
 
 	<xsl:attribute-set name="formula-stem-number-style">
+		<xsl:attribute name="role">Span</xsl:attribute>
 		<xsl:attribute name="text-align">right</xsl:attribute>
 	</xsl:attribute-set> <!-- formula-stem-number-style -->
 	<!-- End Formula's styles -->
@@ -10732,6 +10735,7 @@
 	</xsl:template>
 
 	<xsl:attribute-set name="mathml-style">
+		<xsl:attribute name="role">Formula</xsl:attribute>
 		<xsl:attribute name="font-family">STIX Two Math</xsl:attribute>
 	</xsl:attribute-set>
 
@@ -10753,7 +10757,7 @@
 			</xsl:if>
 			<fo:block-container margin-left="0mm" role="SKIP">
 				<xsl:call-template name="setNamedDestination"/>
-				<fo:block id="{@id}">
+				<fo:block id="{@id}" role="SKIP">
 					<xsl:apply-templates select="node()[not(self::mn:fmt-name)]"/> <!-- formula's number will be process in 'stem' template -->
 				</fo:block>
 			</fo:block-container>
@@ -10786,22 +10790,22 @@
 
 			<xsl:call-template name="refine_formula-style"/>
 
-			<fo:table table-layout="fixed" width="100%">
+			<fo:table table-layout="fixed" width="100%" role="SKIP">
 				<fo:table-column column-width="95%"/>
 				<fo:table-column column-width="5%"/>
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell display-align="center">
-							<fo:block xsl:use-attribute-sets="formula-stem-block-style" role="SKIP">
+				<fo:table-body role="SKIP">
+					<fo:table-row role="SKIP">
+						<fo:table-cell display-align="center" role="SKIP">
+							<fo:block xsl:use-attribute-sets="formula-stem-block-style">
 
 								<xsl:call-template name="refine_formula-stem-block-style"/>
 
 								<xsl:apply-templates/>
 							</fo:block>
 						</fo:table-cell>
-						<fo:table-cell display-align="center">
+						<fo:table-cell display-align="center" role="SKIP">
 
-							<fo:block xsl:use-attribute-sets="formula-stem-number-style" role="SKIP">
+							<fo:block xsl:use-attribute-sets="formula-stem-number-style">
 
 								<xsl:for-each select="../mn:fmt-name">
 									<xsl:call-template name="setIDforNamedDestination"/>
