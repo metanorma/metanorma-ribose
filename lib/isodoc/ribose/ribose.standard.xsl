@@ -1039,7 +1039,24 @@
 					<fo:table-row role="SKIP">
 						<fo:table-cell text-align="left" role="SKIP">
 							<fo:block role="L">
-								<xsl:apply-templates select="node()[not(self::mn:fmt-title)]"/>
+								<!-- <xsl:apply-templates select="node()[not(self::mn:fmt-title)]" /> -->
+								<xsl:for-each select="node()[not(self::mn:fmt-title)]">
+									<xsl:choose>
+										<xsl:when test="self::mn:bibitem">
+											<xsl:apply-templates select="."/>
+										</xsl:when>
+										<xsl:otherwise> <!-- for instance, self::mn:admonition -->
+											<xsl:variable name="item_content"><xsl:apply-templates select="."/></xsl:variable>
+											<xsl:if test="normalize-space($item_content) != ''">
+												<fo:block role="LI">
+													<fo:block role="LBody">
+														<xsl:copy-of select="$item_content"/>
+													</fo:block>
+												</fo:block>
+											</xsl:if>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:for-each>
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
@@ -12148,8 +12165,10 @@
 
 	</xsl:template> <!-- references[not(@normative='true')]/bibitem -->
 
+	<!-- commented 2026-08-06: from https://github.com/metanorma/metanorma-standoc/issues/1140:
+			Presentation XML will no longer contain notes following bibitem, those notes will have been moved in Presentation XML to inside bibitem, and then duplicated to inside formattedref. -->
 	<!-- bibitem's notes will be processing in 'processBibitemFollowingNotes' -->
-	<xsl:template match="mn:references/mn:note" priority="2"/> <!-- [not(@normative='true')] -->
+	<!-- <xsl:template match="mn:references/mn:note" priority="2"/>--> <!-- [not(@normative='true')] -->
 
 	<xsl:template name="insertListItem_Bibitem">
 		<xsl:choose>
