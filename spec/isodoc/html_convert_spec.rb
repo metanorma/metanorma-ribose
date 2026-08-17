@@ -248,7 +248,6 @@ RSpec.describe IsoDoc::Ribose do
                         <semx element="autonum" source="B">0</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="C">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -269,7 +268,6 @@ RSpec.describe IsoDoc::Ribose do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="D">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -287,7 +285,6 @@ RSpec.describe IsoDoc::Ribose do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="H">3</semx>
-                     <span class="fmt-autonum-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -305,7 +302,6 @@ RSpec.describe IsoDoc::Ribose do
                         <semx element="autonum" source="H">3</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="I">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -325,7 +321,6 @@ RSpec.describe IsoDoc::Ribose do
                            <semx element="autonum" source="I">1</semx>
                            <span class="fmt-autonum-delim">.</span>
                            <semx element="autonum" source="J">1</semx>
-                           <span class="fmt-autonum-delim">.</span>
                         </span>
                      </fmt-name>
                      <fmt-xref-label>
@@ -356,7 +351,6 @@ RSpec.describe IsoDoc::Ribose do
                         <semx element="autonum" source="H">3</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="K">2</semx>
-                        <span class="fmt-autonum-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -379,7 +373,6 @@ RSpec.describe IsoDoc::Ribose do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="L">4</semx>
-                     <span class="fmt-autonum-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -400,7 +393,6 @@ RSpec.describe IsoDoc::Ribose do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="M">5</semx>
-                     <span class="fmt-autonum-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -418,7 +410,6 @@ RSpec.describe IsoDoc::Ribose do
                         <semx element="autonum" source="M">5</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="N">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -438,7 +429,6 @@ RSpec.describe IsoDoc::Ribose do
                         <semx element="autonum" source="M">5</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="O">2</semx>
-                        <span class="fmt-autonum-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -457,7 +447,6 @@ RSpec.describe IsoDoc::Ribose do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="R">2</semx>
-                     <span class="fmt-autonum-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -510,7 +499,6 @@ RSpec.describe IsoDoc::Ribose do
                      <semx element="autonum" source="P">A</semx>
                      <span class="fmt-autonum-delim">.</span>
                      <semx element="autonum" source="Q">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -532,7 +520,6 @@ RSpec.describe IsoDoc::Ribose do
                         <semx element="autonum" source="Q">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="Q1">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
                      </span>
                      <span class="fmt-caption-delim">
                         <tab/>
@@ -586,25 +573,25 @@ RSpec.describe IsoDoc::Ribose do
           <div class="Section3" id="B">
             <h1 class="IntroTitle">Introduction</h1>
             <div id="C">
-              <h2>0.1.  Introduction Subsection</h2>
+              <h2>0.1  Introduction Subsection</h2>
             </div>
           </div>
           <div id="D">
-            <h1>1.  Scope</h1>
+            <h1>1  Scope</h1>
             <p id="E">Text</p>
           </div>
           <div>
-            <h1>2.  Normative References</h1>
+            <h1>2  Normative References</h1>
           </div>
           <div id="H">
-            <h1>3.  Terms, definitions, symbols and abbreviated terms</h1>
+            <h1>3  Terms, definitions, symbols and abbreviated terms</h1>
             <div id="I">
-              <h2>3.1.  Normal Terms</h2>
-              <p class="TermNum" id="J">3.1.1.</p>
+              <h2>3.1  Normal Terms</h2>
+              <p class="TermNum" id="J">3.1.1</p>
               <p class="Terms" style="text-align:left;"><dfn>Term2</dfn></p>
             </div>
             <div id="K">
-            <h2>3.2.  Symbols</h2>
+            <h2>3.2  Symbols</h2>
               <div class="figdl">
               <dl>
                 <dt>
@@ -616,7 +603,7 @@ RSpec.describe IsoDoc::Ribose do
             </div>
           </div>
           <div id="L" class="Symbols">
-          <h1>4.  Symbols</h1>
+          <h1>4  Symbols</h1>
             <div class="figdl">
             <dl>
               <dt>
@@ -627,12 +614,12 @@ RSpec.describe IsoDoc::Ribose do
             </div>
           </div>
           <div id="M">
-            <h1>5.  Clause 4</h1>
+            <h1>5  Clause 4</h1>
             <div id="N">
-              <h2>5.1.  Introduction</h2>
+              <h2>5.1  Introduction</h2>
             </div>
             <div id="O">
-              <h2>5.2.  Clause 4.2</h2>
+              <h2>5.2  Clause 4.2</h2>
             </div>
           </div>
           <br/>
@@ -640,9 +627,9 @@ RSpec.describe IsoDoc::Ribose do
             <h1 class="Annex"><b>Annex A</b><br/>(normative)<br/><br/><b>Annex</b></h1>
             <p style="display:none;" class="variant-title-toc">Annex A  Annex</p>
             <div id="Q">
-              <h2>A.1.  Annex A.1</h2>
+              <h2>A.1  Annex A.1</h2>
               <div id="Q1">
-                <h3>A.1.1.  Annex A.1a</h3>
+                <h3>A.1.1  Annex A.1a</h3>
               </div>
             </div>
           </div>
@@ -1046,7 +1033,6 @@ RSpec.describe IsoDoc::Ribose do
                <fmt-title depth="1" id="_">
                   <span class="fmt-caption-label">
                      <semx element="autonum" source="H">1</semx>
-                     <span class="fmt-autonum-delim">.</span>
                   </span>
                   <span class="fmt-caption-delim">
                      <tab/>
@@ -1063,7 +1049,6 @@ RSpec.describe IsoDoc::Ribose do
                         <semx element="autonum" source="H">1</semx>
                         <span class="fmt-autonum-delim">.</span>
                         <semx element="autonum" source="J">1</semx>
-                        <span class="fmt-autonum-delim">.</span>
                      </span>
                   </fmt-name>
                   <fmt-xref-label>
@@ -1168,8 +1153,8 @@ RSpec.describe IsoDoc::Ribose do
 
     output = strip_guid(<<~OUTPUT)
       <div id="H">
-         <h1 id="_"><a class="anchor" href="#H"></a><a class="header" href="#H">1.  Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
-         <p class="Terms" style="text-align:left;" id="J"><span class="TermNum">1.1.</span>#{'       '}<dfn>Term2</dfn></p>
+         <h1 id="_"><a class="anchor" href="#H"></a><a class="header" href="#H">1  Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
+         <p class="Terms" style="text-align:left;" id="J"><span class="TermNum">1.1</span>#{'       '}<dfn>Term2</dfn></p>
          <p class="AltTerms" style="text-align:left;"><dfn>Term2A</dfn></p>
          <p class="AltTerms" style="text-align:left;"><dfn>Term2B</dfn></p>
          <p class="DeprecatedTerms" style="text-align:left;">DEPRECATED: <dfn>Term2C</dfn></p>
