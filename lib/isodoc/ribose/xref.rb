@@ -29,14 +29,18 @@ module IsoDoc
         if clause["type"] == "section"
           xref = labelled_autonum(@labels["section"], num)
           label = labelled_autonum(@labels["section"], num)
+          t = clause_title(clause)
           @anchors[clause["id"]] =
             { label:, xref:, elem: @labels["section"],
-              title: clause_title(clause), level: level, type: "clause" }
+              title: t && semx(clause, t, "title"), level: level,
+              type: "clause" }
         elsif level > 1
           xref = labelled_autonum(@labels["subclause"], num)
+          t = clause_title(clause)
           @anchors[clause["id"]] =
             { label: num, level: level, xref:, subtype: "clause",
-              title: clause_title(clause), elem: @labels["subclause"] }
+              title: t && semx(clause, t, "title"),
+              elem: @labels["subclause"] }
         else super end
       end
 
