@@ -23,6 +23,7 @@ module Metanorma
     end
 
     configure {}
+    autoload :Document, "metanorma/ribose/document"
   end
 end
 Metanorma::Registry.instance.register(Metanorma::Ribose::Processor)

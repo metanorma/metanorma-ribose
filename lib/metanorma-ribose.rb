@@ -15,4 +15,3 @@ if defined? Metanorma::Registry
   require_relative "metanorma/ribose"
   Metanorma::Registry.instance.register(Metanorma::Ribose::Processor)
 end
-require "metanorma/ribose/document"
