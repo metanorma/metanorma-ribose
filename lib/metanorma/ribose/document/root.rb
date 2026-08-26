@@ -3,23 +3,23 @@
 module Metanorma
   module Ribose::Document
     class Root < Lutaml::Model::Serializable
-      include Metanorma::StandardDocument::RootAttributes
+      include Metanorma::Standoc::Document::RootAttributes
 
       attribute :bibdata,
                 Metanorma::Ribose::Document::Metadata::RiboseBibliographicItem
       attribute :preface,
-                Metanorma::StandardDocument::Sections::Preface
+                Metanorma::Standoc::Document::Sections::Preface
       attribute :sections,
-                Metanorma::StandardDocument::Sections::Sections
+                Metanorma::Standoc::Document::Sections::Sections
       attribute :annex,
-                Metanorma::StandardDocument::Sections::AnnexSection,
+                Metanorma::Standoc::Document::Sections::AnnexSection,
                 collection: true
 
       xml do
         element "metanorma"
-        namespace Metanorma::StandardDocument::Namespace
+        namespace Metanorma::Standoc::Document::Namespace
 
-        Metanorma::StandardDocument::RootXmlMapping.apply(self)
+        Metanorma::Standoc::Document::RootXmlMapping.apply(self)
       end
     end
   end

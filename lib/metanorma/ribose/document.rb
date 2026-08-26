@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "metanorma/standoc"
+require "metanorma/iso/document/models"
 module Metanorma
   module Ribose
   end
@@ -8,6 +9,8 @@ end
 
 module Metanorma
   module Ribose::Document
+    autoload :Metadata, "metanorma/ribose/document/metadata"
+    autoload :Root, "metanorma/ribose/document/root"
   end
 end
 
@@ -27,5 +30,7 @@ Metanorma::Core::Flavors.register(Metanorma::Core::Flavor.new(
   gem: "metanorma-ribose",
   model_root: Metanorma::Ribose::Document::Root,
   pubid_module: nil,
-  renderers: { html: Metanorma::Html::StandardRenderer },
+  renderers: { html: lambda do |_document, **_options|
+    Metanorma::Html::StandardRenderer
+  end },
 ))
