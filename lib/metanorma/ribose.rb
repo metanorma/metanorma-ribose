@@ -1,4 +1,5 @@
 require "metanorma-core"
+require "metanorma/ribose/document"
 require "metanorma-generic"
 require "metanorma/ribose/processor"
 
