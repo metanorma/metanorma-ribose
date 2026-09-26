@@ -5,7 +5,7 @@ module Metanorma
     module Metadata
       # Extension point for bibliographical definitions of Ribose documents.
       # Inherits all ISO extension fields; adds security and recipient.
-      class RiboseBibDataExtensionType < Metanorma::IsoDocument::Metadata::IsoBibDataExtensionType
+      class RiboseBibDataExtensionType < Metanorma::Iso::Document::Metadata::IsoBibDataExtensionType
         attribute :security, :string
         attribute :recipient, :string
 

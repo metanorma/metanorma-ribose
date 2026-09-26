@@ -5,7 +5,7 @@ module Metanorma
     module Metadata
       # Bibliographical description of a Ribose document.
       # Inherits all ISO bibliographic fields; overrides ext for Ribose format.
-      class RiboseBibliographicItem < Metanorma::IsoDocument::Metadata::IsoBibliographicItem
+      class RiboseBibliographicItem < Metanorma::Iso::Document::Metadata::IsoBibliographicItem
         attribute :ext, RiboseBibDataExtensionType
 
         xml do
