@@ -32,3 +32,20 @@ end
 module Metanorma
   deprecate_constant :RiboseDocument
 end
+
+require "metanorma-core"
+require "metanorma/document"
+require "metanorma/ribose/html"
+
+# OCP adoption: ONE registration in the metanorma-core flavor table.
+# Lazy: skip silently on resolutions without the flavor table.
+if defined?(Metanorma::Core::Flavors)
+  Metanorma::Core::Flavors.register(Metanorma::Core::Flavor.new(
+                                      name: :ribose,
+                                      gem: "metanorma-ribose",
+                                      model_root: Metanorma::Ribose::Document::Root,
+                                      processor: defined?(Metanorma::Ribose::Processor) ? Metanorma::Ribose::Processor : nil,
+                                      pubid_module: nil,
+                                      renderers: { html: Metanorma::Ribose::Html::Renderer },
+                                    ))
+end

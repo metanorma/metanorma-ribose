@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.required_ruby_version = Gem::Requirement.new(">= 3.3.0")
 
-  spec.add_dependency "metanorma-generic", "~> 3.4.0"
+  spec.add_dependency "metanorma-generic", ">= 3.5.1" # audit chain: only the migrated-tree branch satisfies this; restore "~> 3.5" on its release
 
   spec.add_development_dependency "canon"#, "= 0.2.3"
   spec.add_development_dependency "debug"
