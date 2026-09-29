@@ -26,11 +26,11 @@ module Metanorma
         # The en doctype carries the display label ("Application Note",
         # "Best Practice Guide"); bare values ("report") are capitalized.
         def cover_doctype_label
-          d = Array(ext&.doctype).find { |x| safe_attr_language(x) == "en" } ||
-              Array(ext&.doctype).first
+          d = Array(ext&.doctype_element).find { |x| safe_attr_language(x) == "en" } ||
+              Array(ext&.doctype_element).first
           return nil unless d
 
-          v = d.value.to_s
+          v = element_text(d)
           return nil if v.empty?
 
           v == v.downcase ? v.capitalize : v
@@ -61,8 +61,8 @@ module Metanorma
           return nil unless owner
 
           name = Array(owner.organization&.name).first
-          content = name&.content
-          content.to_s.empty? ? nil : content
+          content = element_text(name)
+          content.empty? ? nil : content
         end
 
         def cover_security
@@ -89,10 +89,19 @@ module Metanorma
 
         private
 
+        # Lutaml mixed-content text lives in different slots per model:
+        # StageElement/DoctypeElement keep it in `value`, others in
+        # `content` (itself sometimes an array of strings).
         def element_text(el)
-          content = el.respond_to?(:content) ? el.content : el
-          content = el.text if content.to_s.empty? && el.respond_to?(:text)
-          Array(content).join.to_s
+          [:content, :value, :text].each do |slot|
+            next unless el.respond_to?(slot)
+
+            v = el.public_send(slot)
+            v = el if v.nil?
+            joined = Array(v).reject { |x| x.is_a?(Lutaml::Model::Serializable) }.join
+            return joined unless joined.empty?
+          end
+          ""
         end
 
         def safe_attr_language(el)
@@ -104,8 +113,8 @@ module Metanorma
             next unless Array(c.role).any? { |r| r.type == role_type }
 
             name = Array(c.organization&.name).first
-            content = name&.content
-            return content unless content.to_s.empty?
+            content = element_text(name)
+            return content unless content.empty?
           end
           nil
         end
