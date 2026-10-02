@@ -742,7 +742,7 @@ RSpec.describe IsoDoc::Ribose do
     output = <<~"OUTPUT"
         #{blank_hdr_gen}
         <sections/>
-      </rsd-standard>
+      </metanorma>
     OUTPUT
 
     expect(strip_guid(Asciidoctor
