@@ -16,7 +16,7 @@ RSpec.describe Metanorma::Ribose::Processor do
     output = <<~OUTPUT
       [[:doc, "doc"], [:html, "html"], [:pdf, "pdf"], [:presentation, "presentation.xml"], [:rxl, "rxl"], [:xml, "xml"]]
     OUTPUT
-    expect(processor.output_formats.sort.to_s).to be_equivalent_to output.strip
+    expect(processor.output_formats.sort.to_s).to eq output.strip
   end
 
   it "registers version against metanorma" do
@@ -58,10 +58,7 @@ RSpec.describe Metanorma::Ribose::Processor do
       <main class="main-section">
         <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
         <div id="H">
-          <h1 id="_">
-            <a class="anchor" href="#H"/>
-            <a class="header" href="#H">1  Terms, Definitions, Symbols and Abbreviated Terms</a>
-          </h1>
+          <h1 id="_"><a class="anchor" href="#H"></a><a class="header" href="#H">1  Terms, Definitions, Symbols and Abbreviated Terms</a></h1>
           <p class="Terms" style="text-align:left;" id="J"><span class="TermNum">1.1</span> Term2</p>
         </div>
       </main>

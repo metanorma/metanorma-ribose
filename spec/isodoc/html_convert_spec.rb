@@ -137,7 +137,7 @@ RSpec.describe IsoDoc::Ribose do
         vote_starteddate: "XXX" }
 
     docxml, = csdc.convert_init(input, "test", true)
-    expect(metadata(csdc.info(docxml, nil))).to be_equivalent_to output
+    expect(metadata(csdc.info(docxml, nil))).to eq output
   end
 
   it "processes section names" do
