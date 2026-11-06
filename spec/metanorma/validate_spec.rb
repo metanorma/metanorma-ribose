@@ -12,6 +12,6 @@ RSpec.describe Metanorma::Ribose do
       Para
     INPUT
     expect(File.read("test.err.html"))
-      .to include('value of attribute "align" is invalid; must be equal to')
+      .to include('element "sections" incomplete; expected element "clause"')
   end
 end
